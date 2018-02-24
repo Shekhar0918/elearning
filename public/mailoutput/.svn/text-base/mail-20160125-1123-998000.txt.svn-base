@@ -1,0 +1,28 @@
+To: ShashiShekhar <sshekhar@radiancesystems.com>
+Subject: Test mail
+Date: Mon, 25 Jan 2016 16:53:01 +0530
+From: Shashishekhar <sshekhar@radiancesystems.com>
+Message-ID: <fcd0ae3f1e37a1c7d32a927c71c908ed@Shashi>
+X-Mailer: PHPMailer 5.2.13 (https://github.com/PHPMailer/PHPMailer)
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_fcd0ae3f1e37a1c7d32a927c71c908ed"
+Content-Transfer-Encoding: 8bit
+
+This is a multi-part message in MIME format.
+
+--b1_fcd0ae3f1e37a1c7d32a927c71c908ed
+Content-Type: text/plain; charset=us-ascii
+
+EmailBody
+
+
+--b1_fcd0ae3f1e37a1c7d32a927c71c908ed
+Content-Type: text/html; charset=us-ascii
+
+This is a test mail.
+
+
+
+--b1_fcd0ae3f1e37a1c7d32a927c71c908ed--
+

@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+
+namespace Application\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Application\Model\MailerPhp;
+use Zend\Session\Container;
+
+class IndexController extends AbstractActionController
+{
+    public function indexAction()
+    {
+        return new ViewModel();
+    }
+    
+    public function sendMailAction() {
+//        $emailDetails = $this->getRequest()->getParam('emailDetails');
+        $recipients = array(
+                (object) array("email" => "sshekhar@radiancesystems.com", "name" => "ShashiShekhar")
+            );
+        $emailDetails = json_encode((object)array('From'=>'sshekhar@radiancesystems.com',"FromName"=>"Shashishekhar","Recipients" => $recipients,"Subject"=>"Test mail","Body"=>"This is a test mail.","AltBody"=>"EmailBody"));
+
+        $emailDetails = json_decode($emailDetails);
+        $mailer = new MailerPhp();
+        $sendMail = $mailer->sendMail($emailDetails);
+    }
+}

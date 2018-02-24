@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs
+END
+pop3_article.txt
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/pop3_article.txt
+END
+Callback_function_notes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/Callback_function_notes.txt
+END
+Note_for_SMTP_debugging.txt
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/Note_for_SMTP_debugging.txt
+END
+extending.html
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/extending.html
+END
+DomainKeys_notes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/DomainKeys_notes.txt
+END
+faq.html
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/faq.html
+END
+generatedocs.sh
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/docs/generatedocs.sh
+END

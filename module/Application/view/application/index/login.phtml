@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Form - e-Learning</title>
+<meta name="robots" content="noindex, nofollow">
+<!-- Include CSS File Here -->
+<!--<link rel="stylesheet" href="css/style.css"/>-->
+<!-- Include CSS File Here -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/application.js"></script>
+</head>
+<body>
+<div class="container">
+<div class="main">
+<form class="form" method="post" action="auth">
+<!--<h2> Login Through Google </h2>-->
+<input type="hidden" name="source" id="source" value="google">
+<input type="image" name="submit" src="http://localhost<?php echo $this->basePath(); ?>/images/google_login_btn.png" name="source" id="source" value="facebook" border="0" alt="Submit" style="height:50px;width:300px"/>
+
+</form>
+<form class="form" method="post" action="auth">
+<!--<h2> Login Through Facebook </h2>-->
+<input type="hidden" name="source" id="source" value="facebook">
+<input type="image" name="submit" src="http://localhost<?php echo $this->basePath(); ?>/images/fb_login_btn.png" name="source" id="source" value="facebook" border="0" alt="Submit" style="height:50px;width:300px"/>
+<!--<label>Password :</label>-->
+<!--<input type="password" name="password" id="password">-->
+<!--<input type="button" name="login" id="login" value="Login">-->
+</form>
+</div>
+</div>
+</body>
+</html>

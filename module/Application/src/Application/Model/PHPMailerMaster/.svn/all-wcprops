@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/LICENSE
+END
+VERSION
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/VERSION
+END
+changelog.md
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/changelog.md
+END
+.travis.yml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/.travis.yml
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/README.md
+END
+composer.json
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/composer.json
+END
+.scrutinizer.yml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/.scrutinizer.yml
+END
+travis.phpunit.xml.dist
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/travis.phpunit.xml.dist
+END
+PHPMailerAutoload.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/PHPMailerAutoload.php
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/.gitignore
+END
+get_oauth_token.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/get_oauth_token.php
+END
+class.phpmaileroauthgoogle.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/class.phpmaileroauthgoogle.php
+END
+class.phpmailer.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/class.phpmailer.php
+END
+class.pop3.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/class.pop3.php
+END
+class.phpmaileroauth.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/class.phpmaileroauth.php
+END
+class.smtp.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/class.smtp.php
+END
+composer.lock
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/composer.lock
+END

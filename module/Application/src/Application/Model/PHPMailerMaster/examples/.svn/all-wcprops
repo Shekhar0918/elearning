@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples
+END
+mailing_list.phps
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/mailing_list.phps
+END
+ssl_options.phps
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/ssl_options.phps
+END
+code_generator.phps
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/code_generator.phps
+END
+smtp_check.phps
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/smtp_check.phps
+END
+gmail_xoauth.phps
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/gmail_xoauth.phps
+END
+exceptions.phps
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/exceptions.phps
+END
+mail.phps
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/mail.phps
+END
+smtp.phps
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/smtp.phps
+END
+pop_before_smtp.phps
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/pop_before_smtp.phps
+END
+contents.html
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/contents.html
+END
+signed-mail.phps
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/signed-mail.phps
+END
+gmail.phps
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/gmail.phps
+END
+sendmail.phps
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/sendmail.phps
+END
+send_file_upload.phps
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/send_file_upload.phps
+END
+contentsutf8.html
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/contentsutf8.html
+END
+smtp_no_auth.phps
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/smtp_no_auth.phps
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/radsvn/Zend-2.3/!svn/ver/6/module/Application/src/Application/Model/PHPMailerMaster/examples/index.html
+END

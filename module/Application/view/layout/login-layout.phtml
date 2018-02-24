@@ -1,0 +1,74 @@
+<html>
+    <head>
+     <link rel="shortcut icon" href="<?php echo $this->basePath(); ?>/img/favicon.ico" type="image/vnd.microsoft.icon">
+      <meta name="keywords" content="">
+        <!-- Chrome, Firefox OS and Opera -->
+<meta name="theme-color" content="#76c045">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#76c045">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#76c045">
+
+        <!--<link href="<?php echo $this->basePath(); ?>/css/style.css" rel="stylesheet">-->
+<!--        <link href="<?php echo $this->basePath(); ?>/css/form.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/generics.css" rel="stylesheet">
+        <base href="<?php echo $this->basePath(); ?>/" />
+        <link href="<?php echo $this->basePath(); ?>/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/animate.min.css" rel="stylesheet">-->
+<!--        <link href="<?php echo $this->basePath(); ?>/css/font-awesome.min.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/form.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/calendar.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/style.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/icons.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/generics.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/lightbox.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/media-player.css" rel="stylesheet"> 
+         <link href="<?php echo $this->basePath(); ?>/css/jquery.timepicker.css" rel="stylesheet">
+         <link href="<?php echo $this->basePath(); ?>/css/jquery.mobile.datepicker.css" rel="stylesheet">
+         <link href="<?php echo $this->basePath(); ?>/css/chosen.css" rel="stylesheet">
+         <link href="<?php echo $this->basePath(); ?>/css/chosen.min.css" rel="stylesheet">
+         <link href="<?php echo $this->basePath(); ?>/css/bootstrap-theme.css" rel="stylesheet">
+          <link href="<?php echo $this->basePath(); ?>/css/bootstrap-theme.min.css" rel="stylesheet">
+           <link href="<?php echo $this->basePath(); ?>/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/calendar.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/js/DrawingToolsModule/DrawingToolsModule.css" rel="stylesheet" type="text/css" />  
+        <link href="<?php echo $this->basePath(); ?>/js/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet"  />
+        <link href="<?php echo $this->basePath(); ?>/js/DataTables-1.10.7/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet"  />
+        <link href="<?php echo $this->basePath(); ?>/js/jquery-ui-1.12.1/jquery-ui-1.12.1/spectrum/spectrum.css" rel="stylesheet"  />
+        <link href="<?php echo $this->basePath(); ?>/js/jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet"  />
+         <link href="<?php echo $this->basePath(); ?>/js/jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.theme.css" rel="stylesheet"  />-->
+    </head>
+    <body style="background-color:#FFF;">
+        <section id="login">
+            <center><header>
+                   <p>&nbsp;</p>
+
+                </header></center>
+
+
+
+            <div class="clearfix"></div>
+
+            <?php
+            if ($this->flashMessenger()->hasMessages()) {
+                $messages = $this->flashMessenger()->getMessages();
+                foreach ($messages as $message) {
+                    $messageString = json_decode($message);
+                    if ($messageString->status == "invalid") {
+                        echo '<div  class="alert alert-danger2 alert-icon "><i class="icon">&#61907;</i>';
+                    } else {
+                        echo '<div  class="alert alert-success  alert-icon "></i>';
+                    }
+
+//            $messages = $this->flashMessenger()->getMessages();
+//            foreach ($messages as $message) {
+                    echo $messageString->message;
+//            }
+                    echo '</div>';
+                }
+            }
+            ?> 
+            <?php echo $this->content; ?>
+        </section>
+    </body>
+</html>

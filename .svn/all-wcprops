@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/radsvn/Zend-2.3/!svn/ver/9
+END
+composer.json
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/radsvn/Zend-2.3/!svn/ver/2/composer.json
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/radsvn/Zend-2.3/!svn/ver/1/LICENSE.txt
+END
+composer.phar
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/radsvn/Zend-2.3/!svn/ver/2/composer.phar
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/radsvn/Zend-2.3/!svn/ver/2/.gitignore
+END
+init_autoloader.php
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/radsvn/Zend-2.3/!svn/ver/2/init_autoloader.php
+END
+.gitmodules
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/radsvn/Zend-2.3/!svn/ver/2/.gitmodules
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/radsvn/Zend-2.3/!svn/ver/2/README.md
+END
+composer.lock
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/radsvn/Zend-2.3/!svn/ver/2/composer.lock
+END
