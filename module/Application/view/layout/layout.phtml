@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html ng-app="">
+<html ng-app="eLearningApp">
     <!--[if IE 9 ]><html class="ie9"><![endif]-->
     <head>
         <link rel="shortcut icon" href="<?php echo $this->basePath(); ?>/img/favicon.ico" type="image/vnd.microsoft.icon">
@@ -11,13 +11,21 @@
         <meta name="description" content="Violate Responsive Admin Template">
         <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
 
-        <title></title>
+        <title>e-Learning</title>
 
         <!-- CSS -->
         <base href="<?php echo $this->basePath(); ?>/" />
     </head>
-    <body> 
-        <p>Zend Framework 2.3 </p>
-    </body>
+    <body ng-controller="mainController"> 
+        <div style="min-height:800px;" ng-view >
+            <?php echo $this->content; ?>
+        </div>
+
+    <!-- Javascript Libraries -->
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-1.2.26.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-route.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-animate.js"></script>
+            <script src="<?php echo $this->basePath(); ?>/js/application.js"></script>
+    </body> 
 
 </html>

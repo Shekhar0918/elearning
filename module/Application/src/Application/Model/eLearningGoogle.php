@@ -107,6 +107,7 @@ class eLearningGoogle {
                     "first_name" => $user['givenName'],
                     "last_name" => $user['familyName']
                 );
+//                $_SESSION['userID'] = $user['email'];
                 return $response = array("status" => "success", "user_data" => $user_data);
             }
         } catch (\Exception $ex) {

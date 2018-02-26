@@ -16,17 +16,18 @@ use Application\Model\MailerPhp;
 use Zend\Session\Container;
 use Application\Model\eLearningGoogle;
 use Application\Model\eLearningFacebook;
+use Application\Model\ELearningUser;
 
 class IndexController extends AbstractActionController {
 
     public function indexAction() {
-//        $user_session = new Container('elearning');
-//        if (isset($user_session->userID)) {
-//            $viewModel = new ViewModel();
-//            return $viewModel;
-//        } else {
-        return $this->redirect()->toRoute('login');
-//        }
+        $user_session = new Container('elearning');
+        if (isset($user_session->userID)) {
+            $viewModel = new ViewModel();
+            return $viewModel;
+        } else {
+            return $this->redirect()->toRoute('login');
+        }
     }
 
     public function loginAction() {
@@ -38,6 +39,7 @@ class IndexController extends AbstractActionController {
 
     public function authAction() {
         if ($this->getRequest()->isPost()) {
+            $user_session = new Container('elearning');
             $sm = $this->getServiceLocator();
             $email = $this->params()->fromPost('email');
             $source = $this->params()->fromPost('source');
@@ -48,7 +50,9 @@ class IndexController extends AbstractActionController {
                 $eLearningGoogle->setGoogleClientID($googleCredentials['clientID']);
                 $eLearningGoogle->setClientSecret($googleCredentials['clientSecret']);
                 $eLearningGoogle->setGoogleRedirectURL($googleCredentials['redirectURL']);
-                $authUrl = $eLearningGoogle->getGoogleAccessToken($sm->get('dbAdapter'));
+                $response = $eLearningGoogle->getGoogleAccessToken($sm->get('dbAdapter'));
+//                die(json_encode($response));
+//                return $this->redirect()->toRoute('home');
             }
             if ($source == "facebook") {
                 $facebookCredentials = $sm->get('Config')['fbCredentials'];
@@ -60,11 +64,14 @@ class IndexController extends AbstractActionController {
             }
             die("success");
         } else {
-            die("end 111");
+            return $this->redirect()->toRoute('login');
         }
     }
 
     public function googleAccessTokenAction() {
+        $user_session = new Container('elearning');
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
         $sm = $this->getServiceLocator();
         $googleCredentials = $sm->get('Config')['googleCredentials'];
         $googleCode = $this->params()->fromQuery('code');
@@ -76,40 +83,56 @@ class IndexController extends AbstractActionController {
         $eLearningGoogle->setGoogleCode($googleCode);
         $response = $eLearningGoogle->getGoogleAccessToken($sm->get('dbAdapter'));
         if ($response["status"] == "success") {
-            echo "<h1>You have login successfully <h1>";
-            echo '<h3>Profile Details </h3>';
-            echo "Email : " . $response['user_data']['email'] . "<br>";
-            echo "Name : " . $response['user_data']['name'] . "<br>";
-//            return $this->redirect()->toRoute('home');
-            die();
+//            $viewModel->setVariables(array("status" => "success", "user_data" => $response["user_data"]));
+            $user_session->userID = $response["user_data"]["email"];
+            return $this->redirect()->toRoute('home');
+//            die();
         } else {
-            die(json_encode(array("status" => "failed")));
+            return $this->redirect()->toRoute('login');
+//            $viewModel->setVariables(array("status" => "failed"));
+//            die(json_encode(array("status" => "failed")));
         }
+        return $viewModel;
     }
 
     public function facebookAccessTokenAction() {
+         $user_session = new Container('elearning');
+//        $viewModel = new ViewModel();
         $sm = $this->getServiceLocator();
         $fbCredentials = $sm->get('Config')['fbCredentials'];
         $eLearningFacebook = new eLearningFacebook();
         $eLearningFacebook->setAppID($fbCredentials['app_id']);
         $eLearningFacebook->setAppSecret($fbCredentials['app_secret']);
         $eLearningFacebook->setRedirectURL($fbCredentials['redirect_uri']);
-        $eLearningFacebook->getFacebookAccessToken($sm->get('dbAdapter'));
+        $response = $eLearningFacebook->getFacebookAccessToken($sm->get('dbAdapter'));
+        $user_session->userID = $response['email'];
+//        $viewModel->setVariables(array("output" => $response));
+        try {
+            return $this->redirect()->toRoute('home');
+        } catch (\Exception $ex) {
+            die("error=" . $ex->getMessage());
+        }
+//        return $viewModel;
     }
 
     public function logoutAction() {
-        unset($_SESSION['token']);
-        unset($_SESSION['userData']);
-
-        //Reset OAuth access token
+        $user_session = new Container('elearning');
         $googleClient = new \Google_Client();
         $googleClient->revokeToken();
+        $user_session->getManager()->getStorage()->clear('elearning');
+        return $this->redirect()->toRoute('login');
+    }
 
-        //Destroy entire session
-        session_destroy();
-
-        //Redirect to homepage
-        header("Location:login");
+    public function getUserInfoAction() {
+        $user_session = new Container('elearning');
+        if (!isset($user_session->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $userID = $user_session->userID;
+        $sm = $this->getServiceLocator();
+        $eLearningUser = new ELearningUser();
+        $userInfo = $eLearningUser->getUserInfoByUSerID($sm->get('dbAdapter'), $userID);
+        die(json_encode($userInfo));
     }
 
     public function sendMailAction() {

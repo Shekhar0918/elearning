@@ -58,14 +58,10 @@ class eLearningFacebook {
         ));
 
         $helper = $fb->getRedirectLoginHelper();
-
         $permissions = array('email'); // Optional permissions
         $loginUrl = $helper->getLoginUrl($redirectURL, $permissions);
-//        header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-//        header('Location: ' . filter_var($loginUrl, FILTER_SANITIZE_URL));
-//        die($loginUrl);
         header('Location: ' . $loginUrl);
-//        echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
+        die('');
     }
 
     function getFacebookAccessToken(Adapter $eLearningDB) {
@@ -194,7 +190,10 @@ class eLearningFacebook {
         $output .= '<br/>Logged in with : Facebook';
         $output .= '<br/><a href="' . $fbUserData['link'] . '" target="_blank">Click to Visit Facebook Page</a>';
 //        $output .= '<br/>Logout from <a href="' . $logoutURL . '">Facebook</a>';
+//        return $output;
         die($output);
+        return $fbUserData;
+//        die($output);
     }
 
 }

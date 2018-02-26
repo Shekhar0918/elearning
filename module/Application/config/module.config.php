@@ -20,6 +20,16 @@ return array(
                     ),
                 ),
             ),
+            'index' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/home',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
             'login' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -57,6 +67,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action' => 'facebookAccessToken',
+                    ),
+                ),
+            ),
+            'getUserInfo' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getUserInfo',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'getUserInfo',
                     ),
                 ),
             ),
