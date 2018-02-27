@@ -47,10 +47,6 @@ class FacebookAuthentication {
         $appID = $this->getAppID();
         $appSecret = $this->getAppSecret();
         $redirectURL = $this->getRedirectURL();
-//        echo "appID = " .$appID . "\n";
-//        echo "appSecret = " .$appSecret . "\n";
-//        echo "redirectURL = " .$redirectURL . "\n";die();
-
         $fb = new Facebook(array(
             'app_id' => $appID,
             'app_secret' => $appSecret,
