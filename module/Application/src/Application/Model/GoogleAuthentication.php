@@ -90,25 +90,32 @@ class GoogleAuthentication {
 //                echo '<h3>Profile Details </h3>';
 //                echo "Email : " . $user['email'] . "<br>";
 //                echo "Name : " . $user['name'] . "<br>";
-                $count = $eLearningDB->query("select * from users where email=:email")->execute(array("email" => $user['email']))->count();
-                if ($count <= 0) {
-                    $user_query = "insert into users (email, first_name, last_name, access_type, login_source) values (:email, :first_name, :last_name, :access_type, :login_source)";
-                    $eLearningDB->query($user_query)->execute(array(
-                        "email" => $user['email'],
-                        "first_name" => $user['givenName'],
-                        "last_name" => $user['familyName'],
-                        "access_type" => "student",
-                        "login_source" => "google"
-                    ));
-                }
-                $user_data = array(
+//                $count = $eLearningDB->query("select * from users where email=:email")->execute(array("email" => $user['email']))->count();
+//                if ($count <= 0) {
+//                    $user_query = "insert into users (email, first_name, last_name, access_type, login_source) values (:email, :first_name, :last_name, :access_type, :login_source)";
+//                    $eLearningDB->query($user_query)->execute(array(
+//                        "email" => $user['email'],
+//                        "first_name" => $user['givenName'],
+//                        "last_name" => $user['familyName'],
+//                        "access_type" => "student",
+//                        "login_source" => "google"
+//                    ));
+//                }
+                $userDetails = array(
                     "email" => $user['email'],
                     "name" => $user['name'],
-                    "first_name" => $user['givenName'],
-                    "last_name" => $user['familyName']
+                    "firstName" => $user['givenName'],
+                    "lastName" => $user['familyName'],
+                    "fullName" => $user['name'],
+                    "picture" => $user['picture'],
+                    "gender" => $user['gender']
                 );
 //                $_SESSION['userID'] = $user['email'];
-                return $response = array("status" => "success", "user_data" => $user_data);
+                $response = array(
+                    "status" => TRUE,
+                    "userDetails" => $userDetails
+                );
+                return $response;
             }
         } catch (\Exception $ex) {
             die("Error: " . $ex->getMessage());

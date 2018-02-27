@@ -17,6 +17,8 @@ use Zend\Session\Container;
 use Application\Model\GoogleAuthentication;
 use Application\Model\FacebookAuthentication;
 use Application\Model\User;
+use Application\Model\GoogleUser;
+use Application\Model\FacebookUser;
 
 class IndexController extends AbstractActionController {
 
@@ -51,8 +53,6 @@ class IndexController extends AbstractActionController {
                 $googleAuthentication->setClientSecret($googleCredentials['clientSecret']);
                 $googleAuthentication->setGoogleRedirectURL($googleCredentials['redirectURL']);
                 $response = $googleAuthentication->getGoogleAccessToken($sm->get('dbAdapter'));
-//                die(json_encode($response));
-//                return $this->redirect()->toRoute('home');
             }
             if ($source == "facebook") {
                 $facebookCredentials = $sm->get('Config')['fbCredentials'];
@@ -83,9 +83,31 @@ class IndexController extends AbstractActionController {
         $googleAuthentication->setGoogleCode($googleCode);
         $response = $googleAuthentication->getGoogleAccessToken($sm->get('dbAdapter'));
         if ($response["status"] == "success") {
+            $userDetails = $response['userDetails'];
 //            $viewModel->setVariables(array("status" => "success", "user_data" => $response["user_data"]));
-            $user_session->userID = $response["user_data"]["email"];
-            return $this->redirect()->toRoute('home');
+            $user_session->userID = $response["userDetails"]["email"];
+            $isGoogleUserExist = GoogleUser::isGoogleUserExist($sm->get('dbAdapter'), $userDetails["email"]);
+            if($isGoogleUserExist){                
+                return $this->redirect()->toRoute('home');
+            }else{
+                $googleUsers = new GoogleUser();
+                $googleUsers->setFirstName($userDetails['firstName']);
+                $googleUsers->setLastName($userDetails['lastName']);
+                $googleUsers->setEmailID($userDetails['email']);
+                $googleUsers->setGender($userDetails['gender']);
+                $googleUserID = $googleUsers->saveGoogleUserDetails($sm->get('dbAdapter'));
+                
+                $users = new User();
+                $users->setFirstName($userDetails['firstName']);
+                $users->setLastName($userDetails['lastName']);
+                $users->setEmailID($userDetails['email']);
+                $users->setGender($userDetails['gender']);
+                $users->setLoginSource("google");
+                $users->setAccessType("student");
+                $users->setGoogleUserID($googleUserID);
+                $users->saveUserDetails($sm->get('dbAdapter'));
+                return $this->redirect()->toRoute('home');
+            }
 //            die();
         } else {
             return $this->redirect()->toRoute('login');
