@@ -14,9 +14,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\MailerPhp;
 use Zend\Session\Container;
-use Application\Model\eLearningGoogle;
-use Application\Model\eLearningFacebook;
-use Application\Model\ELearningUser;
+use Application\Model\GoogleAuthentication;
+use Application\Model\FacebookAuthentication;
+use Application\Model\User;
 
 class IndexController extends AbstractActionController {
 
@@ -45,22 +45,22 @@ class IndexController extends AbstractActionController {
             $source = $this->params()->fromPost('source');
             if ($source == "google") {
                 $googleCredentials = $sm->get('Config')['googleCredentials'];
-                $eLearningGoogle = new eLearningGoogle();
-                $eLearningGoogle->setAPIKey($googleCredentials['apiKey']);
-                $eLearningGoogle->setGoogleClientID($googleCredentials['clientID']);
-                $eLearningGoogle->setClientSecret($googleCredentials['clientSecret']);
-                $eLearningGoogle->setGoogleRedirectURL($googleCredentials['redirectURL']);
-                $response = $eLearningGoogle->getGoogleAccessToken($sm->get('dbAdapter'));
+                $googleAuthentication = new GoogleAuthentication();
+                $googleAuthentication->setAPIKey($googleCredentials['apiKey']);
+                $googleAuthentication->setGoogleClientID($googleCredentials['clientID']);
+                $googleAuthentication->setClientSecret($googleCredentials['clientSecret']);
+                $googleAuthentication->setGoogleRedirectURL($googleCredentials['redirectURL']);
+                $response = $googleAuthentication->getGoogleAccessToken($sm->get('dbAdapter'));
 //                die(json_encode($response));
 //                return $this->redirect()->toRoute('home');
             }
             if ($source == "facebook") {
                 $facebookCredentials = $sm->get('Config')['fbCredentials'];
-                $eLearningfacebook = new eLearningFacebook();
-                $eLearningfacebook->setAppID($facebookCredentials['app_id']);
-                $eLearningfacebook->setAppSecret($facebookCredentials['app_secret']);
-                $eLearningfacebook->setRedirectURL($facebookCredentials['redirect_uri']);
-                $eLearningfacebook->loginFacebook($sm->get('dbAdapter'));
+                $facebookAuthentication = new FacebookAuthentication();
+                $facebookAuthentication->setAppID($facebookCredentials['app_id']);
+                $facebookAuthentication->setAppSecret($facebookCredentials['app_secret']);
+                $facebookAuthentication->setRedirectURL($facebookCredentials['redirect_uri']);
+                $facebookAuthentication->loginFacebook($sm->get('dbAdapter'));
             }
             die("success");
         } else {
@@ -75,13 +75,13 @@ class IndexController extends AbstractActionController {
         $sm = $this->getServiceLocator();
         $googleCredentials = $sm->get('Config')['googleCredentials'];
         $googleCode = $this->params()->fromQuery('code');
-        $eLearningGoogle = new eLearningGoogle();
-        $eLearningGoogle->setAPIKey($googleCredentials['apiKey']);
-        $eLearningGoogle->setGoogleClientID($googleCredentials['clientID']);
-        $eLearningGoogle->setClientSecret($googleCredentials['clientSecret']);
-        $eLearningGoogle->setGoogleRedirectURL($googleCredentials['redirectURL']);
-        $eLearningGoogle->setGoogleCode($googleCode);
-        $response = $eLearningGoogle->getGoogleAccessToken($sm->get('dbAdapter'));
+        $googleAuthentication = new GoogleAuthentication();
+        $googleAuthentication->setAPIKey($googleCredentials['apiKey']);
+        $googleAuthentication->setGoogleClientID($googleCredentials['clientID']);
+        $googleAuthentication->setClientSecret($googleCredentials['clientSecret']);
+        $googleAuthentication->setGoogleRedirectURL($googleCredentials['redirectURL']);
+        $googleAuthentication->setGoogleCode($googleCode);
+        $response = $googleAuthentication->getGoogleAccessToken($sm->get('dbAdapter'));
         if ($response["status"] == "success") {
 //            $viewModel->setVariables(array("status" => "success", "user_data" => $response["user_data"]));
             $user_session->userID = $response["user_data"]["email"];
@@ -100,11 +100,11 @@ class IndexController extends AbstractActionController {
 //        $viewModel = new ViewModel();
         $sm = $this->getServiceLocator();
         $fbCredentials = $sm->get('Config')['fbCredentials'];
-        $eLearningFacebook = new eLearningFacebook();
-        $eLearningFacebook->setAppID($fbCredentials['app_id']);
-        $eLearningFacebook->setAppSecret($fbCredentials['app_secret']);
-        $eLearningFacebook->setRedirectURL($fbCredentials['redirect_uri']);
-        $response = $eLearningFacebook->getFacebookAccessToken($sm->get('dbAdapter'));
+        $facebookAuthentication = new FacebookAuthentication();
+        $facebookAuthentication->setAppID($fbCredentials['app_id']);
+        $facebookAuthentication->setAppSecret($fbCredentials['app_secret']);
+        $facebookAuthentication->setRedirectURL($fbCredentials['redirect_uri']);
+        $response = $facebookAuthentication->getFacebookAccessToken($sm->get('dbAdapter'));
         $user_session->userID = $response['email'];
 //        $viewModel->setVariables(array("output" => $response));
         try {
@@ -130,8 +130,8 @@ class IndexController extends AbstractActionController {
         }
         $userID = $user_session->userID;
         $sm = $this->getServiceLocator();
-        $eLearningUser = new ELearningUser();
-        $userInfo = $eLearningUser->getUserInfoByUSerID($sm->get('dbAdapter'), $userID);
+        $user = new User();
+        $userInfo = $user->getUserInfoByUSerID($sm->get('dbAdapter'), $userID);
         die(json_encode($userInfo));
     }
 

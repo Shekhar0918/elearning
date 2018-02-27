@@ -4,7 +4,7 @@ namespace Application\Model;
 
 use Zend\Db\Adapter\Adapter;
 
-class eLearningGoogle {
+class GoogleAuthentication {
 
     private $apiKey;
     private $googleClientID;

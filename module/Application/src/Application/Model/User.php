@@ -4,7 +4,7 @@ namespace Application\Model;
 
 use Zend\Db\Adapter\Adapter;
 
-class ELearningUser {
+class User {
     private $firstName;
     private $lastName;
     private $userID;

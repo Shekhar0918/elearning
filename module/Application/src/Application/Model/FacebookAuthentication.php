@@ -9,7 +9,7 @@ use Facebook\Facebook;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 
-class eLearningFacebook {
+class FacebookAuthentication {
 
     private $appID;
     private $appSecret;
