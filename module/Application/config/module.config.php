@@ -80,6 +80,26 @@ return array(
                     ),
                 ),
             ),
+            'signup' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/signup',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'signup',
+                    ),
+                ),
+            ),
+            'userSignUp' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/userSignUp',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'userSignUp',
+                    ),
+                ),
+            ),
             'logout' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -87,6 +107,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action' => 'logout',
+                    ),
+                ),
+            ),
+            'getEnrolledPrograms' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getEnrolledPrograms',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'getEnrolledPrograms',
                     ),
                 ),
             ),

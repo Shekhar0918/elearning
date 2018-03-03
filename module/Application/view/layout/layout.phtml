@@ -17,6 +17,10 @@
         <base href="<?php echo $this->basePath(); ?>/" />
     </head>
     <body ng-controller="mainController"> 
+        <header id="header" class="media">
+            <span > Welcome {{first_name}} {{last_name}}</span>
+        </header>
+        
         <div style="min-height:800px;" ng-view >
             <?php echo $this->content; ?>
         </div>
