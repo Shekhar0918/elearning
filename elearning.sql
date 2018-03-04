@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2018 at 10:52 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 5.6.33
+-- Generation Time: Mar 04, 2018 at 03:37 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,17 +25,51 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faceboook_users`
+-- Table structure for table `enrolled_programs`
 --
 
-CREATE TABLE `faceboook_users` (
+CREATE TABLE `enrolled_programs` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `program_id` varchar(255) NOT NULL,
+  `program_name` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enrolled_programs`
+--
+
+INSERT INTO `enrolled_programs` (`id`, `user_id`, `program_id`, `program_name`, `created_at`, `updated_at`) VALUES
+(1, '139', '111', 'Networking', '2018-03-03 15:29:03', '2018-03-04 09:40:05'),
+(2, '139', '222', 'Cloud Computing', '2018-03-03 15:29:03', '2018-03-04 09:40:14'),
+(3, '93', '222', 'Cloud Computing', '2018-03-03 15:29:29', '2018-03-04 06:08:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `facebook_users`
+--
+
+CREATE TABLE `facebook_users` (
   `id` int(11) NOT NULL,
   `facebook_id` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `gender` varchar(255) DEFAULT NULL
+  `gender` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `facebook_users`
+--
+
+INSERT INTO `facebook_users` (`id`, `facebook_id`, `first_name`, `last_name`, `email`, `gender`, `created_at`, `updated_at`) VALUES
+(28, '1234', NULL, NULL, NULL, NULL, '2018-03-04 09:39:36', '2018-03-04 09:39:36'),
+(31, NULL, 'Shashi', 'Shekhar', 'shekharshashi0989@gmail.com', 'male', '2018-03-04 10:00:10', '2018-03-04 10:00:10');
 
 -- --------------------------------------------------------
 
@@ -59,7 +93,30 @@ CREATE TABLE `google_users` (
 --
 
 INSERT INTO `google_users` (`id`, `created_at`, `updated_at`, `first_name`, `last_name`, `google_id`, `email`, `gender`) VALUES
-(5, '2018-02-27 21:50:04', '2018-02-27 21:50:04', 'Shashi', 'Shekhar', NULL, 'shekharshashi0989@gmail.com', NULL);
+(130, '2018-03-04 09:39:30', '2018-03-04 09:39:30', 'Shashi', 'Shekhar', NULL, 'shekharshashi0989@gmail.com', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `programs`
+--
+
+CREATE TABLE `programs` (
+  `id` int(11) NOT NULL,
+  `program_id` varchar(255) DEFAULT NULL,
+  `program_name` varchar(255) DEFAULT NULL,
+  `chapters` text,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `programs`
+--
+
+INSERT INTO `programs` (`id`, `program_id`, `program_name`, `chapters`, `updated_at`, `created_at`) VALUES
+(3, '111', 'Networking', '[{\"name\":\"Chapter 1\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=IT1X42D1KeA\"},{\"name\":\"Chapter 2\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=LICA-ILkO4w\"},{\"name\":\"Chapter 3\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=arVoQxjIxUU\"},{\"name\":\"Chapter 4\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=n2D1o-aM-2s\"},{\"name\":\"Chapter 5\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=E9uFNkzIzaw\"},{\"name\":\"Chapter 6\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=DtU8hB-qSPA\"}]', '2018-03-04 05:57:24', '2018-03-04 05:57:24'),
+(4, '222', 'Cloud Computing', '[{\"name\":\"Chapter 1\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=IT1X42D1KeA\"},{\"name\":\"Chapter 2\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=LICA-ILkO4w\"},{\"name\":\"Chapter 3\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=arVoQxjIxUU\"},{\"name\":\"Chapter 4\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=n2D1o-aM-2s\"},{\"name\":\"Chapter 5\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=E9uFNkzIzaw\"},{\"name\":\"Chapter 6\",\"content\":\"https:\\/\\/www.youtube.com\\/watch?v=DtU8hB-qSPA\"}]', '2018-03-04 05:57:24', '2018-03-04 05:57:24');
 
 -- --------------------------------------------------------
 
@@ -69,6 +126,7 @@ INSERT INTO `google_users` (`id`, `created_at`, `updated_at`, `first_name`, `las
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
@@ -86,23 +144,36 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `access_type`, `login_source`, `created_at`, `updated_at`, `gender`, `google_user_id`, `facebook_user_id`) VALUES
-(13, 'shekharshashi0989@gmail.com', 'Shashi', 'Shekhar', NULL, 'student', 'google', '2018-02-27 21:50:04', '2018-02-27 21:50:04', NULL, '5', NULL);
+INSERT INTO `users` (`id`, `user_id`, `email`, `first_name`, `last_name`, `password`, `access_type`, `login_source`, `created_at`, `updated_at`, `gender`, `google_user_id`, `facebook_user_id`) VALUES
+(139, NULL, 'shekharshashi0989@gmail.com', 'Shashi', 'Shekhar', NULL, 'student', 'google', '2018-03-04 09:39:30', '2018-03-04 09:39:36', NULL, '130', '1234'),
+(145, NULL, 'shekharshashi0989@gmail.com', 'Shashi', 'Shekhar', NULL, 'student', 'facebook', '2018-03-04 10:00:10', '2018-03-04 10:00:10', 'male', NULL, '31');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `faceboook_users`
+-- Indexes for table `enrolled_programs`
 --
-ALTER TABLE `faceboook_users`
+ALTER TABLE `enrolled_programs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `facebook_users`
+--
+ALTER TABLE `facebook_users`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `google_users`
 --
 ALTER TABLE `google_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `programs`
+--
+ALTER TABLE `programs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -116,22 +187,34 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `faceboook_users`
+-- AUTO_INCREMENT for table `enrolled_programs`
 --
-ALTER TABLE `faceboook_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `enrolled_programs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `facebook_users`
+--
+ALTER TABLE `facebook_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `google_users`
 --
 ALTER TABLE `google_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+
+--
+-- AUTO_INCREMENT for table `programs`
+--
+ALTER TABLE `programs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
