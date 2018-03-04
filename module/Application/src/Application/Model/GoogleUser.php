@@ -10,6 +10,8 @@ class GoogleUser {
     private $lastName;
     private $emailID;
     private $gender;
+    private $googleID;
+    private $googleUserID;
 
     function __construct() {
         
@@ -46,7 +48,15 @@ class GoogleUser {
     public function getGender() {
         return $this->gender;
     }
-    
+
+    public function setGoogleID($googleID) {
+        $this->googleID = $googleID;
+    }
+
+    public function getGoogleID() {
+        return $this->googleID;
+    }
+
     public function setGoogleUserID($googleUserID) {
         $this->googleUserID = $googleUserID;
     }
@@ -54,7 +64,7 @@ class GoogleUser {
     public function getGoogleUserID() {
         return $this->googleUserID;
     }
-    
+
     public static function isGoogleUserExist(Adapter $eLearningDB, $email) {
         $query = "select * from google_users where email=:email";
         $count = $eLearningDB->query($query)->execute(array("email" => $email))->count();
@@ -66,14 +76,22 @@ class GoogleUser {
     }
 
     public function saveGoogleUserDetails(Adapter $eLearningDB) {
-        $query = "insert into google_users (first_name, last_name, email, gender) values (:first_name, :last_name, :email, :gender)";
-        $eLearningDB->query($query)->execute(array(
-            "first_name" => $this->getFirstName(),
-            "last_name" => $this->getLastName(),
-            "email" => $this->getEmailID(),
-            "gender" => $this->getGender()
-        ));
-        $googleUserID = $eLearningDB->getDriver()->getLastGeneratedValue("id");
+        $query = "select * from google_users where email=:email";
+        $result = $eLearningDB->query($query)->execute(array("email" => $this->getEmailID()));
+        if ($result->count()) {
+            $googleUserID = $result->current()['id'];
+            $query = "update google_users set first_name=:first_name, last_name=:last_name where email=:email";
+            $eLearningDB->query($query)->execute(array("first_name" => $this->getFirstName(), "last_nmae" => $this->getLastName(), "email" => $this->getEmailID()));
+        } else {
+            $query = "insert into google_users (first_name, last_name, email, gender) values (:first_name, :last_name, :email, :gender)";
+            $eLearningDB->query($query)->execute(array(
+                "first_name" => $this->getFirstName(),
+                "last_name" => $this->getLastName(),
+                "email" => $this->getEmailID(),
+                "gender" => $this->getGender()
+            ));
+            $googleUserID = $eLearningDB->getDriver()->getLastGeneratedValue("id");
+        }
         return $googleUserID;
     }
 
