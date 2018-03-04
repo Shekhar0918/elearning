@@ -126,7 +126,7 @@ class IndexController extends AbstractActionController {
     }
 
     public function facebookAccessTokenAction() {
-         $userSession = new Container('elearning');
+         $userSession = new Container('eLearning');
 //        $viewModel = new ViewModel();
         $sm = $this->getServiceLocator();
         $fbCredentials = $sm->get('Config')['fbCredentials'];
@@ -158,14 +158,19 @@ class IndexController extends AbstractActionController {
         $userID = $this->params()->fromPost('user_id');
         $userPassword = $this->params()->fromPost('password');
         $facebookID = $this->params()->fromPost('facebook_id');
+        $googleID = $this->params()->fromPost('google_id');
+        $loginSource = $this->params()->fromPost('login_source');
 //        echo $emailID . " === " . $userID . "====" . $userPassword . "====" . $facebookID;die("end");
         $user = new User();
         $user->setUserID($userID);
         $user->setPassword($userPassword);
         $user->setFacebookID($facebookID);
+        $user->setGoogleID($googleID);
         $user->setEmailID($emailID);
+        $user->setLoginSource($loginSource);
         $response = $user->saveSignUpDetails($sm->get('dbAdapter'));
         $userSession->userID = $response['userID'];
+//        var_dump("userSignUpAction=".$userSession->userID);die();
 //        die("Email ID = " . $emailID . "userID = " . $response['userID']);
         return $this->redirect()->toRoute('home');
     }
@@ -180,6 +185,7 @@ class IndexController extends AbstractActionController {
 
     public function getUserInfoAction() {
         $userSession = new Container('eLearning');
+//        var_dump("getUserInfoAction=".$userSession->userID);die("end");
         if (!isset($userSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
         }

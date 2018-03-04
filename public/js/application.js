@@ -10,6 +10,11 @@ eLearningApp.config(function ($routeProvider) {
                 template: 'templates/signup.html',
                 controller: 'mainController'
             })
+            .when('/googleSignup', {
+                template: 'templates/signup.html',
+                controller: 'mainController'
+            })
+//            $locationProvider.html5Mode(true);
 });
 
 eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
@@ -24,7 +29,7 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
 //                         alert("failed");
                         alert(location.href = 'signup')
                     } else {
-//                        alert(response.status);
+                        alert(response.status);
                         $scope.user_id = response.userInfo.userID;
                         $scope.first_name = response.userInfo.firstName;
                         $scope.last_name = response.userInfo.lastName;

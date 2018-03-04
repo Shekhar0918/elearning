@@ -123,7 +123,18 @@ class User {
     }
 
     public function saveUserDetails(Adapter $eLearningDB) {
-        $query = "insert into users (email,first_name,last_name,access_type,login_source,gender,google_id, facebook_id) values (:email,:first_name,:last_name,:access_type,:login_source,:gender,:google_id,:facebook_id)";
+        $query = "insert into users (email,first_name,last_name,access_type,login_source,gender,google_user_id, facebook_user_id) values (:email,:first_name,:last_name,:access_type,:login_source,:gender,:google_user_id,:facebook_user_id)";
+//        print_r(array(
+//            "email" => $this->getEmailID(),
+//            "first_name" => $this->getFirstName(),
+//            "last_name" => $this->getLastName(),
+//            "access_type" => $this->getAccessType(),
+//            "login_source" => $this->getLoginSource(),
+//            "gender" => $this->getGender(),
+//            "google_user_id" => $this->getGoogleID(),
+//            "facebook_user_id" => $this->getFacebookID()
+//        ));
+//        die("end");
         $eLearningDB->query($query)->execute(array(
             "email" => $this->getEmailID(),
             "first_name" => $this->getFirstName(),
@@ -131,8 +142,8 @@ class User {
             "access_type" => $this->getAccessType(),
             "login_source" => $this->getLoginSource(),
             "gender" => $this->getGender(),
-            "google_id" => $this->getGoogleID(),
-            "facebook_id" => $this->getFacebookID()
+            "google_user_id" => $this->getGoogleID(),
+            "facebook_user_id" => $this->getFacebookID()
         ));
         $userID = $eLearningDB->getDriver()->getLastGeneratedValue();
         return $userID;
@@ -151,19 +162,37 @@ class User {
     }
 
     public function saveSignUpDetails(Adapter $eLearningDB) {
-        $encryptedPassword = !empty($this->getPassword()) ? md5($this->getPassword()) : "";
-        $query = "update users set user_id=:user_id,password=:password,facebook_id=:facebook_id where email=:email";
-        $result = $eLearningDB->query($query)->execute(array(
-            "user_id" => $this->getUserID(),
-            "password" => $encryptedPassword,
-            "facebook_id" => $this->getFacebookID(),
-            "email" => $this->getEmailID()
-        ));
-//        $userID = $eLearningDB->getDriver()->getLastGeneratedValue();
-//        $userID = $eLearningDB->getDriver()->getLastGeneratedValue();
-        $updated_row = $eLearningDB->query('select id from users where email=:email')->execute(array("email" => $this->getEmailID()))->current();
-        $response = array("userID" => $updated_row['id']);
-//        print_r($updated_row['id']);die("end");
+        $result = $eLearningDB->query("select * from users where email=:email")->execute(array("email" => $this->getEmailID()));
+        if ($result->count() > 0) {
+            $userResult = $result->current();
+            $userID = $userResult['id'];
+            $loginSource = $this->getLoginSource();
+            if ($loginSource == "google") {
+                $query = "update users set facebook_user_id=:facebook_user_id where email=:email";
+                $eLearningDB->query($query)->execute(array("facebook_user_id" => $this->getFacebookID(), "email" => $this->getEmailID()));
+                $facbookUser = new FacebookUser();
+                $facbookUser->setFacebookID($this->facebookID);
+                $facbookUser->saveFacebookUserDetails($eLearningDB);
+            } else {
+                $query = "update users set google_id=:google_user_id where email=:email";
+                $eLearningDB->query($query)->execute(array("google_user_id" => $this->getGoogleID(), "email" => $this->getEmailID()));
+            }
+        } else {
+            $query = "insert into users (email,first_name,last_name,access_type,login_source,gender,google_user_id, facebook_user_id) values (:email,:first_name,:last_name,:access_type,:login_source,:gender,:google_user_id,:facebook_user_id)";
+            $eLearningDB->query($query)->execute(array(
+                "email" => $this->getEmailID(),
+                "first_name" => $this->getFirstName(),
+                "last_name" => $this->getLastName(),
+                "access_type" => $this->getAccessType(),
+                "login_source" => $this->getLoginSource(),
+                "gender" => $this->getGender(),
+                "google_user_id" => $this->getGoogleID(),
+                "facebook_user_id" => $this->getFacebookID()
+            ));
+            $userID = $eLearningDB->getDriver()->getLastGeneratedValue();
+        }
+        $response = array("userID" => $userID);
+//        die("user_id=".$userID);
         return $response;
     }
 

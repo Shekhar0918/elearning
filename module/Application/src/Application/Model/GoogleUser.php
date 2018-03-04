@@ -54,14 +54,6 @@ class GoogleUser {
     public function getGoogleUserID() {
         return $this->googleUserID;
     }
-
-    public function setFacebokUserID($facebookUserID) {
-        $this->facebookUserID = $facebookUserID;
-    }
-
-    public function getFacebokUserID() {
-        return $this->facebookUserID;
-    }
     
     public static function isGoogleUserExist(Adapter $eLearningDB, $email) {
         $query = "select * from google_users where email=:email";
