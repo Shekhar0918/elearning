@@ -125,7 +125,7 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
 
-    public function facebookAccessTokenAction() {
+     public function facebookAccessTokenAction() {
          $userSession = new Container('eLearning');
 //        $viewModel = new ViewModel();
         $sm = $this->getServiceLocator();
@@ -135,17 +135,48 @@ class IndexController extends AbstractActionController {
         $facebookAuthentication->setAppSecret($fbCredentials['app_secret']);
         $facebookAuthentication->setRedirectURL($fbCredentials['redirect_uri']);
         $response = $facebookAuthentication->getFacebookAccessToken($sm->get('dbAdapter'));
-        $userSession->userID = $response['email'];
-//        $viewModel->setVariables(array("output" => $response));
-        try {
-            return $this->redirect()->toRoute('home');
-        } catch (\Exception $ex) {
-            die("error=" . $ex->getMessage());
+        if ($response["status"] == TRUE) {
+            $userDetails = $response['userDetails'];
+//            $viewModel->setVariables(array("status" => "success", "user_data" => $response["user_data"]));
+            $userSession->emailID = $response["userDetails"]["email"];
+            $isFacebookUserExist = FacebookUser::isFacebookUserExist($sm->get('dbAdapter'), $userDetails["email"]);
+            $isUserExist = User::isUserExist($sm->get('dbAdapter'), $userDetails["email"]);
+            if($isUserExist["status"] && $isFacebookUserExist){  
+//                die("exist");
+                $userSession->userID = $isUserExist['userID'];
+                return $this->redirect()->toRoute('home');
+            }else{
+//                die("notexist");
+                $facebookUser = new FacebookUser();
+                $facebookUser->setFirstName($userDetails['firstName']);
+                $facebookUser->setLastName($userDetails['lastName']);
+                $facebookUser->setEmailID($userDetails['email']);
+                $facebookUser->setGender($userDetails['gender']);
+                $facebookUserID = $facebookUser->saveFacebookUserDetails($sm->get('dbAdapter'));
+                
+                $users = new User();
+                $users->setFirstName($userDetails['firstName']);
+                $users->setLastName($userDetails['lastName']);
+                $users->setEmailID($userDetails['email']);
+                $users->setGender($userDetails['gender']);
+                $users->setLoginSource("facebook");
+                $users->setAccessType("student");
+                $users->setFacebookID($facebookUserID);
+                $userID = $users->saveUserDetails($sm->get('dbAdapter'));
+                return $this->redirect()->toRoute('facebookSignup');
+            }
+        } else {
+            return $this->redirect()->toRoute('login');
         }
-//        return $viewModel;
     }
     
     public function signupAction(){
+        $viewModel = new ViewModel();
+//        $viewModel->setTerminal(true);
+        return $viewModel;
+    }
+    
+    public function facebookSignupAction(){
         $viewModel = new ViewModel();
 //        $viewModel->setTerminal(true);
         return $viewModel;

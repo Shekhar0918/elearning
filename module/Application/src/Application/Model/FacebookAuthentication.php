@@ -105,8 +105,6 @@ class FacebookAuthentication {
         }
 
         // Logged in
-//        echo '<h3>Access Token</h3>';
-//        var_dump($accessToken->getValue());
         $fb->setDefaultAccessToken($accessToken->getValue());
 
         // The OAuth 2.0 client handler helps us manage access tokens
@@ -114,8 +112,6 @@ class FacebookAuthentication {
 
         // Get the access token metadata from /debug_token
         $tokenMetadata = $oAuth2Client->debugToken($accessToken);
-//        echo '<h3>Metadata</h3>';
-//        var_dump($tokenMetadata);
         // Validation (these will throw FacebookSDKException's when they fail)
         $tokenMetadata->validateAppId($appID); // Replace {app-id} with your app id
         // If you know the user ID this access token belongs to, you can validate it here
@@ -141,6 +137,22 @@ class FacebookAuthentication {
         try {
             $profileRequest = $fb->get('/me?fields=name,first_name,last_name,email,link,gender,locale,picture');
             $fbUserProfile = $profileRequest->getGraphNode()->asArray();
+            $fbUserData = array(
+                'oauthProvider' => 'facebook',
+                'oauthUID' => $fbUserProfile['id'],
+                'firstName' => $fbUserProfile['first_name'],
+                'lastName' => $fbUserProfile['last_name'],
+                'email' => $fbUserProfile['email'],
+                'gender' => $fbUserProfile['gender'],
+                'locale' => $fbUserProfile['locale'],
+                'picture' => $fbUserProfile['picture']['url'],
+                'link' => $fbUserProfile['link']
+            );
+            $response = array(
+                "status" => TRUE,
+                "userDetails" => $fbUserData
+            );
+            return $response;
         } catch (FacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
             session_destroy();
@@ -151,44 +163,42 @@ class FacebookAuthentication {
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;
         }
-        $fbUserData = array(
-            'oauth_provider' => 'facebook',
-            'oauth_uid' => $fbUserProfile['id'],
-            'first_name' => $fbUserProfile['first_name'],
-            'last_name' => $fbUserProfile['last_name'],
-            'email' => $fbUserProfile['email'],
-            'gender' => $fbUserProfile['gender'],
-            'locale' => $fbUserProfile['locale'],
-            'picture' => $fbUserProfile['picture']['url'],
-            'link' => $fbUserProfile['link']
-        );
+//        $fbUserData = array(
+//            'oauth_provider' => 'facebook',
+//            'oauth_uid' => $fbUserProfile['id'],
+//            'first_name' => $fbUserProfile['first_name'],
+//            'last_name' => $fbUserProfile['last_name'],
+//            'email' => $fbUserProfile['email'],
+//            'gender' => $fbUserProfile['gender'],
+//            'locale' => $fbUserProfile['locale'],
+//            'picture' => $fbUserProfile['picture']['url'],
+//            'link' => $fbUserProfile['link']
+//        );
 //        echo json_encode($fbUserData);
-        $query = "select * from users where email=:email and login_source='facebook'";
-        $count = $eLearningDB->query($query)->execute(array("email" => $fbUserProfile['email']))->count();
-        if ($count <= 0) {
-            $user_query = "insert into users (email, first_name, last_name, access_type, login_source) values (:email, :first_name, :last_name, :access_type, :login_source)";
-            $eLearningDB->query($user_query)->execute(array(
-                "email" => $fbUserProfile['email'],
-                "first_name" => $fbUserProfile['first_name'],
-                "last_name" => $fbUserProfile['last_name'],
-                "access_type" => "student",
-                "login_source" => "facebook"
-            ));
-        }
-        $output =  "<h1>You have login successfully <h1>";
-        $output .= '<h3>Profile Details </h3>';
-        $output .= '<img src="' . $fbUserData['picture'] . '">';
-        $output .= '<br/>Facebook ID : ' . $fbUserData['oauth_uid'];
-        $output .= '<br/>Name : ' . $fbUserData['first_name'] . ' ' . $fbUserData['last_name'];
-        $output .= '<br/>Email : ' . $fbUserData['email'];
-        $output .= '<br/>Gender : ' . $fbUserData['gender'];
-//        $output .= '<br/>Locale : ' . $fbUserData['locale'];
-        $output .= '<br/>Logged in with : Facebook';
-        $output .= '<br/><a href="' . $fbUserData['link'] . '" target="_blank">Click to Visit Facebook Page</a>';
-//        $output .= '<br/>Logout from <a href="' . $logoutURL . '">Facebook</a>';
-//        return $output;
-        die($output);
-        return $fbUserData;
+//        $query = "select * from users where email=:email and login_source='facebook'";
+//        $count = $eLearningDB->query($query)->execute(array("email" => $fbUserProfile['email']))->count();
+//        if ($count <= 0) {
+//            $user_query = "insert into users (email, first_name, last_name, access_type, login_source) values (:email, :first_name, :last_name, :access_type, :login_source)";
+//            $eLearningDB->query($user_query)->execute(array(
+//                "email" => $fbUserProfile['email'],
+//                "first_name" => $fbUserProfile['first_name'],
+//                "last_name" => $fbUserProfile['last_name'],
+//                "access_type" => "student",
+//                "login_source" => "facebook"
+//            ));
+//        }
+//        $output =  "<h1>You have login successfully <h1>";
+//        $output .= '<h3>Profile Details </h3>';
+//        $output .= '<img src="' . $fbUserData['picture'] . '">';
+//        $output .= '<br/>Facebook ID : ' . $fbUserData['oauth_uid'];
+//        $output .= '<br/>Name : ' . $fbUserData['first_name'] . ' ' . $fbUserData['last_name'];
+//        $output .= '<br/>Email : ' . $fbUserData['email'];
+//        $output .= '<br/>Gender : ' . $fbUserData['gender'];
+////        $output .= '<br/>Locale : ' . $fbUserData['locale'];
+//        $output .= '<br/>Logged in with : Facebook';
+//        $output .= '<br/><a href="' . $fbUserData['link'] . '" target="_blank">Click to Visit Facebook Page</a>';
+//        die($output);
+//        return $fbUserData;
 //        die($output);
     }
 

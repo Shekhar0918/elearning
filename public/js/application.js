@@ -6,12 +6,16 @@ eLearningApp.config(function ($routeProvider) {
                 templateUrl: "templates/home.html",
                 controller: 'homeController'
             })
+            .when("/_=_", {
+                templateUrl: "templates/home.html",
+                controller: 'homeController'
+            })
             .when('/signup', {
                 template: 'templates/signup.html',
                 controller: 'mainController'
             })
-            .when('/googleSignup', {
-                template: 'templates/signup.html',
+            .when('/facebookSignup', {
+                template: 'templates/home.html',
                 controller: 'mainController'
             })
 //            $locationProvider.html5Mode(true);

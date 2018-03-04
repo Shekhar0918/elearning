@@ -90,6 +90,16 @@ return array(
                     ),
                 ),
             ),
+            'facebookSignup' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/facebookSignup',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'facebookSignup',
+                    ),
+                ),
+            ),
             'userSignUp' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(

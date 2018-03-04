@@ -124,17 +124,6 @@ class User {
 
     public function saveUserDetails(Adapter $eLearningDB) {
         $query = "insert into users (email,first_name,last_name,access_type,login_source,gender,google_user_id, facebook_user_id) values (:email,:first_name,:last_name,:access_type,:login_source,:gender,:google_user_id,:facebook_user_id)";
-//        print_r(array(
-//            "email" => $this->getEmailID(),
-//            "first_name" => $this->getFirstName(),
-//            "last_name" => $this->getLastName(),
-//            "access_type" => $this->getAccessType(),
-//            "login_source" => $this->getLoginSource(),
-//            "gender" => $this->getGender(),
-//            "google_user_id" => $this->getGoogleID(),
-//            "facebook_user_id" => $this->getFacebookID()
-//        ));
-//        die("end");
         $eLearningDB->query($query)->execute(array(
             "email" => $this->getEmailID(),
             "first_name" => $this->getFirstName(),
