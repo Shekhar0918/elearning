@@ -1,15 +1,16 @@
-
 <form role="form" method="post" id='userSignUp' action="userSignUp">
     <h2 class="m-t-0 m-b-15" style="color:#5a431b;">Sign Up</h2>
     <div id="signupPage">
         <div>User ID : </div>
-        <div><input type="text" name="user_id" ng-model="user_id"></div>
+        <div><input type="text" id="" name="user_id" ng-model="user_id"></div>
 
         <div>Password : </div>
-        <div><input type="password" name="password" ng-model="user_password"></div>
+        <div><input type="password" id="password" name="password" ng-model="user_password"></div>
 
         <div>Facebook ID : </div>
-        <input type="text" name="facebook_id" ng-model="facebook_id">
+        <input type="text" id="facebook_id" name="facebook_id" ng-model="facebook_id">
+        
+        <input type="hidden" id="login_source" name="login_source" value="google" ng-model="login_source">
         
         <button>Submit</button>
     </div>        

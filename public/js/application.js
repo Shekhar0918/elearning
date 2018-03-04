@@ -10,10 +10,10 @@ eLearningApp.config(function ($routeProvider) {
                 templateUrl: "templates/home.html",
                 controller: 'homeController'
             })
-            .when('/signup', {
-                template: 'templates/signup.html',
-                controller: 'mainController'
-            })
+//            .when('/signup', {
+//                template: 'templates/signup.html',
+//                controller: 'mainController'
+//            })
 //            .when('/facebookSignup', {
 //                template: 'templates/home.html',
 //                controller: 'mainController'

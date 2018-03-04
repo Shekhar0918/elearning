@@ -80,13 +80,23 @@ return array(
                     ),
                 ),
             ),
-            'signup' => array(
+//            'signup' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/signup',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'signup',
+//                    ),
+//                ),
+//            ),
+            'googleSignup' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/signup',
+                    'route' => '/googleSignup',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action' => 'signup',
+                        'action' => 'googleSignup',
                     ),
                 ),
             ),

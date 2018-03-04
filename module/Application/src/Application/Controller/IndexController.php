@@ -102,6 +102,7 @@ class IndexController extends AbstractActionController {
                 $googleUsers->setEmailID($userDetails['email']);
                 $googleUsers->setGender($userDetails['gender']);
                 $googleUserID = $googleUsers->saveGoogleUserDetails($sm->get('dbAdapter'));
+                $googleUsers->setGoogleUserID($googleUserID);
                 
                 $users = new User();
                 $users->setFirstName($userDetails['firstName']);
@@ -110,10 +111,11 @@ class IndexController extends AbstractActionController {
                 $users->setGender($userDetails['gender']);
                 $users->setLoginSource("google");
                 $users->setAccessType("student");
-                $users->setGoogleID($googleUserID);
-                $userID = $users->saveUserDetails($sm->get('dbAdapter'));
+//                $users->setGoogleID($googleUserID);
+                $facebookUser = new FacebookUser();
+                $userID = $users->saveUserDetails($sm->get('dbAdapter'), $googleUsers, $facebookUser);
 //                $userSession->userID = $userID;
-                return $this->redirect()->toRoute('signup');
+                return $this->redirect()->toRoute('googleSignup');
 //                return $this->redirect()->toRoute('home');
             }
 //            die();
@@ -153,6 +155,7 @@ class IndexController extends AbstractActionController {
                 $facebookUser->setEmailID($userDetails['email']);
                 $facebookUser->setGender($userDetails['gender']);
                 $facebookUserID = $facebookUser->saveFacebookUserDetails($sm->get('dbAdapter'));
+                $facebookUser->setFacebookUserID($facebookUserID);
                 
                 $users = new User();
                 $users->setFirstName($userDetails['firstName']);
@@ -161,8 +164,9 @@ class IndexController extends AbstractActionController {
                 $users->setGender($userDetails['gender']);
                 $users->setLoginSource("facebook");
                 $users->setAccessType("student");
-                $users->setFacebookID($facebookUserID);
-                $userID = $users->saveUserDetails($sm->get('dbAdapter'));
+//                $users->setFacebookID($facebookUserID);
+                $googleUser = new GoogleUser();
+                $userID = $users->saveUserDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
                 return $this->redirect()->toRoute('facebookSignup');
             }
         } else {
@@ -182,6 +186,12 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
     
+    public function googleSignupAction(){
+        $viewModel = new ViewModel();
+//        $viewModel->setTerminal(true);
+        return $viewModel;
+    }
+    
     public function userSignUpAction(){
         $userSession = new Container('eLearning');
         $emailID = $userSession->emailID;
@@ -195,11 +205,15 @@ class IndexController extends AbstractActionController {
         $user = new User();
         $user->setUserID($userID);
         $user->setPassword($userPassword);
-        $user->setFacebookID($facebookID);
-        $user->setGoogleID($googleID);
+//        $user->setFacebookID($facebookID);
+//        $user->setGoogleID($googleID);
         $user->setEmailID($emailID);
         $user->setLoginSource($loginSource);
-        $response = $user->saveSignUpDetails($sm->get('dbAdapter'));
+        $googleUser = new GoogleUser();
+        $googleUser->setGoogleUserID($googleID);
+        $facebookUser = new FacebookUser();
+        $facebookUser->setFacebookUserID($facebookID);
+        $response = $user->saveSignUpDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
         $userSession->userID = $response['userID'];
 //        var_dump("userSignUpAction=".$userSession->userID);die();
 //        die("Email ID = " . $emailID . "userID = " . $response['userID']);
