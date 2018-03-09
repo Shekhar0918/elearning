@@ -1,20 +1,75 @@
-<form role="form" method="post" id='userSignUp' action="userSignUp">
+<html>
+    <head>
+    <link href="<?php echo $this->basePath(); ?>/css/bootstrap.min.css" rel="stylesheet">
+          <link href="<?php echo $this->basePath(); ?>/css/bootstrap-responsive.css" rel="stylesheet">
+            <link href="<?php echo $this->basePath(); ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+              <link href="<?php echo $this->basePath(); ?>/css/font-awesome.css" rel="stylesheet">
+                <link href="<?php echo $this->basePath(); ?>/css/font-awesome.min.css" rel="stylesheet">
+                  <link href="<?php echo $this->basePath(); ?>/css/piro-box.css" rel="stylesheet">
+                    <link href="<?php echo $this->basePath(); ?>/css/socialist.css" rel="stylesheet">
+                      <link href="<?php echo $this->basePath(); ?>/css/style.css" rel="stylesheet">
+                       <link href="<?php echo $this->basePath(); ?>/css/style.min.css" rel="stylesheet">
+<style>
+.show-grid {
+	width:100%;
+	padding:10px 10px 10px 10px;
+	float:left;
+	}
+</style>
+    </head>
+    <body>
+    <form role="form" method="post" id='userSignUp' action="userSignUp">
     <h2 class="m-t-0 m-b-15" style="color:#5a431b;">Sign Up</h2>
     <div id="signupPage">
-        <div>User ID : </div>
-        <div><input type="text" id="" name="user_id" ng-model="user_id"></div>
-
-        <div>Password : </div>
-        <div><input type="password" id="password" name="password" ng-model="user_password"></div>
-
-        <div>Facebook ID : </div>
-        <input type="text" id="facebook_id" name="facebook_id" ng-model="facebook_id">
+    <div class="show-grid">
+          <div class="span2">Name : </div>
+            <div class="span2"><input type="text" ng-model="user_name"></div></div>
+              <div class="show-grid">
+             <div class="span2">Select image to upload : </div>
+              <div class="span6">
+             <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit"></div></div>
+              <div class="show-grid">
+            <div class="span2">Designation : </div>
+            <div class="span4"><input type="text" ng-model="user_designation"></div></div>
+            <div class="show-grid">
+            <div class="span2">Organization : </div>
+            <div class="span4"><input type="text" ng-model="user_organization"></div></div>
+            <div class="show-grid">
+            <div class="span2">City : </div>
+            <div class="span4"><input type="text" ng-model="user_city"></div></div>
+            <div class="show-grid">
+            <div class="span2">Country : </div>
+            <div class="span4"><input type="text" ng-model="user_country"></div></div>
+            <div class="show-grid">
+            <div class="span2">Phone : </div>
+            <div class="span4"><input type="tel" ng-model="user_phone"></div></div>
+            <div class="show-grid">
+            <div class="span2">Business Email : </div>
+            <div class="span4"><input type="email" ng-model="user_phone"></div></div>
+ <div class="show-grid">
+        <div class="span2">Facebook ID : </div>
+        <div class="span4"> <input type="text" id="facebook_id" name="facebook_id" ng-model="facebook_id">
         
-        <input type="hidden" id="login_source" name="login_source" value="google" ng-model="login_source">
+        <input type="hidden" id="login_source" name="login_source" value="google" ng-model="login_source"></div></div>
         
-        <button>Submit</button>
+       <div class="show-grid">
+            <div class="span5" style="text-align:right;" > 
+        <button style="background:#333; color:#CCC; padding:10px 10px 10px 10px;">Submit</button></div></div>
     </div>        
 </form>
 <?php
 die();
 ?>
+ <script src="<?php echo $this->basePath(); ?>/js/angular/angular-1.2.26.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-route.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="<?php echo $this->basePath(); ?>/js/application.js"></script>
+             <script src="<?php echo $this->basePath(); ?>/js/bootstrap.js"></script>
+             <script src="<?php echo $this->basePath(); ?>/js/bootstrap.min.js"></script>
+              <script src="<?php echo $this->basePath(); ?>/js/enscroll.min.js"></script>
+               <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
+                 <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
+</body>
+</html>
