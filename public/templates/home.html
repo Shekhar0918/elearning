@@ -13,19 +13,36 @@
         src="https://www.youtube.com/embed/cTLU4BbYLUE">
 </iframe>-->
 <div id="enrolled_program_list">
+    <table>
+        <tr>
+            <th>Program Name</th>
+            <th>Provider</th>
+            <th>Duration</th>
+            <th>Cost</th>
+            <th>Action</th>
+        </tr>
+    <div ng-repeat="program in enrolled_program_list">
+        <tr>
+            <td>{{program.name}}</td>
+            <td>{{program.category}}</td>
+            <td>{{program.content}}</td>
+        </tr>            
+    </div>
+    </table>
+</div>
+<!--<div id="enrolled_program_list">
     <ul ng-repeat="program in enrolled_program_list track by $index">
         <li><b>{{program.program_name}}</b></li>
         <ul ng-repeat="course in program.chapters track by $index">
             <div id='{{"id_"+$index+"_"+$parent.$index}}'></div>
-<!--            <li>{{course.name}} : {{course.content}}
+            <li>{{course.name}} : {{course.content}}
                 <iframe width="420" height="315" src="{{course.content}}">
                 </iframe>
-            </li>-->
+            </li>
         </ul>
         
-            <!--<iframe ng-repeat="course in program.courses" ng-src="{{course.content}}" />-->
+            <iframe ng-repeat="course in program.courses" ng-src="{{course.content}}" />
             
     </ul>
+</div>-->
 </div>
-</div>
-<!--<a href="logout" type="button">Log out</a>-->
