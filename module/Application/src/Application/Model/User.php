@@ -14,8 +14,6 @@ class User {
     private $gender;
     private $accessType;
     private $loginSource;
-//    private $googleID;
-//    private $facebookID;
     private $userID;
     private $password;
 
@@ -66,22 +64,6 @@ class User {
     public function getLoginSource() {
         return $this->loginSource;
     }
-
-//    public function setGoogleID($googleID) {
-//        $this->googleID = $googleID;
-//    }
-//
-//    public function getGoogleID() {
-//        return $this->googleID;
-//    }
-//
-//    public function setFacebookID($facebookID) {
-//        $this->facebookID = $facebookID;
-//    }
-//
-//    public function getFacebookID() {
-//        return $this->facebookID;
-//    }
 
     public function setUserID($userID) {
         $this->userID = $userID;

@@ -44,9 +44,25 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
                                 .success(function (response) {
                                     if (response.status === false && response.statusCode === "notAuthorised") {
                                         location.href = response.url;
-                                    } 
+                                    }
+//                                    alert(response);
                                     $scope.enrolled_program_list = response;
+                                    setTimeout(function () {
+                                        for (var i = 0; i < response.length; i++) {
+                                            for (var j = 0; j < response[i].chapters.length; j++) {
+                                                var vidioIframe = '<iframe width="280" height="315" src="' + response[i].chapters[j].content + '"></iframe>';
+//                                                var vidioIframe = ' <video controls="true"><source src="' + response[i].courses[j].content + '" type="video/mp4" /></video>';
+                                                var videoSrc = $.parseHTML(vidioIframe);
+                                                $("#id_" + i + "_" + j).html(videoSrc);
+                                                
+                                            }
+                                        }
+                                    });
                                 });
+                                //html part link : <div ng-click="linkOnvideoLinkFn(src)">src</div>
+//                                $scope.linkOnvideoLinkFn=function(src){
+//                                    $("#videoBlock").attr("src",src);
+//                                }
 
 
 

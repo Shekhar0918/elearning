@@ -9,12 +9,22 @@
 </table>-->
  <div class="container" style="min-height: 400px;">
 <div><h2>Enrolled Programs</h2></div>
+<!--<iframe width="420" height="315"
+        src="https://www.youtube.com/embed/cTLU4BbYLUE">
+</iframe>-->
 <div id="enrolled_program_list">
-    <ul ng-repeat="program in enrolled_program_list">
+    <ul ng-repeat="program in enrolled_program_list track by $index">
         <li><b>{{program.program_name}}</b></li>
-        <ul ng-repeat="chapter in program.chapters">
-            <li>{{chapter.name}} : <a href={{chapter.content}} target="_blank">{{chapter.content}}</a></li>
+        <ul ng-repeat="course in program.chapters track by $index">
+            <div id='{{"id_"+$index+"_"+$parent.$index}}'></div>
+<!--            <li>{{course.name}} : {{course.content}}
+                <iframe width="420" height="315" src="{{course.content}}">
+                </iframe>
+            </li>-->
         </ul>
+        
+            <!--<iframe ng-repeat="course in program.courses" ng-src="{{course.content}}" />-->
+            
     </ul>
 </div>
 </div>
