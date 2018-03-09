@@ -7,7 +7,7 @@
     <tr><td>Accesss Type : <td><td>{{access_type}}<td></tr>
     <tr><td>Source : <td><td>{{source}}<td></tr>
 </table>-->
-
+ <div class="container" style="min-height: 400px;">
 <div><h2>Enrolled Programs</h2></div>
 <div id="enrolled_program_list">
     <ul ng-repeat="program in enrolled_program_list">
@@ -16,5 +16,6 @@
             <li>{{chapter.name}} : <a href={{chapter.content}} target="_blank">{{chapter.content}}</a></li>
         </ul>
     </ul>
+</div>
 </div>
 <!--<a href="logout" type="button">Log out</a>-->
