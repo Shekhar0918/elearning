@@ -51,7 +51,7 @@ class Program {
 //        }
 //        return $enrolledPrograms;
 
-        $query = "select * from programs where id in (select DISTINCT program_id from enrolled_programs where user_id=:user_id)";
+        $query = "select * from programs where id in (select DISTINCT program_id from enrolled_programs where user_id=:user_id) or type = 'free'";
         $result = $eLearningDB->query($query)->execute(array("user_id" => $userID));
         $enrolledPrograms = array();
         foreach ($result as $resultRow) {
@@ -60,6 +60,7 @@ class Program {
                 "program_name" => $resultRow['program_name'],
                 "category" => $resultRow['category'],
                 "chapters" => $resultRow['chapters'],
+                "content" => $resultRow['content'],
                 "duration" => $resultRow['duration'],
                 "cost" => $resultRow['cost'],
             ));

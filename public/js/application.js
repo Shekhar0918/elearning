@@ -27,26 +27,28 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
         $http.get('getUserInfo')
                 .success(function (response) {
                     if (response.status === false && response.statusCode === "notAuthorised") {
-//                        alert("notAuthorised");
+                        alert("notAuthorised");
                         location.href = response.url;
                     } else if (response.status === "failed") {
-//                         alert("failed");
+                         alert("failed");
                         alert(location.href = 'signup')
                     } else {
 //                        alert(response.status);
-                        $scope.user_id = response.userInfo.userID;
-                        $scope.first_name = response.userInfo.firstName;
-                        $scope.last_name = response.userInfo.lastName;
-                        $scope.access_type = response.userInfo.accessType;
-                        $scope.source = response.userInfo.source;
-
+                        $scope.name = response.userInfo.name;
+                        $scope.designation = response.userInfo.designation;
+                        $scope.organization = response.userInfo.organization;
+                        $scope.city = response.userInfo.city;
+                        $scope.phone = response.userInfo.phone;
+                        $scope.country = response.userInfo.country;
+                        $scope.business_email = response.userInfo.business_email;
+//                        alert("user data");
                         $http.get('getEnrolledPrograms')
                                 .success(function (response) {
                                     if (response.status === false && response.statusCode === "notAuthorised") {
+//                                        alert(response.url);
                                         location.href = response.url;
                                     }
-//                                    alert("hii");
-//                                    alert(response[0].program_name);
+//                                    alert("user data 2");
                                     $scope.enrolled_program_list = response;
 //                                    setTimeout(function () {
 //                                        for (var i = 0; i < response.length; i++) {

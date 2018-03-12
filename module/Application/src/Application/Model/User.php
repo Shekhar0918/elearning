@@ -2,35 +2,30 @@
 
 namespace Application\Model;
 
-use Zend\Db\Adapter\Adapter;;
+use Zend\Db\Adapter\Adapter;
+;
+
 use Application\Model\GoogleUser;
 use Application\Model\FacebookUser;
 
 class User {
 
-    private $firstName;
-    private $lastName;
+    private $name;
     private $emailID;
-    private $gender;
-    private $accessType;
+    private $designation;
+    private $city;
+    private $country;
+    private $phone;
+    private $businessEmail;
     private $loginSource;
-    private $userID;
-    private $password;
+    private $accessType;
 
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
+    public function setName($name) {
+        $this->name = $name;
     }
 
-    public function getFirstName() {
-        return $this->firstName;
-    }
-
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
-    }
-
-    public function getLastName() {
-        return $this->lastName;
+    public function getName() {
+        return $this->name;
     }
 
     public function setEmailID($emailID) {
@@ -41,20 +36,44 @@ class User {
         return $this->emailID;
     }
 
-    public function setGender($gender) {
-        $this->gender = $gender;
+    public function setDesignation($designation) {
+        $this->designation = $designation;
     }
 
-    public function getGender() {
-        return $this->gender;
+    public function getDesignation() {
+        return $this->designation;
     }
 
-    public function setAccessType($accessType) {
-        $this->accessType = $accessType;
+    public function setCity($city) {
+        $this->city = $city;
     }
 
-    public function getAccessType() {
-        return $this->accessType;
+    public function getCity() {
+        return $this->city;
+    }
+
+    public function setCountry($country) {
+        $this->country = $country;
+    }
+
+    public function getCountry() {
+        return $this->country;
+    }
+
+    public function setPhone($phone) {
+        $this->phone = $phone;
+    }
+
+    public function getPhone() {
+        return $this->phone;
+    }
+
+    public function setBusinessEmail($businessEmail) {
+        $this->businessEmail = $businessEmail;
+    }
+
+    public function getBusinessEmail() {
+        return $this->businessEmail;
     }
 
     public function setLoginSource($loginSource) {
@@ -65,20 +84,12 @@ class User {
         return $this->loginSource;
     }
 
-    public function setUserID($userID) {
-        $this->userID = $userID;
+    public function setAccessType($accessType) {
+        $this->accessType = $accessType;
     }
 
-    public function getUserID() {
-        return $this->userID;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
-    public function getPassword() {
-        return $this->password;
+    public function getAccessType() {
+        return $this->accessType;
     }
 
     function __construct() {
@@ -92,11 +103,14 @@ class User {
         if ($result->count() > 0) {
             $result = $result->current();
             $userInfo = array(
-                "userID" => $result['email'],
-                "firstName" => $result['first_name'],
-                "lastName" => $result['last_name'],
-                "accessType" => $result['access_type'],
-                "source" => $result['login_source']
+                "email" => $result['email'],
+                "name" => $result['name'],
+                "designation" => $result['designation'],
+                "organization" => $result['organization'],
+                "city" => $result['city'],
+                "country" => $result['country'],
+                "phone" => $result['phone'],
+                "business_email" => $result['business_email']
             );
             $response = array("status" => "success", "userInfo" => $userInfo);
         } else {
@@ -119,14 +133,12 @@ class User {
                 $eLearningDB->query($update_query)->execute(array("google_user_id" => $googleUsers->getGoogleUserID(), "email" => $this->getEmailID()));
             }
         } else {
-            $query = "insert into users (email,first_name,last_name,access_type,login_source,gender,google_user_id, facebook_user_id) values (:email,:first_name,:last_name,:access_type,:login_source,:gender,:google_user_id,:facebook_user_id)";
+            $query = "insert into users (email,name,access_type,login_source,google_user_id, facebook_user_id) values (:email,:name,:access_type,:login_source,:google_user_id,:facebook_user_id)";
             $eLearningDB->query($query)->execute(array(
                 "email" => $this->getEmailID(),
-                "first_name" => $this->getFirstName(),
-                "last_name" => $this->getLastName(),
+                "name" => $this->getName(),
                 "access_type" => $this->getAccessType(),
                 "login_source" => $this->getLoginSource(),
-                "gender" => $this->getGender(),
                 "google_user_id" => $googleUsers->getGoogleUserID(),
                 "facebook_user_id" => $faceboolUsers->getFacebookUserID()
             ));
@@ -148,7 +160,8 @@ class User {
     }
 
     public function saveSignUpDetails(Adapter $eLearningDB, $googleUser, $facebookUser) {
-        $encryptedPassword = !empty($this->getPassword()) ? md5($this->getPassword()) : "";
+//        $encryptedPassword = !empty($this->getPassword()) ? md5($this->getPassword()) : "";
+        try{
         $result = $eLearningDB->query("select * from users where email=:email")->execute(array("email" => $this->getEmailID()));
         if ($result->count() > 0) {
             $userResult = $result->current();
@@ -159,37 +172,47 @@ class User {
 //                $facbookUser->setFacebookID($this->getFacebookID());
                 $facebookUser->setEmailID($this->getEmailID());
                 $facebookUserID = $facebookUser->saveFacebookUserDetails($eLearningDB);
-                $query = "update users set user_id=:user_id,password=:password,facebook_user_id=:facebook_user_id where email=:email";
+                $query = "update users set name=:name,designation=:designation,city=:city,country=:country,phone=:phone,business_email=:business_email,facebook_user_id=:facebook_user_id where email=:email";
                 $eLearningDB->query($query)->execute(array(
-                    "user_id" => $this->getUserID(),
-                    "password" => $encryptedPassword,
+                    "name" => $this->getName(),
+                    "designation" => $this->getDesignation(),
+                    "city" => $this->getCity(),
+                    "country" => $this->getCountry(),
+                    "phone" => $this->getPhone(),
+                    "business_email" => $this->getBusinessEmail(),
                     "facebook_user_id" => $facebookUserID,
-                    "email" => $this->getEmailID(
-                )));
+                    "email" => $this->getEmailID()
+                ));
             } else {
 //                $googleUser = new GoogleUser();
 //                $googleUser->setGoogleID($this->getGoogleID());
                 $googleUser->setEmailID($this->getEmailID());
                 $gacebookUserID = $googleUser->saveGoogleUserDetails($eLearningDB);
-                $query = "update users set user_id=:user_id,password=:password,google_user_id=:google_user_id where email=:email";
+                $query = "update users set name=:name,designation=:designation,city=:city,country=:country,phone=:phone,business_email=:business_email,google_user_id=:google_user_id where email=:email";
                 $eLearningDB->query($query)->execute(array(
-                    "user_id" => $this->getUserID(),
-                    "password" => $encryptedPassword,
+                    "name" => $this->getName(),
+                    "designation" => $this->getDesignation(),
+                    "city" => $this->getCity(),
+                    "country" => $this->getCountry(),
+                    "phone" => $this->getPhone(),
+                    "business_email" => $this->getBusinessEmail(),
                     "google_user_id" => $gacebookUserID,
                     "email" => $this->getEmailID()
                 ));
             }
         } else {
-            $query = "insert into users (email,first_name,last_name,password,access_type,login_source,gender,google_user_id, facebook_user_id) values (:email,:first_name,:last_name,:password,:access_type,:login_source,:gender,:google_user_id,:facebook_user_id)";
+            $query = "insert into users (email,name,designation,city,country,phone,business_email,access_type,login_source,google_user_id,facebook_user_id) values (:email,:name,:designation,:city,:country,:phone,:business_email,:access_type,:login_source,:google_user_id,:facebook_user_id)";
             $eLearningDB->query($query)->execute(array(
                 "email" => $this->getEmailID(),
-                "first_name" => $this->getFirstName(),
-                "last_name" => $this->getLastName(),
-                "password" => $encryptedPassword,
+                "name" => $this->getName(),
+                "designation" => $this->getDesignation(),
+                "city" => $this->getCity(),
+                "country" => $this->getCountry(),
+                "phone" => $this->getPhone(),
+                "business_email" => $this->getBusinessEmail(),
                 "access_type" => $this->getAccessType(),
                 "login_source" => $this->getLoginSource(),
-                "gender" => $this->getGender(),
-                "google_user_id" => $googleUser->getGoogleUserID(),
+                "google_user_id" => $facebookUser->getFacebookUserID(),
                 "facebook_user_id" => $facebookUser->getFacebookUserID()
             ));
             $userID = $eLearningDB->getDriver()->getLastGeneratedValue();
@@ -197,6 +220,9 @@ class User {
         $response = array("userID" => $userID);
 //        die("user_id=".$userID);
         return $response;
+        }  catch (\Exception $ex){
+            die($ex->getMessage());
+        }
     }
 
 }

@@ -89,31 +89,42 @@ class IndexController extends AbstractActionController {
             $userSession->emailID = $response["userDetails"]["email"];
 //            $isGoogleUserExist = GoogleUser::isGoogleUserExist($sm->get('dbAdapter'), $userDetails["email"]);
             $isUserExist = User::isUserExist($sm->get('dbAdapter'), $userDetails["email"]);
-            if($isUserExist["status"]){    
+            if ($isUserExist["status"]) {
 //                die("exist");
 //                var_dump($isUserExist);die();
                 $userSession->userID = $isUserExist['userID'];
                 return $this->redirect()->toRoute('home');
-            }else{
+            } else {
 //                die("not exist");
+//                print_r($userDetails);die();
                 $googleUsers = new GoogleUser();
-                $googleUsers->setFirstName($userDetails['firstName']);
-                $googleUsers->setLastName($userDetails['lastName']);
+                $googleUsers->setName($userDetails['name']);
                 $googleUsers->setEmailID($userDetails['email']);
-                $googleUsers->setGender($userDetails['gender']);
                 $googleUserID = $googleUsers->saveGoogleUserDetails($sm->get('dbAdapter'));
                 $googleUsers->setGoogleUserID($googleUserID);
-                
-                $users = new User();
-                $users->setFirstName($userDetails['firstName']);
-                $users->setLastName($userDetails['lastName']);
-                $users->setEmailID($userDetails['email']);
-                $users->setGender($userDetails['gender']);
-                $users->setLoginSource("google");
-                $users->setAccessType("student");
+
+                $user = new User();
+//                $users->setName($userDetails['name']);
+//                $users->setLastName($userDetails['lastName']);
+//                $users->setEmailID($userDetails['email']);
+//                $users->setGender($userDetails['gender']);
+//                $users->setLoginSource("google");
+//                $users->setAccessType("student");
+
+                $user->setName($userDetails['name']);
+                $user->setEmailID($userDetails['email']);
+//                $user->setDesignation($userDetails['designation']);
+//                $user->setCity($userDetails['city']);
+//                $user->setCountry($userDetails['country']);
+//                $user->setPhone($userDetails['phone']);
+//                $user->setBusinessEmail($userDetails['business_email']);
+                $user->setLoginSource("google");
+                $user->setAccessType("student");
+
+
 //                $users->setGoogleID($googleUserID);
                 $facebookUser = new FacebookUser();
-                $userID = $users->saveUserDetails($sm->get('dbAdapter'), $googleUsers, $facebookUser);
+                $userID = $user->saveUserDetails($sm->get('dbAdapter'), $googleUsers, $facebookUser);
 //                $userSession->userID = $userID;
                 return $this->redirect()->toRoute('googleSignup');
 //                return $this->redirect()->toRoute('home');
@@ -127,8 +138,8 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
 
-     public function facebookAccessTokenAction() {
-         $userSession = new Container('eLearning');
+    public function facebookAccessTokenAction() {
+        $userSession = new Container('eLearning');
 //        $viewModel = new ViewModel();
         $sm = $this->getServiceLocator();
         $fbCredentials = $sm->get('Config')['fbCredentials'];
@@ -143,71 +154,77 @@ class IndexController extends AbstractActionController {
             $userSession->emailID = $response["userDetails"]["email"];
             $isFacebookUserExist = FacebookUser::isFacebookUserExist($sm->get('dbAdapter'), $userDetails["email"]);
             $isUserExist = User::isUserExist($sm->get('dbAdapter'), $userDetails["email"]);
-            if($isUserExist["status"] && $isFacebookUserExist){  
+            if ($isUserExist["status"] && $isFacebookUserExist) {
 //                die("exist");
                 $userSession->userID = $isUserExist['userID'];
                 return $this->redirect()->toRoute('home');
-            }else{
+            } else {
 //                die("notexist");
                 $facebookUser = new FacebookUser();
-                $facebookUser->setFirstName($userDetails['firstName']);
-                $facebookUser->setLastName($userDetails['lastName']);
+                $facebookUser->setName($userDetails['name']);
                 $facebookUser->setEmailID($userDetails['email']);
-                $facebookUser->setGender($userDetails['gender']);
                 $facebookUserID = $facebookUser->saveFacebookUserDetails($sm->get('dbAdapter'));
                 $facebookUser->setFacebookUserID($facebookUserID);
-                
-                $users = new User();
-                $users->setFirstName($userDetails['firstName']);
-                $users->setLastName($userDetails['lastName']);
-                $users->setEmailID($userDetails['email']);
-                $users->setGender($userDetails['gender']);
-                $users->setLoginSource("facebook");
-                $users->setAccessType("student");
+
+                $user = new User();
+                $user->setName($userDetails['name']);
+                $user->setEmailID($userDetails['email']);
+                $user->setGender($userDetails['gender']);
+                $user->setLoginSource("facebook");
+                $user->setAccessType("student");
 //                $users->setFacebookID($facebookUserID);
                 $googleUser = new GoogleUser();
-                $userID = $users->saveUserDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
+                $userID = $user->saveUserDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
                 return $this->redirect()->toRoute('facebookSignup');
             }
         } else {
             return $this->redirect()->toRoute('login');
         }
     }
-    
-    public function signupAction(){
+
+    public function signupAction() {
         $viewModel = new ViewModel();
 //        $viewModel->setTerminal(true);
         return $viewModel;
     }
-    
-    public function facebookSignupAction(){
+
+    public function facebookSignupAction() {
         $viewModel = new ViewModel();
 //        $viewModel->setTerminal(true);
         return $viewModel;
     }
-    
-    public function googleSignupAction(){
+
+    public function googleSignupAction() {
         $viewModel = new ViewModel();
 //        $viewModel->setTerminal(true);
         return $viewModel;
     }
-    
-    public function userSignUpAction(){
+
+    public function userSignUpAction() {
         $userSession = new Container('eLearning');
         $emailID = $userSession->emailID;
         $sm = $this->getServiceLocator();
-        $userID = $this->params()->fromPost('user_id');
-        $userPassword = $this->params()->fromPost('password');
-        $facebookID = $this->params()->fromPost('facebook_id');
+        $name = $this->params()->fromPost('user_name');
+        $userDesignation = $this->params()->fromPost('user_designation');
+        $userDesignation = $this->params()->fromPost('user_organization');
+        $userCity = $this->params()->fromPost('user_city');
+        $userCountry = $this->params()->fromPost('user_country');
+        $userPhone = $this->params()->fromPost('user_phone');
+        $businessEmail = $this->params()->fromPost('business_email');
         $googleID = $this->params()->fromPost('google_id');
+        $facebookID = $this->params()->fromPost('facebook_id');
         $loginSource = $this->params()->fromPost('login_source');
+
+
 //        echo $emailID . " === " . $userID . "====" . $userPassword . "====" . $facebookID;die("end");
         $user = new User();
-        $user->setUserID($userID);
-        $user->setPassword($userPassword);
-//        $user->setFacebookID($facebookID);
-//        $user->setGoogleID($googleID);
+        $user->setName($name);
         $user->setEmailID($emailID);
+        $user->setDesignation($userDesignation);
+        $user->setCity($userCity);
+        $user->setCountry($userCountry);
+        $user->setPhone($userPhone);
+        $user->setBusinessEmail($businessEmail);
         $user->setLoginSource($loginSource);
         $googleUser = new GoogleUser();
         $googleUser->setGoogleUserID($googleID);
@@ -215,9 +232,22 @@ class IndexController extends AbstractActionController {
         $facebookUser->setFacebookUserID($facebookID);
         $response = $user->saveSignUpDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
         $userSession->userID = $response['userID'];
-//        var_dump("userSignUpAction=".$userSession->userID);die();
-//        die("Email ID = " . $emailID . "userID = " . $response['userID']);
         return $this->redirect()->toRoute('home');
+
+
+////        $user->setFacebookID($facebookID);
+////        $user->setGoogleID($googleID);
+//        $user->setEmailID($emailID);
+//        $user->setLoginSource($loginSource);
+//        $googleUser = new GoogleUser();
+//        $googleUser->setGoogleUserID($googleID);
+//        $facebookUser = new FacebookUser();
+//        $facebookUser->setFacebookUserID($facebookID);
+//        $response = $user->saveSignUpDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
+//        $userSession->userID = $response['userID'];
+////        var_dump("userSignUpAction=".$userSession->userID);die();
+////        die("Email ID = " . $emailID . "userID = " . $response['userID']);
+//        return $this->redirect()->toRoute('home');
     }
 
     public function logoutAction() {
@@ -240,8 +270,8 @@ class IndexController extends AbstractActionController {
         $userInfo = $user->getUserInfoByUserID($sm->get('dbAdapter'), $userID);
         die(json_encode($userInfo));
     }
-    
-    public function getEnrolledProgramsAction(){
+
+    public function getEnrolledProgramsAction() {
         $userSession = new Container('eLearning');
         if (!isset($userSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
