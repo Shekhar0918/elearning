@@ -31,7 +31,7 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
                         location.href = response.url;
                     } else if (response.status === "failed") {
                          alert("failed");
-                        alert(location.href = 'signup')
+                        location.href = response.url;//'signup'
                     } else {
 //                        alert(response.status);
                         $scope.name = response.userInfo.name;

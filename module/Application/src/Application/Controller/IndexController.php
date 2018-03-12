@@ -161,15 +161,15 @@ class IndexController extends AbstractActionController {
             } else {
 //                die("notexist");
                 $facebookUser = new FacebookUser();
-                $facebookUser->setName($userDetails['name']);
+                $facebookUser->setName($userDetails['firstName'] . " " . $userDetails['lastName']);
                 $facebookUser->setEmailID($userDetails['email']);
                 $facebookUserID = $facebookUser->saveFacebookUserDetails($sm->get('dbAdapter'));
                 $facebookUser->setFacebookUserID($facebookUserID);
 
                 $user = new User();
-                $user->setName($userDetails['name']);
+                $user->setName($userDetails['firstName'] . " " . $userDetails['lastName']);
                 $user->setEmailID($userDetails['email']);
-                $user->setGender($userDetails['gender']);
+//                $user->setGender($userDetails['gender']);
                 $user->setLoginSource("facebook");
                 $user->setAccessType("student");
 //                $users->setFacebookID($facebookUserID);
@@ -206,7 +206,7 @@ class IndexController extends AbstractActionController {
         $sm = $this->getServiceLocator();
         $name = $this->params()->fromPost('user_name');
         $userDesignation = $this->params()->fromPost('user_designation');
-        $userDesignation = $this->params()->fromPost('user_organization');
+        $userOrganization = $this->params()->fromPost('user_organization');
         $userCity = $this->params()->fromPost('user_city');
         $userCountry = $this->params()->fromPost('user_country');
         $userPhone = $this->params()->fromPost('user_phone');
@@ -221,6 +221,7 @@ class IndexController extends AbstractActionController {
         $user->setName($name);
         $user->setEmailID($emailID);
         $user->setDesignation($userDesignation);
+        $user->setOrganization($userOrganization);
         $user->setCity($userCity);
         $user->setCountry($userCountry);
         $user->setPhone($userPhone);
@@ -254,7 +255,7 @@ class IndexController extends AbstractActionController {
         $user_session = new Container('eLearning');
         $googleClient = new \Google_Client();
         $googleClient->revokeToken();
-        $user_session->getManager()->getStorage()->clear('elearning');
+        $user_session->getManager()->getStorage()->clear('eLearning');
         return $this->redirect()->toRoute('login');
     }
 

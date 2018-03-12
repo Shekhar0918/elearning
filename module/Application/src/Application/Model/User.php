@@ -13,6 +13,7 @@ class User {
     private $name;
     private $emailID;
     private $designation;
+    private $organization;
     private $city;
     private $country;
     private $phone;
@@ -42,6 +43,14 @@ class User {
 
     public function getDesignation() {
         return $this->designation;
+    }
+
+    public function setOrganization($organization) {
+        $this->organization = $organization;
+    }
+
+    public function getOrganization() {
+        return $this->organization;
     }
 
     public function setCity($city) {
@@ -114,7 +123,7 @@ class User {
             );
             $response = array("status" => "success", "userInfo" => $userInfo);
         } else {
-            $response = array("status" => "failed");
+            $response = array("status" => "failed", "url" => "login");
         }
 //        var_dump($response);
         return $response;
@@ -172,10 +181,11 @@ class User {
 //                $facbookUser->setFacebookID($this->getFacebookID());
                 $facebookUser->setEmailID($this->getEmailID());
                 $facebookUserID = $facebookUser->saveFacebookUserDetails($eLearningDB);
-                $query = "update users set name=:name,designation=:designation,city=:city,country=:country,phone=:phone,business_email=:business_email,facebook_user_id=:facebook_user_id where email=:email";
+                $query = "update users set name=:name,designation=:designation,organization=:organization,city=:city,country=:country,phone=:phone,business_email=:business_email,facebook_user_id=:facebook_user_id where email=:email";
                 $eLearningDB->query($query)->execute(array(
                     "name" => $this->getName(),
                     "designation" => $this->getDesignation(),
+                    "organization" => $this->getOrganization(),
                     "city" => $this->getCity(),
                     "country" => $this->getCountry(),
                     "phone" => $this->getPhone(),
@@ -188,10 +198,11 @@ class User {
 //                $googleUser->setGoogleID($this->getGoogleID());
                 $googleUser->setEmailID($this->getEmailID());
                 $gacebookUserID = $googleUser->saveGoogleUserDetails($eLearningDB);
-                $query = "update users set name=:name,designation=:designation,city=:city,country=:country,phone=:phone,business_email=:business_email,google_user_id=:google_user_id where email=:email";
+                $query = "update users set name=:name,designation=:designation,organization=:organization,city=:city,country=:country,phone=:phone,business_email=:business_email,google_user_id=:google_user_id where email=:email";
                 $eLearningDB->query($query)->execute(array(
                     "name" => $this->getName(),
                     "designation" => $this->getDesignation(),
+                    "organization" => $this->getOrganization(),
                     "city" => $this->getCity(),
                     "country" => $this->getCountry(),
                     "phone" => $this->getPhone(),
@@ -201,11 +212,12 @@ class User {
                 ));
             }
         } else {
-            $query = "insert into users (email,name,designation,city,country,phone,business_email,access_type,login_source,google_user_id,facebook_user_id) values (:email,:name,:designation,:city,:country,:phone,:business_email,:access_type,:login_source,:google_user_id,:facebook_user_id)";
+            $query = "insert into users (email,name,designation,,organization,city,country,phone,business_email,access_type,login_source,google_user_id,facebook_user_id) values (:email,:name,:designation,:city,:organization,:country,:phone,:business_email,:access_type,:login_source,:google_user_id,:facebook_user_id)";
             $eLearningDB->query($query)->execute(array(
                 "email" => $this->getEmailID(),
                 "name" => $this->getName(),
                 "designation" => $this->getDesignation(),
+                "organization" => $this->getOrganization(),
                 "city" => $this->getCity(),
                 "country" => $this->getCountry(),
                 "phone" => $this->getPhone(),
