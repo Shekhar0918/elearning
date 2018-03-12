@@ -3,6 +3,8 @@
 namespace Application\Model;
 
 use Zend\Db\Adapter\Adapter;
+use Application\Model\MailerPhp;
+use Application\Model\User;
 
 class GoogleAuthentication {
 
@@ -120,6 +122,18 @@ class GoogleAuthentication {
         } catch (\Exception $ex) {
             die("Error: " . $ex->getMessage());
         }
+    }
+    
+    public function sendVerificationMail(Adapter $eLearningDB, $user){
+        $emailID = $this->getGoogleUserID();
+        $name = $user->getName();
+        $recipients = array(
+            (object) array("email" => $emailID, "name" => $name)
+        );
+        $emailDetails = json_encode((object) array('From' => 'shashi.shekhar0918@gmail.com', "FromName" => "Shashishekhar", "Recipients" => $recipients, "Subject" => "Test mail", "Body" => "This is a test mail.", "AltBody" => "EmailBody"));
+        $emailDetails = json_decode($emailDetails);
+        $mailer = new MailerPhp();
+        $sendMail = $mailer->sendMail($emailDetails);
     }
 
 }

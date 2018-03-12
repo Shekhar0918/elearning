@@ -232,6 +232,8 @@ class IndexController extends AbstractActionController {
         $facebookUser = new FacebookUser();
         $facebookUser->setFacebookUserID($facebookID);
         $response = $user->saveSignUpDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
+        $googleAuthentication = new GoogleAuthentication();
+//        $googleAuthentication->sendVerificationMail($sm->get('dbAdapter'), $user);
         $userSession->userID = $response['userID'];
         return $this->redirect()->toRoute('home');
 
