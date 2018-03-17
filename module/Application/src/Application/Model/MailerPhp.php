@@ -7,9 +7,8 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
-use PHPMailer;
 
-class MailerPhp {
+class MailerPHP {
 
     function __construct() {
         
@@ -17,8 +16,17 @@ class MailerPhp {
 
     function sendMail($emailDetails) {
         //PHPMailer Object
-        $mail = new PHPMailer();  
-//        
+        $mail = new \PHPMailer();
+
+        $mail->IsSMTP();
+        $mail->SMTPDebug = 1;
+        $mail->SMTPAuth = true;
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->Username = "shashi.shekhar0918@gmail.com";
+        $mail->Password = "shashi@09";
+        $mail->SMTPSecure = 'tls';
+
         //From email address and name
 //        $mail->From = "sshekhar@radiancesystems.com";
 //        $mail->FromName = "Shashi Shekhar";        
@@ -53,6 +61,7 @@ class MailerPhp {
             echo "";
         }
     }
-    
- }
+
+}
+
 ?>

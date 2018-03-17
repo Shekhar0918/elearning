@@ -12,7 +12,8 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
 //
 // Setup autoloading
 require 'init_autoloader.php';
-require getcwd(). DIRECTORY_SEPARATOR . 'module' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'Model' . DIRECTORY_SEPARATOR . 'PHPMailerMaster' . DIRECTORY_SEPARATOR . 'class.phpmailer.php';
+//require getcwd(). DIRECTORY_SEPARATOR . 'module' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'Model' . DIRECTORY_SEPARATOR . 'PHPMailerMaster' . DIRECTORY_SEPARATOR . 'class.phpmailer.php';
+require getcwd(). DIRECTORY_SEPARATOR . 'module' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'Model' . DIRECTORY_SEPARATOR . 'PHPMailerMaster' . DIRECTORY_SEPARATOR . 'PHPMailerAutoload.php';
 
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();

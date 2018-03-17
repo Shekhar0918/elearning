@@ -6,12 +6,21 @@ use Zend\Db\Adapter\Adapter;
 
 class Program {
 
+    private $programID;
     private $enrollementID;
     private $enrolledProgramID;
     private $enrolledProgram;
 
     function __construct() {
         
+    }
+    
+    public function setProgramID($programID){
+        $this->programID = $programID;
+    }
+    
+    public function getProgramID(){
+        return $this->programID;
     }
 
     public function setEnrollmentID($enrollementID) {
@@ -66,6 +75,35 @@ class Program {
             ));
         }
         return $enrolledPrograms;
+    }
+
+    public function getProgramList(Adapter $eLearningDB) {
+        $query = "select * from programs";
+        $programList = array();
+        $result = $eLearningDB->query($query)->execute();
+        foreach ($result as $programRow) {
+            array_push($programList, array(
+                "id" => $programRow["id"],
+                "program_name" => $programRow["program_name"],
+                "category" => $programRow["category"],
+                "content" => $programRow["content"],
+                "duration" => $programRow["duration"],
+                "cost" => $programRow["cost"]
+            ));
+        }
+        return $programList;
+    }
+    
+    public function registerProgram(Adapter $eLearningDB, $userID){
+        $programID = $this->getProgramID();
+        $query = "insert into enrolled_programs (user_id, program_id) values (:user_id, :program_id)";
+        $result = $eLearningDB->query($query)->execute(array("user_id" => $userID, "program_id" => $programID));
+        $count = $result->getAffectedRows();
+        if($count > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

@@ -51,7 +51,8 @@ class Google_Service_CloudResourceManager_Resource_Projects extends Google_Servi
    *
    * Authorization requires the Google IAM permission
    * `resourcemanager.projects.create` on the specified parent for the new
-   * project. (projects.create)
+   * project. The parent is identified by a specified ResourceId, which must
+   * include both an ID and a type, such as organization. (projects.create)
    *
    * @param Google_Service_CloudResourceManager_Project $postBody
    * @param array $optParams Optional parameters.

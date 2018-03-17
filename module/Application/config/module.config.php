@@ -140,6 +140,26 @@ return array(
                     ),
                 ),
             ),
+            'getProgramList' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getProgramList',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'getProgramList',
+                    ),
+                ),
+            ),
+            'registerProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/registerProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'registerProgram',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(

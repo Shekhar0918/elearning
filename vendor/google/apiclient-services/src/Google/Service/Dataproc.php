@@ -46,7 +46,7 @@ class Google_Service_Dataproc extends Google_Service
   public function __construct(Google_Client $client)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://dataproc.googleapis.com/';
+    $this->rootUrl = 'https://content-dataproc.googleapis.com/';
     $this->servicePath = '';
     $this->version = 'v1';
     $this->serviceName = 'dataproc';
@@ -71,6 +71,10 @@ class Google_Service_Dataproc extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'requestId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
               ),
             ),'delete' => array(
               'path' => 'v1/projects/{projectId}/regions/{region}/clusters/{clusterName}',
@@ -90,6 +94,10 @@ class Google_Service_Dataproc extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'requestId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'clusterUuid' => array(
                   'location' => 'query',
@@ -182,11 +190,15 @@ class Google_Service_Dataproc extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'updateMask' => array(
+                'gracefulDecommissionTimeout' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'gracefulDecommissionTimeout' => array(
+                'requestId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'updateMask' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

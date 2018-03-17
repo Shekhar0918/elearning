@@ -1,0 +1,103 @@
+<style>
+.previewEntityContainer {
+
+        position: fixed; /* Stay in place */
+        z-index: 9999; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .previewEntity {
+        background: rgba(249, 248, 247, 0.99) !important;
+        margin: 5% auto; /* 15% from the top and centered */
+        padding: 10px 0px 5px 0px;
+        border: 1px solid #888;
+        border-radius: 5px 5px 0px 0px;
+		color:#000;
+		
+       
+    }
+	.previewEntity1 {
+    background: rgba(249, 248, 247, 0.99) !important;
+    margin: 5% auto;
+    padding: 10px 0px 5px 0px;
+    border: 1px solid #888;
+    border-radius: 5px 5px 0px 0px;
+    width: 95%;
+}
+    .popup-cal {
+        width: 90%;
+    }
+    .popup-cal1 {
+        width: 40%;
+    }
+    .pop-up-header {
+
+        font-size: 14px;
+        font-weight: 600;
+        top: -10px;
+        position: relative;
+        padding: 5px 5px 5px 5px;
+        float: left;
+        width: 99.99%;
+        background-color:#052e70;
+        border-radius: 5px 5px 0px 0px;
+		z-index:999;
+		
+    }    
+</style>
+<div class="container" style="min-height: 400px;"><button ng-click="newProgramfn()">Register Program</button>
+<div><h2>Enrolled Programs</h2></div>
+<!--<iframe width="420" height="315"
+        src="https://www.youtube.com/embed/cTLU4BbYLUE">
+</iframe>-->
+<div id="enrolled_program_list">
+    <table>
+        <tr>
+            <th>Program Name</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Duration</th>
+            <th>Cost</th>
+        </tr>
+    <!--<div ng-repeat="program in enrolled_program_list">-->
+        <tr ng-repeat="program in enrolled_program_list">
+            <td>{{program.program_name}}</td>
+            <td>{{program.category}}</td>
+            <td>{{program.content}}</td>
+            <td>{{program.duration}}</td>
+            <td>{{program.cost}}</td>
+        </tr>            
+    <!--</div>-->
+    </table>
+</div>
+<!--<div id="enrolled_program_list">
+    <ul ng-repeat="program in enrolled_program_list track by $index">
+        <li><b>{{program.program_name}}</b></li>
+        <ul ng-repeat="course in program.chapters track by $index">
+            <div id='{{"id_"+$index+"_"+$parent.$index}}'></div>
+            <li>{{course.name}} : {{course.content}}
+                <iframe width="420" height="315" src="{{course.content}}">
+                </iframe>
+            </li>
+        </ul>
+        
+            <iframe ng-repeat="course in program.courses" ng-src="{{course.content}}" />
+            
+    </ul>
+</div>-->
+</div>
+<div ng-if="showEnrollProgram" class="previewEntityContainer">
+        <div id="showEnrollProgram" class="previewEntity popup-cal">
+            <span class="pop-up-header">Notes</span>
+            <a href="#" class="pop-up-right"  ng-click="cancelEnrollProgram();$event.preventDefault();"></a>
+            <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;">
+                <listofprogram listofprogram="listOfProgramSetting" ></listofprogram>
+                        </div>
+        </div>
+    </div>

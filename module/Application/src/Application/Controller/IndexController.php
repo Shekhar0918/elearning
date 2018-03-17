@@ -12,7 +12,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Model\MailerPhp;
+use Application\Model\MailerPHP;
 use Zend\Session\Container;
 use Application\Model\GoogleAuthentication;
 use Application\Model\FacebookAuthentication;
@@ -236,21 +236,6 @@ class IndexController extends AbstractActionController {
 //        $googleAuthentication->sendVerificationMail($sm->get('dbAdapter'), $user);
         $userSession->userID = $response['userID'];
         return $this->redirect()->toRoute('home');
-
-
-////        $user->setFacebookID($facebookID);
-////        $user->setGoogleID($googleID);
-//        $user->setEmailID($emailID);
-//        $user->setLoginSource($loginSource);
-//        $googleUser = new GoogleUser();
-//        $googleUser->setGoogleUserID($googleID);
-//        $facebookUser = new FacebookUser();
-//        $facebookUser->setFacebookUserID($facebookID);
-//        $response = $user->saveSignUpDetails($sm->get('dbAdapter'), $googleUser, $facebookUser);
-//        $userSession->userID = $response['userID'];
-////        var_dump("userSignUpAction=".$userSession->userID);die();
-////        die("Email ID = " . $emailID . "userID = " . $response['userID']);
-//        return $this->redirect()->toRoute('home');
     }
 
     public function logoutAction() {
@@ -285,16 +270,50 @@ class IndexController extends AbstractActionController {
         $enrolledProgramList = $program->getEnrolledProgramsByUserID($sm->get('dbAdapter'), $userID);
         die(json_encode($enrolledProgramList));
     }
+    
+    public function getProgramListAction(){
+        $userSession = new Container('eLearning');
+        if (!isset($userSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $userID = $userSession->userID;
+        $sm = $this->getServiceLocator();
+        $program = new Program();
+        $programList = $program->getProgramList($sm->get('dbAdapter'));
+        die(json_encode($programList));
+    }
+    
+    public function registerProgramAction(){
+        $userSession = new Container('eLearning');
+        if (!isset($userSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $userID = $userSession->userID;
+        $sm = $this->getServiceLocator();
+        $program_data = json_decode($this->getRequest()->getContent())->program;
+//        var_dump($program_data);
+        $program = new Program();
+        $program_id = $program->setProgramID($program_data->id);
+        $status = $program->registerProgram($sm->get('dbAdapter'), $userID);
+        if($status){
+            $response = array("status" => "sucsess", "message" => "Registered Successfully!");
+        }else{
+            $response = array("status" => "sucsess", "message" => "Registration Failed!");
+        }
+        die(json_encode($response));
+    }
 
     public function sendMailAction() {
 //        $emailDetails = $this->getRequest()->getParam('emailDetails');
         $recipients = array(
-            (object) array("email" => "sshekhar@radiancesystems.com", "name" => "ShashiShekhar")
+            (object) array("email" => "shashi.shekhar0918@gmail.com", "name" => "Shekhar")
         );
-        $emailDetails = json_encode((object) array('From' => 'sshekhar@radiancesystems.com', "FromName" => "Shashishekhar", "Recipients" => $recipients, "Subject" => "Test mail", "Body" => "This is a test mail.", "AltBody" => "EmailBody"));
+        $emailDetails = json_encode((object) array('From' => 'shekharshashi0989@gmail.com.com', "FromName" => "Shashishekhar", "Recipients" => $recipients, "Subject" => "Test mail", "Body" => "This is a test mail.", "AltBody" => "EmailBody"));
         $emailDetails = json_decode($emailDetails);
-        $mailer = new MailerPhp();
-        $sendMail = $mailer->sendMail($emailDetails);
+//        $mailer = new MailerPhp();
+//        $sendMail = $mailer->sendMail($emailDetails);
+        
+        $zendMailer = new MailerPHP();
+        $sendMail = $zendMailer->sendMail($emailDetails);
     }
-
 }
