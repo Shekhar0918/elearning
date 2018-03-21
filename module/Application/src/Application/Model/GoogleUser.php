@@ -84,5 +84,12 @@ class GoogleUser {
         }
         return $googleUserID;
     }
+    
+    public function getGoogleUserInfoByGoogleUserID(Adapter $eLearningDB){
+        $googleUserID = $this->getGoogleUserID();
+        $query = "select * from google_users where id=:google_user_id";
+        $result = $eLearningDB->query($query)->execute(array("google_user_id" => $googleUserID))->current();
+        return $result;
+    }
 
 }

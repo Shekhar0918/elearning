@@ -57,9 +57,20 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
                         $scope.phone = response.userInfo.phone;
                         $scope.country = response.userInfo.country;
                         $scope.business_email = response.userInfo.business_email;
+                        $scope.google_email_id = response.userInfo.google_email_id;
+                        $scope.facebook_email_id = response.userInfo.facebook_email_id;
                     }
                 });
-//        }
+        $scope.verifyAccountFn = function ($account_id) {
+            console.log($account_id);
+            $http.post('verifyAccount', {account_id : $account_id })
+                    .success(function (response){
+                        if (response.status === false && response.statusCode === "notAuthorised") {
+                            location.href = response.url;
+                        }
+                       $scope.response = response; 
+            });
+        };
     }]);
 
 eLearningApp.controller('enrolledProgramController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
@@ -77,9 +88,8 @@ eLearningApp.controller('enrolledProgramController', ['$scope', '$location', '$h
             $scope.showEnrollProgram = false;
         };
     }]);
-eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope',
-    function ($scope, $element, $location, $http, $route, $rootScope) {
 
+eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
         $http.get('getProgramList')
                 .success(function (response) {
                     if (response.status === false && response.statusCode === "notAuthorised") {
@@ -89,7 +99,7 @@ eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$htt
                 });
 
         $scope.registerFn = function (program) {
-            console.log(program);
+//            console.log(program);
             $http.post('registerProgram', {program: program})
                     .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised") {

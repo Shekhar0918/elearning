@@ -256,6 +256,14 @@ class IndexController extends AbstractActionController {
         $sm = $this->getServiceLocator();
         $user = new User();
         $userInfo = $user->getUserInfoByUserID($sm->get('dbAdapter'), $userID);
+        $googleUser = new GoogleUser();
+        $googleUser->setGoogleUserID($userInfo["userInfo"]["google_user_id"]);
+        $googleUserInfo = $googleUser->getGoogleUserInfoByGoogleUserID($sm->get('dbAdapter'));
+        $facebookUser = new FacebookUser();
+        $facebookUser->setFacebookUserID($userInfo["userInfo"]["facebook_user_id"]);
+        $facebookUserInfo = $facebookUser->getFacebookUserInfoByFacebookUserID($sm->get('dbAdapter'));
+        $userInfo["userInfo"]["google_email_id"] = $googleUserInfo["email"];
+        $userInfo["userInfo"]["facebook_email_id"] = $facebookUserInfo["email"];
         die(json_encode($userInfo));
     }
 
@@ -302,13 +310,42 @@ class IndexController extends AbstractActionController {
         }
         die(json_encode($response));
     }
+    
+    public function verifyAccountAction(){
+        $userSession = new Container('eLearning');
+        if (!isset($userSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $userID = $userSession->userID;
+        $sm = $this->getServiceLocator();
+        $app_url = $sm->get('Config')["app_url"]["url"];
+        $post_data = json_decode($this->getRequest()->getContent());
+        $accountID = $post_data->account_id;
+        $user = new User();
+        $user->verifyAccount($sm->get('dbAdapter'), $userID, $accountID, $app_url);
+        die(json_encode(array("status" => "success")));
+    }
+    
+    public function verifyUserEmailAction(){
+        $sm = $this->getServiceLocator();
+        $email = $this->getRequest()->getQuery("email");
+        $accountType = $this->getRequest()->getQuery("accountType");
+        $verificatioCode = $this->getRequest()->getQuery("verificatioCode");
+        $user = new User();
+        $status = $user->verifyUserEmail($sm->get('dbAdapter'), $email, $accountType, $verificatioCode);
+        if($status){
+            die("Your Email Has Been Verified Successfully!");
+        }else{
+            die("Your Email Has Not Been Verified Successfully!");
+        }
+    }
 
     public function sendMailAction() {
 //        $emailDetails = $this->getRequest()->getParam('emailDetails');
         $recipients = array(
             (object) array("email" => "shashi.shekhar0918@gmail.com", "name" => "Shekhar")
         );
-        $emailDetails = json_encode((object) array('From' => 'shekharshashi0989@gmail.com.com', "FromName" => "Shashishekhar", "Recipients" => $recipients, "Subject" => "Test mail", "Body" => "This is a test mail.", "AltBody" => "EmailBody"));
+        $emailDetails = json_encode((object) array('From' => 'shekharshashi0989@gmail.com', "FromName" => "Shashishekhar", "Recipients" => $recipients, "Subject" => "Test mail", "Body" => "This is a test mail.", "AltBody" => "EmailBody"));
         $emailDetails = json_decode($emailDetails);
 //        $mailer = new MailerPhp();
 //        $sendMail = $mailer->sendMail($emailDetails);

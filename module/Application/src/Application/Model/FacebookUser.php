@@ -85,5 +85,12 @@ class FacebookUser {
         }
         return $facebookUserID;
     }
+    
+    public function getFacebookUserInfoByFacebookUserID(Adapter $eLearningDB){
+        $facebookUserID = $this->getFacebookUserID();
+        $query = "select * from facebook_users where id=:facebook_user_id";
+        $result = $eLearningDB->query($query)->execute(array("facebook_user_id" => $facebookUserID))->current();
+        return $result;
+    }
 
 }

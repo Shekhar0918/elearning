@@ -119,7 +119,9 @@ class User {
                 "city" => $result['city'],
                 "country" => $result['country'],
                 "phone" => $result['phone'],
-                "business_email" => $result['business_email']
+                "business_email" => $result['business_email'],
+                "google_user_id" => $result['google_user_id'],
+                "facebook_user_id" => $result['facebook_user_id']
             );
             $response = array("status" => "success", "userInfo" => $userInfo);
         } else {
@@ -236,5 +238,31 @@ class User {
             die($ex->getMessage());
         }
     }
+    
+    public function verifyAccount(Adapter $eLearningDB, $userID, $accountID, $app_url){
+        $verificationCode = md5(rand(9999,999999));
+        $eLearningDB->query("update google_users set verification_code = :verification_code where id=:google_user_id")->execute(array("google_user_id" => $accountID, "verification_code" => $verificationCode));
+        $mailerPHP = new MailerPHP();
+        $recipients = array(
+            (object) array("email" => $accountID, "name" => "")
+        );
+        $verificationURL = $app_url . "/verifyUserEmail?email=$accountID&accountType=google&verificatioCode=$verificationCode";
+        $emailDetails = json_encode((object) array('From' => 'shekharshashi0989@gmail.com', "FromName" => "Shashishekhar", "Recipients" => $recipients, "Subject" => "Verify Email ID", "Body" => "Please click the below link to verify your email for e-Learning registration.<br>$verificationURL", "AltBody" => "EmailBody"));
+        $emailDetails = json_decode($emailDetails);
+        $mailerPHP->sendMail($emailDetails);
+        return $verificationCode;
+    }
+    
+    public function verifyUserEmail(Adapter $eLearningDB, $email, $accountType, $verificatioCode){
+        $query = "select * from google_users where email=:email and verification_code=:verification_code";
+        $result = $eLearningDB->query($query)->execute(array("email" => $email, "verification_code" => $verificatioCode));
+        if($result->count() > 0){
+            $update_query = "update google_users set verification_status = 1 where email=:email and verification_status=:verification_status";
+            $eLearningDB->query($update_query)->execute(array("email" => $email, "verification_status" => $verificatioCode));
+            return true;
+        }else{
+            return false;
+        }
+     }
 
 }

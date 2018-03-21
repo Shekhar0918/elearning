@@ -7,6 +7,7 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class MailerPHP {
 
@@ -14,51 +15,89 @@ class MailerPHP {
         
     }
 
-    function sendMail($emailDetails) {
-        //PHPMailer Object
-        $mail = new \PHPMailer();
+    function sendMail($emailDetails){
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        try {
+            //Server settings
+//            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'shashi.shekhar0918@gmail.com';                 // SMTP username
+            $mail->Password = 'shashi@09';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            ); // TCP port to connect to
+            //Recipients
+             $mail->setFrom($emailDetails->From, $emailDetails->FromName);//$mail->setFrom('shashi.shekhar0918@gmail.com', 'Mailer');
+             foreach($emailDetails->Recipients as $recipient){
+                $mail->addAddress($recipient->email, $recipient->name); //$mail->addAddress('shekharshashi0989@gmail.com', 'Shashi');     // Add a recipient
+            }
+//    $mail->addAddress('ellen@example.com');               // Name is optional
+//    $mail->addReplyTo('info@example.com', 'Information');
+//    $mail->addCC('cc@example.com');
+//    $mail->addBCC('bcc@example.com');
+            //Attachments
+//    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+//    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $emailDetails->Subject;//'Here is the subject';
+            $mail->Body = $emailDetails->Body;//'This is the HTML message body <b>in bold!</b>';
+            $mail->AltBody = $emailDetails->AltBody;//'This is the body in plain text for non-HTML mail clients';
 
-        $mail->IsSMTP();
-        $mail->SMTPDebug = 1;
-        $mail->SMTPAuth = true;
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
-        $mail->Username = "shashi.shekhar0918@gmail.com";
-        $mail->Password = "shashi@09";
-        $mail->SMTPSecure = 'tls';
-
-        //From email address and name
-//        $mail->From = "sshekhar@radiancesystems.com";
-//        $mail->FromName = "Shashi Shekhar";        
-        $mail->From = $emailDetails->From;
-        $mail->FromName = $emailDetails->FromName;
-
-        //To address and name
-//        $mail->addAddress("dbaruah@radiancesystems.com", "Dishi baruah");
-        foreach ($emailDetails->Recipients as $recipients) {
-            $mail->addAddress($recipients->email, $recipients->name);
+            $mail->send();
+//            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
-        //$mail->addAddress("recepient1@example.com"); //Recipient name is optional
-        //Address to which recipient will reply
-        //$mail->addReplyTo("reply@yourdomain.com", "Reply");
-        //CC and BCC
-        //$mail->addCC("cc@example.com");
-        //$mail->addBCC("bcc@example.com");
-        //Send HTML or Plain Text email
-        $mail->isHTML(true);
+    }
+    
+    function sendTestMail() {
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        try {
+            //Server settings
+            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'shashi.shekhar0918@gmail.com';                 // SMTP username
+            $mail->Password = 'shashi@09';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            ); // TCP port to connect to
+            //Recipients
+            $mail->setFrom('shashi.shekhar0918@gmail.com', 'Mailer');
+            $mail->addAddress('shekharshashi0989@gmail.com', 'Shashi');     // Add a recipient
+//    $mail->addAddress('ellen@example.com');               // Name is optional
+//    $mail->addReplyTo('info@example.com', 'Information');
+//    $mail->addCC('cc@example.com');
+//    $mail->addBCC('bcc@example.com');
+            //Attachments
+//    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+//    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Here is the subject';
+            $mail->Body = 'This is the HTML message body <b>in bold!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-//        $mail->Subject = "Testing Php Mailer";
-//        $mail->Body = "<i>Mail body in HTML</i>";
-//        $mail->AltBody = "This is the plain text version of the email content";
-        $mail->Subject = $emailDetails->Subject;
-        $mail->Body = $emailDetails->Body;
-        $mail->AltBody = $emailDetails->AltBody;
-
-        if (!$mail->send()) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
-        } else {
-//            echo "Message has been sent successfully";
-            echo "";
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
     }
 
