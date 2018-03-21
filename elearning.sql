@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2018 at 10:07 AM
+-- Generation Time: Mar 21, 2018 at 09:42 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -52,7 +52,14 @@ INSERT INTO `enrolled_programs` (`id`, `user_id`, `program_id`, `created_at`, `u
 (9, 174, '2', '2018-03-09 08:47:32', '2018-03-09 08:47:32'),
 (10, 174, '3', '2018-03-09 08:47:32', '2018-03-09 08:47:32'),
 (11, 174, '5', '2018-03-09 08:51:59', '2018-03-09 08:51:59'),
-(12, 174, '6', '2018-03-09 08:51:59', '2018-03-09 08:51:59');
+(12, 174, '6', '2018-03-09 08:51:59', '2018-03-09 08:51:59'),
+(14, 207, '1', '2018-03-17 10:48:23', '2018-03-17 10:48:23'),
+(15, 207, '1', '2018-03-17 10:52:11', '2018-03-17 10:52:11'),
+(16, 207, '3', '2018-03-17 10:55:50', '2018-03-17 10:55:50'),
+(17, 207, '3', '2018-03-17 11:05:29', '2018-03-17 11:05:29'),
+(18, 208, '5', '2018-03-17 12:27:26', '2018-03-17 12:27:26'),
+(19, 208, '4', '2018-03-17 12:27:45', '2018-03-17 12:27:45'),
+(20, 207, '4', '2018-03-17 12:44:00', '2018-03-17 12:44:00');
 
 -- --------------------------------------------------------
 
@@ -75,7 +82,8 @@ CREATE TABLE `facebook_users` (
 --
 
 INSERT INTO `facebook_users` (`id`, `facebook_id`, `name`, `email`, `gender`, `created_at`, `updated_at`) VALUES
-(79, NULL, 'Shashi Shekhar', 'shekharshashi0989@gmail.com', NULL, '2018-03-12 04:35:49', '2018-03-12 04:35:49');
+(79, NULL, 'Shashi Shekhar', 'shekharshashi0989@gmail.com', NULL, '2018-03-12 04:35:49', '2018-03-12 04:35:49'),
+(80, NULL, NULL, 'shashi.shekhar0918@gmail.com', NULL, '2018-03-17 12:26:44', '2018-03-17 12:26:44');
 
 -- --------------------------------------------------------
 
@@ -90,15 +98,18 @@ CREATE TABLE `google_users` (
   `name` varchar(255) DEFAULT NULL,
   `google_id` varchar(25) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `gender` int(11) DEFAULT NULL
+  `gender` int(11) DEFAULT NULL,
+  `verification_status` tinyint(4) NOT NULL DEFAULT '0',
+  `verification_code` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `google_users`
 --
 
-INSERT INTO `google_users` (`id`, `created_at`, `updated_at`, `name`, `google_id`, `email`, `gender`) VALUES
-(188, '2018-03-12 04:36:53', '2018-03-12 04:36:53', NULL, NULL, 'shekharshashi0989@gmail.com', NULL);
+INSERT INTO `google_users` (`id`, `created_at`, `updated_at`, `name`, `google_id`, `email`, `gender`, `verification_status`, `verification_code`) VALUES
+(188, '2018-03-12 04:36:53', '2018-03-12 04:36:53', NULL, NULL, 'shekharshashi0989@gmail.com', NULL, 0, NULL),
+(189, '2018-03-17 12:25:56', '2018-03-17 12:25:56', 'Shashi Shekhar', NULL, 'shashi.shekhar0918@gmail.com', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -160,7 +171,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `name`, `designation`, `organization`, `city`, `country`, `phone`, `business_email`, `access_type`, `login_source`, `created_at`, `updated_at`, `google_user_id`, `facebook_user_id`) VALUES
-(207, 'shekharshashi0989@gmail.com', 'Shashi', 'desgination 1', 'Organization 1', 'city 1', 'country 1', '8123456345', 'abc@gmail.com', 'student', 'facebook', '2018-03-12 04:35:49', '2018-03-12 04:36:53', '188', '79');
+(207, 'shekharshashi0989@gmail.com', 'Shashi', 'desgination 1', 'Organization 1', 'city 1', 'country 1', '8123456345', 'abc@gmail.com', 'student', 'facebook', '2018-03-12 04:35:49', '2018-03-12 04:36:53', '188', '79'),
+(208, 'shashi.shekhar0918@gmail.com', 'Shashi', 'Software engg', 'Company', 'Bangalre', 'India', '9739085285', 'shekhar.shashi61@gmail.com', 'student', 'google', '2018-03-17 12:25:56', '2018-03-17 12:26:44', '189', '80');
 
 --
 -- Indexes for dumped tables
@@ -204,19 +216,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `enrolled_programs`
 --
 ALTER TABLE `enrolled_programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `facebook_users`
 --
 ALTER TABLE `facebook_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `google_users`
 --
 ALTER TABLE `google_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT for table `programs`
@@ -228,7 +240,7 @@ ALTER TABLE `programs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
