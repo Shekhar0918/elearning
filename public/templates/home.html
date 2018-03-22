@@ -12,20 +12,53 @@
 <!--<iframe width="420" height="315"
         src="https://www.youtube.com/embed/cTLU4BbYLUE">
 </iframe>-->
+ <div class="show-grid" >
+            <div class="span6" style="text-align:center;"><div class="show-grid" > <div class="span1"></div><div class="span1">Register</div><div class="span1">Profile</div></div>
+            <div class="show-grid" ><div class="span4">Hello </div></div>
+            </div>
+            <div class="span5">
 <div id="enrolled_program_list">
-    <ul ng-repeat="program in enrolled_program_list track by $index">
-        <li><b>{{program.program_name}}</b></li>
-        <ul ng-repeat="course in program.chapters track by $index">
-            <div id='{{"id_"+$index+"_"+$parent.$index}}'></div>
-<!--            <li>{{course.name}} : {{course.content}}
-                <iframe width="420" height="315" src="{{course.content}}">
-                </iframe>
-            </li>-->
-        </ul>
-        
-            <!--<iframe ng-repeat="course in program.courses" ng-src="{{course.content}}" />-->
-            
-    </ul>
-</div>
+   
+
+<div class="dark p-20">
+                                <div class="accordion" id="accordion5">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapsefive">
+                                                PMP
+                                            </a>
+                                        </div>
+                                        <div id="collapsefive" class="accordion-body collapse in">
+                                            <div class="accordion-inner">
+                                              Content...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapsesix">
+                                               Agile
+                                            </a>
+                                        </div>
+                                        <div id="collapsesix" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                Content...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseseven"> CSM
+                                            </a>
+                                        </div>
+                                        <div id="collapseseven" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                Content...
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+</div></div></div>
 </div>
 <!--<a href="logout" type="button">Log out</a>-->
