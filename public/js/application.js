@@ -26,18 +26,18 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                     templateUrl: "templates/enrolledProgram.html",
                     controller: 'enrolledProgramController'
                 })
-//            .when('/signup', {
-//                template: 'templates/signup.html',
-//                controller: 'mainController'
-//            })
+            .when('/signup', {
+                template: 'templates/adminPortal.html',
+                controller: 'adminController'
+            })
 //            .when('/facebookSignup', {
 //                template: 'templates/home.html',
 //                controller: 'mainController'
 //            })
         $locationProvider.html5Mode(true);
     }]);
-eLearningApp.controller('homeController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-
+eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
+            
     }]);
 eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
         $http.get('getUserInfo')

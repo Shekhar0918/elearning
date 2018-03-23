@@ -40,6 +40,10 @@ class AdminController extends AbstractActionController
         return $viewModel;
     }
 
+    public function adminPortalAction(){
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
 
 }
 

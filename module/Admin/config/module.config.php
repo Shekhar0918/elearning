@@ -33,6 +33,16 @@ return array(
                     ),
                 ),
             ),
+            'adminPortal' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/adminPortal',
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Index',
+                        'action' => 'adminPortal',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
