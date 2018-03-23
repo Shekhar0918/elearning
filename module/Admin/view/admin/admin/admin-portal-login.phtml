@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="eLearningAdmin" ng-controller="adminController">
+    <!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <head>
+        <link rel="shortcut icon" href="<?php echo $this->basePath(); ?>/img/favicon.ico" type="image/vnd.microsoft.icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+
+        <meta name="description" content="Violate Responsive Admin Template">
+        <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+
+        <title>e-Learning Admin Portal</title>
+
+        <!-- CSS -->
+        <link href="<?php echo $this->basePath(); ?>/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath(); ?>/css/font-awesome.min.css" rel="stylesheet">
+        <!--<link href="<?php // echo $this->basePath(); ?>/css/calendar.css" rel="stylesheet">-->
+        <link href="<?php echo $this->basePath(); ?>/css/style.css" rel="stylesheet">
+<!--        <link href="<?php // echo $this->basePath(); ?>/css/icons.css" rel="stylesheet">
+        <link href="<?php // echo $this->basePath(); ?>/css/generics.css" rel="stylesheet">-->
+        <base href="<?php echo $this->basePath(); ?>/" />
+    </head>
+    <body>
+        <section id="login">
+            <!-- Login -->
+            <form id="admin-login" action="adminAuth" method="post">
+
+                <?php
+                if ($this->flashMessenger()->hasMessages()) {
+                    $messages = $this->flashMessenger()->getMessages();
+                    foreach ($messages as $message) {
+                        $messageString = json_decode($message);
+//                        if ($messageString->status == "invalid") {
+//                            echo '<div  class="alert alert-danger alert-icon "><i class="icon">&#61907;</i>';
+//                        } else {
+//                            echo '<div  class="alert alert-success  alert-icon "></i>';
+//                        }
+                        echo $messageString->message;
+//                        echo '</div>';
+                    }
+                }
+                ?> 
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required><br><br>
+                <button type="submit" >Sign In</button>
+            </form>
+        </section> <br>
+
+        <!--<div   style=" background-color:rgba(0,0,0,0.15); text-align:center;" >Powered by: <a href="http://www.radiancesystems.com"><img src="img/logo-radiance1.png" width="104" height="25" /></a></div>-->
+        <!-- angular -->
+        <script src="<?php echo $this->basePath(); ?>/js/angular/angular-1.2.26.min.js"></script>
+        <script src="<?php echo $this->basePath(); ?>/js/jquery-1.8.3.min.js"></script> <!-- jQuery Library -->
+        <!--<script src="<?php echo $this->basePath(); ?>/js/managementPortal.js"></script>  js function -->
+
+        <!-- Bootstrap -->
+        <script src="<?php echo $this->basePath(); ?>/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>
