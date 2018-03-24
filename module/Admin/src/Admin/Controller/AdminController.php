@@ -23,9 +23,9 @@ class AdminController extends AbstractActionController
             $adminUser = new AdminUser();
             $login = $adminUser->login($sm->get('dbAdapter'), $userEmailID, $password);
             if($login){
-                $admin_session = new Container('eLearningAdmin');
-                $admin_session->emailID = $adminUser->getAdminEmailID();
-                $admin_session->userID = $adminUser->getAdminUserID();
+                $adminSession = new Container('eLearningAdmin');
+                $adminSession->emailID = $adminUser->getAdminEmailID();
+                $adminSession->userID = $adminUser->getAdminUserID();
                 return $this->redirect()->toRoute('adminPortal');
             }else{
                 $this->flashMessenger()->addMessage(json_encode(array("status" => "invalid", "message" => 'Invalid Email or Password')));
@@ -39,10 +39,29 @@ class AdminController extends AbstractActionController
         $viewModel->setTerminal(true);
         return $viewModel;
     }
+    
+    public function logoutAction(){
+        $adminSession = new Container('eLearningAdmin');
+        $adminSession->getManager()->getStorage()->clear('eLearningAdmin');
+        return $this->redirect()->toRoute('adminPortalLogin');
+    }
 
     public function adminPortalAction(){
         $viewModel = new ViewModel();
         return $viewModel;
+    }
+    
+    public function getAdminUserInfoAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $sm = $this->getServiceLocator();
+        $adminUserID = $adminSession->userID;
+        $adminUser = new AdminUser();
+        $adminUser->setAdminUserID($adminUserID);
+        $adminUserInfo = $adminUser->getAdminUserInfoByUserID($sm->get('dbAdapter'));
+        die(json_encode($adminUserInfo));
     }
 
 }

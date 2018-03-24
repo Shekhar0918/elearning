@@ -26,10 +26,10 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                     templateUrl: "templates/enrolledProgram.html",
                     controller: 'enrolledProgramController'
                 })
-            .when('/signup', {
-                template: 'templates/adminPortal.html',
-                controller: 'adminController'
-            })
+                .when('/getAdminUserInfo', {
+                    template: 'templates/adminPortal.html',
+                    controller: 'adminController'
+                })
 //            .when('/facebookSignup', {
 //                template: 'templates/home.html',
 //                controller: 'mainController'
@@ -37,7 +37,18 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         $locationProvider.html5Mode(true);
     }]);
 eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-            
+        alert("hiiiiiiiiiiii");
+        $http.get("getAdminUserInfo")
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        alert("notAuthorised");
+                        location.href = response.url;
+                    }
+                    alert(response.name);
+                    $scope.name = response.name;
+                    $scope.email = response.email;
+                    $scope.access_type = response.access_type;
+                });
     }]);
 eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
         $http.get('getUserInfo')
@@ -63,13 +74,13 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
                 });
         $scope.verifyAccountFn = function ($account_id) {
             console.log($account_id);
-            $http.post('verifyAccount', {account_id : $account_id })
-                    .success(function (response){
+            $http.post('verifyAccount', {account_id: $account_id})
+                    .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised") {
                             location.href = response.url;
                         }
-                       $scope.response = response; 
-            });
+                        $scope.response = response;
+                    });
         };
     }]);
 

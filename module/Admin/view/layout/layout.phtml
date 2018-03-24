@@ -30,7 +30,7 @@
         <div class="row">
                     <div class="span9">
                         <!-- Logo + Slogan -->
-                        <div class="logo"><span > Welcome {{first_name}} {{last_name}}</span> on E Learing Portal</div>
+                        <div class="logo"><span > Welcome {{name}} </span> on E Learning Portal</div>
                         <div class="clearfix"></div>
                         <div class="slogan">An Initiative  by IzenBridge </div>
                          <div id="time" class="pull-right" >
@@ -40,20 +40,6 @@
             </div>
                         <!-- end Logo + Slogan -->
                     </div>
-                    
-                    <!-- Social links -->
-                    <div class="span3 hidden-phone">
-                        <a href="<?php echo $this->basePath(); ?>/enrolledProgram">Enrolled Program<span class="ico"></span></a>
-                        <a href="<?php echo $this->basePath(); ?>/">Profile<span class="ico btn-group btn-navbar"><i class="icon-facebook"></i></span></a>
-                        <ul class="social">
-                            <li><a href="#">FACEBOOK<span class="ico"><i class="icon-facebook"></i></span></a></li>
-                            <li><a href="#">TWITTER<span class="ico"><i class="icon-twitter"></i></span></a></li>
-                            <li><a href="#">LINKEDIN<span class="ico"><i class="icon-linkedin"></i></span></a></li>
-                            <li><a href="#">GOOGLE PLUS<span class="ico"><i class="icon-google-plus"></i></span></a></li>
-                        </ul>
-                    </div>
-                    <!-- Social links -->
-                </div>
           
 
             <div id="time" class="pull-right" >
@@ -61,49 +47,11 @@
                     <a href="logout" style="color:#666" type="button">Log out</a>
                 </div>
             </div>
-            <div id="time" class="pull-right" >
-                <div class="btn-group">
-                    <a href="register_program" type="button">Log out</a>
-                </div>
             </div>
-            <div class="nav-container">
-                    <nav class="navbar">
-                        <div class="navbar-inner container">
-                            <div class="collapse-nav">
-                                <span class="collapse-nav-title">NAVIGATION</span>
-                                <div class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </div>
-                            </div>
-            
-                            <div class="nav-collapse collapse">
-                                <ul class="nav" id="navigation">
-                                    <li>
-                                        <a class="active" href="#home">Dashboard</a>
-                                    </li>
-                                   
-                                    <li>
-                                        <a href="#testimonials">Testimonials</a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="#portfolio">Portfolio</a>
-                                    </li>
-                                    <li>
-                                        <a href="#contact">Contact Us</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
         </header>
         
         <div style="width:800px;" ng-view >
-            <?php echo $this->content; ?>
-           
+            <?php echo $this->content; ?>           
         </div>
 <footer id="footer">
             <div class="container">
@@ -133,8 +81,8 @@
     <script src="<?php echo $this->basePath(); ?>/js/application.js"></script>
     <script src="<?php echo $this->basePath(); ?>/js/bootstrap.js"></script>
     <script src="<?php echo $this->basePath(); ?>/js/bootstrap.min.js"></script>
-    <script src="<?php echo $this->basePath(); ?>/js/enscroll.min.js"></script>
-    <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
+    <!--<script src="<?php // echo $this->basePath(); ?>/js/enscroll.min.js"></script>-->
+    <!--<script src="<?php // echo $this->basePath(); ?>/js/functions.js"></script>-->
     </body> 
 
 </html>

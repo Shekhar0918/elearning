@@ -33,6 +33,16 @@ return array(
                     ),
                 ),
             ),
+            'logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/logout',
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Index',
+                        'action' => 'logout',
+                    ),
+                ),
+            ),
             'adminPortal' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -40,6 +50,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Admin\Controller\Index',
                         'action' => 'adminPortal',
+                    ),
+                ),
+            ),
+            'getAdminUserInfo' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getAdminUserInfo',
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Index',
+                        'action' => 'getAdminUserInfo',
                     ),
                 ),
             ),
