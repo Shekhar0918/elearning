@@ -23,30 +23,30 @@
     <div id="signupPage">
     <div class="show-grid">
           <div class="span2">Name : </div>
-            <div class="span2"><input type="text" ng-model="user_name"></div></div>
-              <div class="show-grid">
-             <div class="span2">Select image to upload : </div>
-              <div class="span6">
-             <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit"></div></div>
+            <div class="span2"><input type="text" id="user_name" name="user_name" ng-model="user_name"></div></div>
+              <!--<div class="show-grid">-->
+             <!--<div class="span2">Select image to upload : </div>-->
+              <!--<div class="span6">-->
+<!--             <input type="file" id="fileToUpload" name="fileToUpload" id="fileToUpload">
+                <input type="submit" value="Upload Image" name="submit"></div></div>-->
               <div class="show-grid">
             <div class="span2">Designation : </div>
-            <div class="span4"><input type="text" ng-model="user_designation"></div></div>
+            <div class="span4"><input id="user_designation" name="user_designation" type="text" ng-model="user_designation"></div></div>
             <div class="show-grid">
             <div class="span2">Organization : </div>
-            <div class="span4"><input type="text" ng-model="user_organization"></div></div>
+            <div class="span4"><input type="text" id="user_organization" name="user_organization" ng-model="user_organization"></div></div>
             <div class="show-grid">
             <div class="span2">City : </div>
-            <div class="span4"><input type="text" ng-model="user_city"></div></div>
+            <div class="span4"><input type="text" id="user_city" name="user_city" ng-model="user_city"></div></div>
             <div class="show-grid">
             <div class="span2">Country : </div>
-            <div class="span4"><input type="text" ng-model="user_country"></div></div>
+            <div class="span4"><input type="text" id="user_country" name="user_country" ng-model="user_country"></div></div>
             <div class="show-grid">
             <div class="span2">Phone : </div>
-            <div class="span4"><input type="tel" ng-model="user_phone"></div></div>
+            <div class="span4"><input type="tel" id="user_phone" name="user_phone" ng-model="user_phone"></div></div>
             <div class="show-grid">
             <div class="span2">Business Email : </div>
-            <div class="span4"><input type="email" ng-model="user_phone"></div></div>
+            <div class="span4"><input type="email" id="business_email" name="business_email" ng-model="business_email"></div></div>
  <div class="show-grid">
         <div class="span2">Facebook ID : </div>
         <div class="span4"> <input type="text" id="facebook_id" name="facebook_id" ng-model="facebook_id">
@@ -70,6 +70,10 @@ die();
              <script src="<?php echo $this->basePath(); ?>/js/bootstrap.min.js"></script>
               <script src="<?php echo $this->basePath(); ?>/js/enscroll.min.js"></script>
                <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
-                 <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
+                 <script src="<?php echo $this->basePath(); ?>/js/jquery-1.8.3.min.js"></script>
+                 <script src="<?php echo $this->basePath(); ?>/js/jquery-ui-1.8.2.custom.min.js"></script>
+                 <script src="<?php echo $this->basePath(); ?>/js/jquery.masonry.js"></script>
+                  <script src="<?php echo $this->basePath(); ?>/js/jquery.masonry.min.js"></script>
+                  <script src="<?php echo $this->basePath(); ?>/js/jquery.socialist.js"></script>
 </body>
 </html>

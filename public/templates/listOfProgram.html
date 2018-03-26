@@ -1,0 +1,8 @@
+<div ng-controller="eLearningApp.listOfProgramController">
+    <table>
+        <thead><tr><th>Program Name</th><th>Duration</th><th>Cost</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr ng-repeat="program in program_list"><td>{{program.program_name}}</td><td>{{program.duration}}</td><td>{{program.cost}}</td><td><span ng-click="registerFn(program)">Register</span></td></tr>
+        </tbody>
+    </table>
+</div>

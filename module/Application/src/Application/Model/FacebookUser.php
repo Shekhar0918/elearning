@@ -6,8 +6,7 @@ use Zend\Db\Adapter\Adapter;
 
 class FacebookUser {
 
-    private $firstName;
-    private $lastName;
+    private $name;
     private $emailID;
     private $gender;
     private $facebookID;
@@ -17,20 +16,12 @@ class FacebookUser {
         
     }
 
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
+    public function setName($name) {
+        $this->name = $name;
     }
 
-    public function getFirstName() {
-        return $this->firstName;
-    }
-
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
-    }
-
-    public function getLastName() {
-        return $this->lastName;
+    public function getName() {
+        return $this->name;
     }
 
     public function setEmailID($emailID) {
@@ -80,20 +71,26 @@ class FacebookUser {
         $result = $eLearningDB->query($query)->execute(array("email" => $this->getEmailID()));
         if ($result->count()) {
             $facebookUserID = $result->current()['id'];
-            $query = "update facebook_users set first_name=:first_name, last_name=:last_name where email=:email";
-            $eLearningDB->query($query)->execute(array("first_name"=>$this->getFirstName(), "last_nmae" => $this->getLastName(), "email" => $this->getEmailID()));
+            $query = "update facebook_users set name=:name where email=:email";
+            $eLearningDB->query($query)->execute(array("name"=>$this->getName(), "email" => $this->getEmailID()));
         } else {
-            $query = "insert into facebook_users (facebook_id, first_name, last_name, email, gender) values (:facebook_id, :first_name, :last_name, :email, :gender)";
+            $query = "insert into facebook_users (facebook_id, name, email, gender) values (:facebook_id, :name, :email, :gender)";
             $eLearningDB->query($query)->execute(array(
                 "facebook_id" => $this->getFacebookID(),
-                "first_name" => $this->getFirstName(),
-                "last_name" => $this->getLastName(),
+                "name" => $this->getName(),
                 "email" => $this->getEmailID(),
                 "gender" => $this->getGender()
             ));
             $facebookUserID = $eLearningDB->getDriver()->getLastGeneratedValue("id");
         }
         return $facebookUserID;
+    }
+    
+    public function getFacebookUserInfoByFacebookUserID(Adapter $eLearningDB){
+        $facebookUserID = $this->getFacebookUserID();
+        $query = "select * from facebook_users where id=:facebook_user_id";
+        $result = $eLearningDB->query($query)->execute(array("facebook_user_id" => $facebookUserID))->current();
+        return $result;
     }
 
 }

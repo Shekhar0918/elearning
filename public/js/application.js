@@ -1,15 +1,31 @@
 var eLearningApp = angular.module('eLearningApp', ["ngRoute"]);
+eLearningApp.directive('listofprogram', function () {
+    var directive = {};
 
-eLearningApp.config(function ($routeProvider) {
-    $routeProvider
-            .when("/", {
-                templateUrl: "templates/home.html",
-                controller: 'homeController'
-            })
-            .when("/_=_", {
-                templateUrl: "templates/home.html",
-                controller: 'homeController'
-            })
+    directive.restrict = 'E';
+
+    directive.templateUrl = "templates/listOfProgram.html";
+
+    directive.scope = {
+        listofprogram: "=listofprogram"
+    };
+
+    return directive;
+});
+eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+        $routeProvider
+                .when("/", {
+                    templateUrl: "templates/home.html",
+                    controller: 'homeController'
+                })
+                .when("/_=_", {
+                    templateUrl: "templates/home.html",
+                    controller: 'homeController'
+                })
+                .when("/enrolledProgram", {
+                    templateUrl: "templates/enrolledProgram.html",
+                    controller: 'enrolledProgramController'
+                })
 //            .when('/signup', {
 //                template: 'templates/signup.html',
 //                controller: 'mainController'
@@ -18,59 +34,79 @@ eLearningApp.config(function ($routeProvider) {
 //                template: 'templates/home.html',
 //                controller: 'mainController'
 //            })
-//            $locationProvider.html5Mode(true);
-});
-
-eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-//        alert("hii");
-//        $scope.getUserInfoFn = function () {
-        $http.get('getUserInfo')
-                .success(function (response) {
-                    if (response.status === false && response.statusCode === "notAuthorised") {
-//                        alert("notAuthorised");
-                        location.href = response.url;
-                    } else if (response.status === "failed") {
-//                         alert("failed");
-                        alert(location.href = 'signup')
-                    } else {
-//                        alert(response.status);
-                        $scope.user_id = response.userInfo.userID;
-                        $scope.first_name = response.userInfo.firstName;
-                        $scope.last_name = response.userInfo.lastName;
-                        $scope.access_type = response.userInfo.accessType;
-                        $scope.source = response.userInfo.source;
-
-                        $http.get('getEnrolledPrograms')
-                                .success(function (response) {
-                                    if (response.status === false && response.statusCode === "notAuthorised") {
-                                        location.href = response.url;
-                                    }
-//                                    alert(response);
-                                    $scope.enrolled_program_list = response;
-                                    setTimeout(function () {
-                                        for (var i = 0; i < response.length; i++) {
-                                            for (var j = 0; j < response[i].chapters.length; j++) {
-                                                var vidioIframe = '<iframe width="280" height="315" src="' + response[i].chapters[j].content + '"></iframe>';
-//                                                var vidioIframe = ' <video controls="true"><source src="' + response[i].courses[j].content + '" type="video/mp4" /></video>';
-                                                var videoSrc = $.parseHTML(vidioIframe);
-                                                $("#id_" + i + "_" + j).html(videoSrc);
-                                                
-                                            }
-                                        }
-                                    });
-                                });
-                                //html part link : <div ng-click="linkOnvideoLinkFn(src)">src</div>
-//                                $scope.linkOnvideoLinkFn=function(src){
-//                                    $("#videoBlock").attr("src",src);
-//                                }
-
-
-
-                    }
-                });
-//        }
+        $locationProvider.html5Mode(true);
     }]);
-
 eLearningApp.controller('homeController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
 
     }]);
+eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
+        $http.get('getUserInfo')
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        alert("notAuthorised");
+                        location.href = response.url;
+                    } else if (response.status === "failed") {
+                        alert("failed");
+                        location.href = response.url;//'signup'
+                    } else {
+//                        alert(response.status);
+                        $scope.name = response.userInfo.name;
+                        $scope.designation = response.userInfo.designation;
+                        $scope.organization = response.userInfo.organization;
+                        $scope.city = response.userInfo.city;
+                        $scope.phone = response.userInfo.phone;
+                        $scope.country = response.userInfo.country;
+                        $scope.business_email = response.userInfo.business_email;
+                        $scope.google_email_id = response.userInfo.google_email_id;
+                        $scope.facebook_email_id = response.userInfo.facebook_email_id;
+                    }
+                });
+        $scope.verifyAccountFn = function ($account_id) {
+            console.log($account_id);
+            $http.post('verifyAccount', {account_id : $account_id })
+                    .success(function (response){
+                        if (response.status === false && response.statusCode === "notAuthorised") {
+                            location.href = response.url;
+                        }
+                       $scope.response = response; 
+            });
+        };
+    }]);
+
+eLearningApp.controller('enrolledProgramController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
+        $http.get('getEnrolledPrograms')
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        location.href = response.url;
+                    }
+                    $scope.enrolled_program_list = response;
+                });
+        $scope.newProgramfn = function () {
+            $scope.showEnrollProgram = true;
+        };
+        $scope.cancelEnrollProgram = function () {
+            $scope.showEnrollProgram = false;
+        };
+    }]);
+
+eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
+        $http.get('getProgramList')
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        location.href = response.url;
+                    }
+                    $scope.program_list = response;
+                });
+
+        $scope.registerFn = function (program) {
+//            console.log(program);
+            $http.post('registerProgram', {program: program})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised") {
+                            location.href = response.url;
+                        }
+                        $scope.response = response;
+                    });
+        };
+
+    }];

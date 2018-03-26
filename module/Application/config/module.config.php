@@ -140,6 +140,46 @@ return array(
                     ),
                 ),
             ),
+            'getProgramList' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getProgramList',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'getProgramList',
+                    ),
+                ),
+            ),
+            'registerProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/registerProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'registerProgram',
+                    ),
+                ),
+            ),
+            'verifyAccount' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/verifyAccount',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'verifyAccount',
+                    ),
+                ),
+            ),
+            'verifyUserEmail' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/verifyUserEmail',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'verifyUserEmail',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(

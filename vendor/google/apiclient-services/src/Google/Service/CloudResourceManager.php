@@ -52,7 +52,7 @@ class Google_Service_CloudResourceManager extends Google_Service
   public function __construct(Google_Client $client)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://cloudresourcemanager.googleapis.com/';
+    $this->rootUrl = 'https://content-cloudresourcemanager.googleapis.com/';
     $this->servicePath = '';
     $this->version = 'v1';
     $this->serviceName = 'cloudresourcemanager';

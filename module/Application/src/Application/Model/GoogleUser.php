@@ -6,8 +6,7 @@ use Zend\Db\Adapter\Adapter;
 
 class GoogleUser {
 
-    private $firstName;
-    private $lastName;
+    private $name;
     private $emailID;
     private $gender;
     private $googleID;
@@ -17,20 +16,12 @@ class GoogleUser {
         
     }
 
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
+    public function setName($name) {
+        $this->name = $name;
     }
 
-    public function getFirstName() {
-        return $this->firstName;
-    }
-
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
-    }
-
-    public function getLastName() {
-        return $this->lastName;
+    public function getName() {
+        return $this->name;
     }
 
     public function setEmailID($emailID) {
@@ -80,19 +71,25 @@ class GoogleUser {
         $result = $eLearningDB->query($query)->execute(array("email" => $this->getEmailID()));
         if ($result->count()) {
             $googleUserID = $result->current()['id'];
-            $query = "update google_users set first_name=:first_name, last_name=:last_name where email=:email";
-            $eLearningDB->query($query)->execute(array("first_name" => $this->getFirstName(), "last_nmae" => $this->getLastName(), "email" => $this->getEmailID()));
+            $query = "update google_users set name=:name where email=:email";
+            $eLearningDB->query($query)->execute(array("name" => $this->getName(), "email" => $this->getEmailID()));
         } else {
-            $query = "insert into google_users (first_name, last_name, email, gender) values (:first_name, :last_name, :email, :gender)";
+            $query = "insert into google_users (name, email, gender) values (:name, :email, :gender)";
             $eLearningDB->query($query)->execute(array(
-                "first_name" => $this->getFirstName(),
-                "last_name" => $this->getLastName(),
+                "name" => $this->getName(),
                 "email" => $this->getEmailID(),
                 "gender" => $this->getGender()
             ));
             $googleUserID = $eLearningDB->getDriver()->getLastGeneratedValue("id");
         }
         return $googleUserID;
+    }
+    
+    public function getGoogleUserInfoByGoogleUserID(Adapter $eLearningDB){
+        $googleUserID = $this->getGoogleUserID();
+        $query = "select * from google_users where id=:google_user_id";
+        $result = $eLearningDB->query($query)->execute(array("google_user_id" => $googleUserID))->current();
+        return $result;
     }
 
 }
