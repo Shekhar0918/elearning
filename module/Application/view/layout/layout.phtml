@@ -25,7 +25,7 @@
                        <link href="<?php echo $this->basePath(); ?>/css/style.min.css" rel="stylesheet">
         <base href="<?php echo $this->basePath(); ?>/" />
     </head>
-    <body ng-controller="adminController"> 
+    <body ng-controller="mainController"> 
         <header id="header" class="media">
         <div class="row">
                     <div class="span9">
@@ -102,9 +102,9 @@
         </header>
         
         <div style="width:800px;" ng-view >
-            <?php echo $this->content; ?>           
+            <?php echo $this->content; ?>
+           
         </div>
-        
 <footer id="footer">
             <div class="container">
                 <div class="row">

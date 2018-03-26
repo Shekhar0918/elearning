@@ -16,15 +16,19 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         $routeProvider
                 .when("/", {
                     templateUrl: "templates/home.html",
-                    controller: 'homeController'
+                    controller: 'mainController'
                 })
                 .when("/_=_", {
                     templateUrl: "templates/home.html",
-                    controller: 'homeController'
+                    controller: 'mainController'
                 })
                 .when("/enrolledProgram", {
                     templateUrl: "templates/enrolledProgram.html",
                     controller: 'enrolledProgramController'
+                })
+                .when('/adminPortal', {
+                    template: 'templates/adminPortal.html',
+                    controller: 'adminController'
                 })
                 .when('/getAdminUserInfo', {
                     template: 'templates/adminPortal.html',

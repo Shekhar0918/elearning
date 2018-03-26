@@ -12,7 +12,8 @@ class AdminController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        return $viewModel;
     }
     
     public function adminAuthAction(){
