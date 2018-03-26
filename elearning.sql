@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2018 at 09:42 AM
+-- Generation Time: Mar 24, 2018 at 03:29 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -59,7 +59,12 @@ INSERT INTO `enrolled_programs` (`id`, `user_id`, `program_id`, `created_at`, `u
 (17, 207, '3', '2018-03-17 11:05:29', '2018-03-17 11:05:29'),
 (18, 208, '5', '2018-03-17 12:27:26', '2018-03-17 12:27:26'),
 (19, 208, '4', '2018-03-17 12:27:45', '2018-03-17 12:27:45'),
-(20, 207, '4', '2018-03-17 12:44:00', '2018-03-17 12:44:00');
+(20, 207, '4', '2018-03-17 12:44:00', '2018-03-17 12:44:00'),
+(21, 207, '4', '2018-03-21 04:46:49', '2018-03-21 04:46:49'),
+(22, 207, '5', '2018-03-21 04:46:51', '2018-03-21 04:46:51'),
+(23, 207, '1', '2018-03-22 18:28:32', '2018-03-22 18:28:32'),
+(24, 207, '2', '2018-03-22 18:28:33', '2018-03-22 18:28:33'),
+(25, 207, '3', '2018-03-22 18:28:33', '2018-03-22 18:28:33');
 
 -- --------------------------------------------------------
 
@@ -159,6 +164,7 @@ CREATE TABLE `users` (
   `phone` varchar(255) DEFAULT NULL,
   `business_email` varchar(255) DEFAULT NULL,
   `access_type` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `login_source` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -170,9 +176,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `name`, `designation`, `organization`, `city`, `country`, `phone`, `business_email`, `access_type`, `login_source`, `created_at`, `updated_at`, `google_user_id`, `facebook_user_id`) VALUES
-(207, 'shekharshashi0989@gmail.com', 'Shashi', 'desgination 1', 'Organization 1', 'city 1', 'country 1', '8123456345', 'abc@gmail.com', 'student', 'facebook', '2018-03-12 04:35:49', '2018-03-12 04:36:53', '188', '79'),
-(208, 'shashi.shekhar0918@gmail.com', 'Shashi', 'Software engg', 'Company', 'Bangalre', 'India', '9739085285', 'shekhar.shashi61@gmail.com', 'student', 'google', '2018-03-17 12:25:56', '2018-03-17 12:26:44', '189', '80');
+INSERT INTO `users` (`id`, `email`, `name`, `designation`, `organization`, `city`, `country`, `phone`, `business_email`, `access_type`, `password`, `login_source`, `created_at`, `updated_at`, `google_user_id`, `facebook_user_id`) VALUES
+(207, 'shekharshashi0989@gmail.com', 'Shashi', 'desgination 1', 'Organization 1', 'city 1', 'country 1', '8123456345', 'abc@gmail.com', 'student', NULL, 'facebook', '2018-03-12 04:35:49', '2018-03-12 04:36:53', '188', '79'),
+(208, 'shashi.shekhar0918@gmail.com', 'Shashi', 'Software engg', 'Company', 'Bangalre', 'India', '9739085285', 'shekhar.shashi61@gmail.com', 'student', NULL, 'google', '2018-03-17 12:25:56', '2018-03-17 12:26:44', '189', '80'),
+(209, 'admin@elearning.com', 'Admin', 'Administrator', 'iZenbridge', 'Bangalore', 'India', NULL, NULL, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', NULL, '2018-03-23 18:44:57', '2018-03-23 18:46:08', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -216,7 +223,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `enrolled_programs`
 --
 ALTER TABLE `enrolled_programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `facebook_users`
@@ -240,7 +247,7 @@ ALTER TABLE `programs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
