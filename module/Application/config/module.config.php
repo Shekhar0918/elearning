@@ -180,6 +180,100 @@ return array(
                     ),
                 ),
             ),
+            
+            
+            
+            
+            'adminAuth' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/adminAuth',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'adminAuth',
+                    ),
+                ),
+            ),
+            'adminPortalLogin' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/adminPortalLogin',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'adminPortalLogin',
+                    ),
+                ),
+            ),
+            'adminLogout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/logout',
+                    'defaults' => array(
+                        'controller' => 'AdApplicationmin\Controller\Index',
+                        'action' => 'adminLogout',
+                    ),
+                ),
+            ),
+            'adminPortal' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/adminPortal',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'adminPortal',
+                    ),
+                ),
+            ),
+            'getAdminUserInfo' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getAdminUserInfo',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'getAdminUserInfo',
+                    ),
+                ),
+            ),
+            'getAllPrograms' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getAllPrograms',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'getAllPrograms',
+                    ),
+                ),
+            ),
+            'createProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/createProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'createProgram',
+                    ),
+                ),
+            ),
+            'updateProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/updateProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'updateProgram',
+                    ),
+                ),
+            ),
+            'deleteProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/deleteProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'deleteProgram',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(

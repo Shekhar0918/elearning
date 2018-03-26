@@ -20,6 +20,7 @@ use Application\Model\User;
 use Application\Model\GoogleUser;
 use Application\Model\FacebookUser;
 use Application\Model\Program;
+use Application\Model\AdminUser;
 
 class IndexController extends AbstractActionController {
 
@@ -352,5 +353,101 @@ class IndexController extends AbstractActionController {
         
         $zendMailer = new MailerPHP();
         $sendMail = $zendMailer->sendMail($emailDetails);
+    }
+    
+    public function adminAuthAction(){
+        if ($this->getRequest()->isPost()) {
+            $sm = $this->getServiceLocator();
+            $userEmailID = $this->params()->fromPost('email');
+            $password = $this->params()->fromPost('password');             
+            $adminUser = new AdminUser();
+            $login = $adminUser->login($sm->get('dbAdapter'), $userEmailID, $password);
+            if($login){
+                $adminSession = new Container('eLearningAdmin');
+                $adminSession->emailID = $adminUser->getAdminEmailID();
+                $adminSession->userID = $adminUser->getAdminUserID();
+                return $this->redirect()->toRoute('adminPortal');
+            }else{
+                $this->flashMessenger()->addMessage(json_encode(array("status" => "invalid", "message" => 'Invalid Email or Password')));
+                return $this->redirect()->toRoute('adminPortalLogin');
+            }
+        }
+    }
+    
+    public function adminPortalLoginAction(){
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
+        return $viewModel;
+    }
+    
+    public function adminLogoutAction(){
+        $adminSession = new Container('eLearningAdmin');
+        $adminSession->getManager()->getStorage()->clear('eLearningAdmin');
+        return $this->redirect()->toRoute('adminPortalLogin');
+    }
+
+    public function adminPortalAction(){
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+    
+    public function getAdminUserInfoAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $adminUserID = $adminSession->userID;
+        $adminUser = new AdminUser();
+        $adminUser->setAdminUserID($adminUserID);
+        $adminUserInfo = $adminUser->getAdminUserInfoByUserID($sm->get('dbAdapter'));
+        die(json_encode($adminUserInfo));
+    }
+    
+    public function getAllProgramsAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program = new Program();
+        $allEnrolledPrograms = $program->getAllPrograms($sm->get('dbAdapter'));
+        die(json_encode($allEnrolledPrograms));
+    }
+    
+    public function createProgramAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program_data = json_decode($this->getRequest()->getContent());
+        $program = new Program();
+        $program->createProgram($sm->get('dbAdapter'), $program_data);
+    }
+    
+    public function updateProgramAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program_data = json_decode($this->getRequest()->getContent());
+        $program = new Program();
+        $program->updateProgram($sm->get('dbAdapter'), $program_data);
+        die(json_encode(array("status" => "success")));
+    }
+    
+    public function deleteProgramAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $programID = $this->params()->fromPost('program_id');
+        $program = new Program();
+        $program->setProgramID($programID);
+        $program->deleteProgram($sm->get('dbAdapter'));
+        die(json_encode(array("status" => "success")));
     }
 }

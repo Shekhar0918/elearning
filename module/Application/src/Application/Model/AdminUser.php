@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model;
+namespace Application\Model;
 
 use Zend\Db\Adapter\Adapter;
 
