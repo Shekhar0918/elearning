@@ -2,11 +2,11 @@ var eLearningApp = angular.module('eLearningApp', ["ngRoute"]);
 eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider
                 .when('/adminPortal', {
-                    template: 'templates/adminPortal.html',
+                    templateUrl: 'templates/adminPortal.html',
                     controller: 'adminController'
                 })
 //                .when('/getAdminUserInfo', {
-//                    template: 'templates/adminPortal.html',
+//                    templateUrl: 'templates/adminPortal.html',
 //                    controller: 'adminController'
 //                })
         $locationProvider.html5Mode(true);
