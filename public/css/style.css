@@ -184,6 +184,16 @@ iframe {
 #header.container {
     position: relative;
 }
+.login-group {
+    margin-bottom: 2px;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+	margin:10%;
+	width:80%;
+	
+}
 
 /* Feeds */
 .feeds {
