@@ -1,2 +1,113 @@
 
-Admin Portal phtml page
+<!DOCTYPE html>
+<html ng-app="eLearningApp">
+    <!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <head>
+        <link rel="shortcut icon" href="<?php echo $this->basePath(); ?>/img/favicon.ico" type="image/vnd.microsoft.icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+
+        <meta name="description" content="Violate Responsive Admin Template">
+        <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+
+        <title>e-Learning</title>
+
+        <!-- CSS -->
+         <link href="<?php echo $this->basePath(); ?>/css/bootstrap.min.css" rel="stylesheet">
+          <link href="<?php echo $this->basePath(); ?>/css/bootstrap-responsive.css" rel="stylesheet">
+            <link href="<?php echo $this->basePath(); ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+              <link href="<?php echo $this->basePath(); ?>/css/font-awesome.css" rel="stylesheet">
+                <link href="<?php echo $this->basePath(); ?>/css/font-awesome.min.css" rel="stylesheet">
+                  <link href="<?php echo $this->basePath(); ?>/css/piro-box.css" rel="stylesheet">
+                    <link href="<?php echo $this->basePath(); ?>/css/socialist.css" rel="stylesheet">
+                      <link href="<?php echo $this->basePath(); ?>/css/style.css" rel="stylesheet">
+                       <link href="<?php echo $this->basePath(); ?>/css/style.min.css" rel="stylesheet">
+        <base href="<?php echo $this->basePath(); ?>/" />
+    </head>
+    <body ng-controller="mainController"> 
+        <header id="header" class="media">
+        <div class="row">
+                    <div class="span9">
+                        <!-- Logo + Slogan -->
+                        <div class="logo"><span > Welcome {{first_name}} {{last_name}}</span> on E Learing Admin Portal</div>
+                        <div class="clearfix"></div>
+                        <div class="slogan">An Initiative  by IzenBridge </div>
+                         <div id="time" class="pull-right" >
+                <div class="btn-group">
+                    <a href="logout" style="color:#666" type="button">Log out</a>
+                </div>
+            </div>
+                        <!-- end Logo + Slogan -->
+                    </div>
+                    
+                    <!-- Social links -->
+                    <div class="span3 hidden-phone">
+                        <a href="<?php echo $this->basePath(); ?>/">Profile<span class="ico btn-group btn-navbar"><i class="icon-facebook"></i></span></a>
+                    <!-- Social links -->
+                </div>
+          
+
+            <div id="time" class="pull-right" >
+                <div class="btn-group">
+                    <a href="logout" style="color:#666" type="button">Log out</a>
+                </div>
+            </div>
+            <div id="time" class="pull-right" >
+                <div class="btn-group">
+                    <a href="register_program" type="button">Log out</a>
+                </div>
+            </div>
+            <div class="nav-container">
+                    <nav class="navbar">
+                        <div class="navbar-inner container">
+                            <div class="collapse-nav">
+                                <span class="collapse-nav-title">NAVIGATION</span>
+                                <div class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+        </header>
+        
+        <div style="width:800px;" ng-view >
+            <?php echo $this->content; ?>
+           
+        </div>
+<footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <p class="span8">Copytight 2018 E Leaning Portal. All Rights reserved.</p>
+                    <div class="span4 pull-right t-right">
+                        <a href="#" data-toggle="tooltip" class="t-tips" data-original-title="Facebook"><i class="icon-facebook-sign"></i></a>
+                        <a href="#" data-toggle="tooltip" class="t-tips" data-original-title="Twitter"><i class="icon-twitter-sign"></i></a>
+                        <a href="#" data-toggle="tooltip" class="t-tips" data-original-title="Linkedin"><i class="icon-linkedin-sign"></i></a>
+                        <a href="#" data-toggle="tooltip" class="t-tips" data-original-title="Google Plus"><i class="icon-google-plus-sign"></i></a>
+                        <a href="#" data-toggle="tooltip" class="t-tips" data-original-title="Pinterest"><i class="icon-pinterest-sign"></i></a>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </footer>
+    <!-- Javascript Libraries -->
+    <script src="<?php echo $this->basePath(); ?>/js/jquery-1.8.3.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/jquery-ui-1.8.2.custom.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/jquery.masonry.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/jquery.masonry.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/jquery.socialist.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-1.2.26.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-route.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/angular/angular-animate.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/bootstrap.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/bootstrap.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/enscroll.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/adminApplication.js"></script>
+    </body> 
+
+</html>

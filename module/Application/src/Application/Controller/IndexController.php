@@ -374,11 +374,13 @@ class IndexController extends AbstractActionController {
         }
     }
     
-    public function adminPortalLoginAction(){
+    function adminPortalLoginAction() {
+        $this->layout('layout/adminPortal-layout');
         $viewModel = new ViewModel();
-        $viewModel->setTerminal(true);
+//        $viewModel->setTerminal(true);
         return $viewModel;
     }
+
     
     public function adminLogoutAction(){
         $adminSession = new Container('eLearningAdmin');
@@ -387,7 +389,12 @@ class IndexController extends AbstractActionController {
     }
 
     public function adminPortalAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            return $this->redirect()->toRoute('eLearningAdmin');
+        }
         $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
         return $viewModel;
     }
     
