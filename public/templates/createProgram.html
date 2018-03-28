@@ -1,0 +1,19 @@
+<div class="tile p-15" ng-controller="eLearningApp.createProgramController">
+    <div class="">
+        <div class="col-lg-3">program</div>
+        <div class="col-lg-3"><input type="text" name="programName" ng-model="createprogram.programName" /></div>
+    </div>
+    <div class="">
+        <div class="col-lg-3">Cost</div>
+        <div class="col-lg-3"><input type="text" name="cost" ng-model="createprogram.cost" /></div>
+    </div>
+    <div class="">
+        <div class="col-lg-3">Duration</div>
+        <div class="col-lg-3"><input type="text" name="duration" ng-model="createprogram.duration" /></div>
+    </div>
+    <div class="">
+        <div class="col-lg-3">Provider</div>
+        <div class="col-lg-3"><input type="text" name="provider" ng-model="createprogram.provider" /></div>
+    </div>
+    <div><button ng-click="createProgramFn(createprogram)">submit</button></div>
+</div>

@@ -429,8 +429,10 @@ class IndexController extends AbstractActionController {
         }
         $sm = $this->getServiceLocator();
         $program_data = json_decode($this->getRequest()->getContent());
+//        echo json_encode($program_data);die();
         $program = new Program();
         $program->createProgram($sm->get('dbAdapter'), $program_data);
+        die(json_encode(array("status" => "success", "message" => "New Program has been created")));
     }
     
     public function updateProgramAction(){
@@ -451,10 +453,23 @@ class IndexController extends AbstractActionController {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
         }
         $sm = $this->getServiceLocator();
-        $programID = $this->params()->fromPost('program_id');
+        $program_data = json_decode($this->getRequest()->getContent());
+        $programID = $program_data->program_id;
         $program = new Program();
         $program->setProgramID($programID);
         $program->deleteProgram($sm->get('dbAdapter'));
+        die(json_encode(array("status" => "success")));
+    }
+    
+    public function addProgramChapterAction(){
+         $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program_data = json_decode($this->getRequest()->getContent());
+        $program = new Program();
+        $program->addProgramChapter($sm->get('dbAdapter'), $program_data);
         die(json_encode(array("status" => "success")));
     }
 }

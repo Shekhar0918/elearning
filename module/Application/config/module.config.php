@@ -274,6 +274,16 @@ return array(
                     ),
                 ),
             ),
+            'addProgramChapter' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/addProgramChapter',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'addProgramChapter',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(

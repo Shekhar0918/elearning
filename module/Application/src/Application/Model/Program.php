@@ -117,23 +117,25 @@ class Program {
     }
 
     public function createProgram(Adapter $eLearningDB, $program_data) {
-        $program_name = isset($program_data->program_name) ? $program_data->program_name : "";
-        $chapters = isset($program_data->category) ? $program_data->category : "";
-        $content = isset($program_data->chapters) ? $program_data->chapters : "";
-        $duration = isset($program_data->content) ? $program_data->content : "";
-        $category = isset($program_data->duration) ? $program_data->duration : "";
+        $program_name = isset($program_data->programName) ? $program_data->programName : "";
+//        $chapters = isset($program_data->category) ? $program_data->category : "";
+//        $content = isset($program_data->chapters) ? $program_data->chapters : "";
+//        $duration = isset($program_data->content) ? $program_data->content : "";
+        $duration = isset($program_data->duration) ? $program_data->duration : "";
         $cost = isset($program_data->cost) ? $program_data->cost : "";
-        $type = isset($program_data->type) ? $program_data->type : "";
-        $insert_query = "insert into programs (program_name,category,chapters,content,duration,cost,type) "
-                . "values (:program_name,:category,:chapters,:content,:duration,:cost,:type)";
+//        $type = isset($program_data->type) ? $program_data->type : "";
+        $provider = isset($program_data->provider) ? $program_data->provider : "";
+        $insert_query = "insert into programs (program_name,duration,cost,provider) "
+                . "values (:program_name,:duration,:cost,:provider)";
         $result = $eLearningDB->query($insert_query)->execute(array(
             "program_name" => $program_name,
-            "category" => $category,
-            "chapters" => $chapters,
-            "content" => $content,
+//            "category" => $category,
+//            "chapters" => $chapters,
+//            "content" => $content,
             "duration" => $duration,
             "cost" => $cost,
-            "type" => $type
+//            "type" => $type,
+            "provider" => $provider
         ));
     }
 
@@ -159,6 +161,27 @@ class Program {
             "cost" => $cost,
             "type" => $type
         ));
+    }
+    
+    public function addProgramChapter(Adapter $eLearningDB, $program_data){
+        $program_id = $program_data->id;
+        $query = "select * from programs where id = :program_id";
+        $result = $eLearningDB->query($query)->execute(array("program_id" => $program_id))->current();
+        if(empty($result["chapters"])){
+           $chapters = array(); 
+        }else{            
+            $chapters = json_decode($result["chapters"], true);
+        }
+        $chapter = array(
+            "title" => $program_data->tital,
+            "type" => $program_data->type,
+            "chapterUrl" => $program_data->chapterUrl
+        );
+        array_push($chapters, $chapter);
+        
+        $update_query = "update programs set chapters=:chapter where id = :program_id";
+//        var_dump(array("program_id" => $program_id, "chapter" => json_encode($chapter)));
+        $update_result = $eLearningDB->query($update_query)->execute(array("program_id" => $program_id, "chapter" => json_encode($chapters)));
     }
     
     public function deleteProgram(Adapter $eLearningDB){

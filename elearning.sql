@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2018 at 11:48 AM
+-- Generation Time: Mar 29, 2018 at 02:22 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -64,7 +64,8 @@ INSERT INTO `enrolled_programs` (`id`, `user_id`, `program_id`, `created_at`, `u
 (22, 207, '5', '2018-03-21 04:46:51', '2018-03-21 04:46:51'),
 (23, 207, '1', '2018-03-22 18:28:32', '2018-03-22 18:28:32'),
 (24, 207, '2', '2018-03-22 18:28:33', '2018-03-22 18:28:33'),
-(25, 207, '3', '2018-03-22 18:28:33', '2018-03-22 18:28:33');
+(25, 207, '3', '2018-03-22 18:28:33', '2018-03-22 18:28:33'),
+(26, 207, '23', '2018-03-28 20:52:14', '2018-03-28 20:52:14');
 
 -- --------------------------------------------------------
 
@@ -132,20 +133,22 @@ CREATE TABLE `programs` (
   `cost` double DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` varchar(255) DEFAULT NULL
+  `type` varchar(255) DEFAULT NULL,
+  `provider` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `programs`
 --
 
-INSERT INTO `programs` (`id`, `program_name`, `category`, `chapters`, `content`, `duration`, `cost`, `updated_at`, `created_at`, `type`) VALUES
-(1, 'Certified Scrum Master', 'Classroom Programs', NULL, 'https://www.youtube.com/embed/cTLU4BbYLUE', 60, 1000, '2018-03-12 03:22:47', '2018-03-09 08:33:54', 'free'),
-(2, 'Safe Agilist', 'Classroom Programs', NULL, 'https://www.youtube.com/embed/AxOKoG58gNE', 30, 1500, '2018-03-12 03:22:51', '2018-03-09 08:33:54', 'free'),
-(3, 'Kanban System Training', 'Classroom Programs', NULL, 'https://www.youtube.com/embed/GZH5qC2dYTg', 45, 2000, '2018-03-09 08:38:34', '2018-03-09 08:35:55', NULL),
-(4, 'PMP', 'Online Programs', NULL, 'https://www.youtube.com/embed/CxzU5RgyejI', 7, 750, '2018-03-09 08:38:38', '2018-03-09 08:35:55', NULL),
-(5, 'PMI ACP', 'Online Programs', NULL, 'https://www.youtube.com/embed/eAfOE4coRh8', 10, 1200, '2018-03-09 08:38:42', '2018-03-09 08:37:30', NULL),
-(6, 'PMI PBA', 'Online Programs', NULL, 'https://www.youtube.com/embed/4c4A6pjk3Hk', 90, 6000, '2018-03-09 08:38:49', '2018-03-09 08:37:30', NULL);
+INSERT INTO `programs` (`id`, `program_name`, `category`, `chapters`, `content`, `duration`, `cost`, `updated_at`, `created_at`, `type`, `provider`) VALUES
+(1, 'Certified Scrum Master', 'Classroom Programs', '{\"title\":\"asdas\",\"type\":\"sadasddsad\",\"chapterUrl\":\"dsad\"}', 'https://www.youtube.com/embed/cTLU4BbYLUE', 60, 1000, '2018-03-28 11:28:13', '2018-03-09 08:33:54', 'free', NULL),
+(2, 'Safe Agilist', 'Classroom Programs', NULL, 'https://www.youtube.com/embed/AxOKoG58gNE', 30, 1500, '2018-03-12 03:22:51', '2018-03-09 08:33:54', 'free', NULL),
+(3, 'Kanban System Training', 'Classroom Programs', NULL, 'https://www.youtube.com/embed/GZH5qC2dYTg', 45, 2000, '2018-03-09 08:38:34', '2018-03-09 08:35:55', NULL, NULL),
+(4, 'PMP', 'Online Programs', NULL, 'https://www.youtube.com/embed/CxzU5RgyejI', 7, 750, '2018-03-09 08:38:38', '2018-03-09 08:35:55', NULL, NULL),
+(5, 'PMI ACP', 'Online Programs', NULL, 'https://www.youtube.com/embed/eAfOE4coRh8', 10, 1200, '2018-03-09 08:38:42', '2018-03-09 08:37:30', NULL, NULL),
+(6, 'PMI PBA', 'Online Programs', NULL, 'https://www.youtube.com/embed/4c4A6pjk3Hk', 90, 6000, '2018-03-28 20:33:22', '2018-03-09 08:37:30', NULL, NULL),
+(23, 'Program 1', NULL, '[{\"title\":\"Title 11\",\"type\":\"Type 11\",\"chapterUrl\":\"URL 11\"},{\"title\":\"title 2\",\"type\":\"type 2\",\"chapterUrl\":\"url 2\"}]', NULL, 60, 35000, '2018-03-28 20:47:03', '2018-03-28 20:46:16', NULL, 'iZen Bridge');
 
 -- --------------------------------------------------------
 
@@ -223,7 +226,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `enrolled_programs`
 --
 ALTER TABLE `enrolled_programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `facebook_users`
@@ -241,7 +244,7 @@ ALTER TABLE `google_users`
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `users`

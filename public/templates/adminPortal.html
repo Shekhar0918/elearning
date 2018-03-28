@@ -1,6 +1,117 @@
-<table>
-    <thead><tr><th>Admin User Profile<th><th><th></tr></thead>
-    <tr><td>Name : <td><td>{{name}}<td></tr>
-    <tr><td>Email : <td><td>{{email}}<td></tr>
-    <tr><td>Role : <td><td>{{access_type}}<td></tr>
-</table>
+<style>
+.previewEntityContainer {
+
+        position: fixed; /* Stay in place */
+        z-index: 9999; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .previewEntity {
+        background: rgba(249, 248, 247, 0.99) !important;
+        margin: 5% auto; /* 15% from the top and centered */
+        padding: 10px 0px 5px 0px;
+        border: 1px solid #888;
+        border-radius: 5px 5px 0px 0px;
+		color:#000;
+		
+       
+    }
+	.previewEntity1 {
+    background: rgba(249, 248, 247, 0.99) !important;
+    margin: 5% auto;
+    padding: 10px 0px 5px 0px;
+    border: 1px solid #888;
+    border-radius: 5px 5px 0px 0px;
+    width: 95%;
+}
+    .popup-cal {
+        width: 90%;
+    }
+    .popup-cal1 {
+        width: 40%;
+    }
+    .pop-up-header {
+
+        font-size: 14px;
+        font-weight: 600;
+        top: -10px;
+        position: relative;
+        padding: 5px 5px 5px 5px;
+        float: left;
+        width: 99.99%;
+        background-color:#052e70;
+        border-radius: 5px 5px 0px 0px;
+		z-index:999;
+		
+    }    
+</style>
+<div class="block-area" style="margin-left: 50px;position: relative;">
+        <div class="row" id="contact">
+            <div class="block-title" style=" margin-bottom:5px;">Admin User Profile</div>
+            <div class="tile p-15">               
+                <table>
+                    <thead><tr><th>Admin User Profile<th><th><th></tr></thead>
+                    <tr><td>Name : <td><td>{{name}}<td></tr>
+                    <tr><td>Email : <td><td>{{email}}<td></tr>
+                    <tr><td>Role : <td><td>{{access_type}}<td></tr>
+                </table><br><br>
+                 <div><button ng-click="addProgramFn()">Add Program</button></div>
+            </div>
+        </div>
+</div>
+<div class="block-area" style="margin-left: 50px;position: relative;">
+        <div class="row" id="contact">
+            <div class="block-title" style=" margin-bottom:5px;">Program List</div>
+            <div class="tile p-15">
+                <table>
+                    <thead>
+                        <tr><th>S.No</th><th>Program Name</th><th>Cost</th><th>Duration</th><th>Provider</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in allProgram track by $index">
+                            <td>{{$index + 1}}</td><td>{{x.program_name}}</td><td>{{x.cost}}</td><td>{{x.duration}}</td><td>{{x.provider}}</td><td><span ng-click='addChapterFn(x.id)'>Add Chapter</span><span ng-click='deleteProgramFn(x.id)'>Delete Program</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+
+<div ng-if="addProgram" class="previewEntityContainer">
+        <div id="showEnrollProgram" class="previewEntity popup-cal">
+            <span class="pop-up-header">Notes</span>
+            <a href="#" class="pop-up-right"  ng-click="canceladdProgram();$event.preventDefault();">Close</a>
+            <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;position: relative;">
+                <createprogram createprogram="createProgram" ></createprogarm>
+                        </div>
+        </div>
+    </div>
+<div ng-if="addChapter" class="previewEntityContainer">
+        <div id="showEnrollProgram" class="previewEntity popup-cal">
+            <span class="pop-up-header">Notes</span>
+            <a href="#" class="pop-up-right"  ng-click="cancelAddChapter();$event.preventDefault();">Close</a>
+            <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;position: relative;">
+                <div class="tile p-15" ng-controller="eLearningApp.createProgramController">
+                    <div class="">
+                        <div class="col-lg-3">Title</div>
+                        <div class="col-lg-3"><input type="text" name="tital" ng-model="tital" /></div>
+                    </div>
+                    <div class="">
+                        <div class="col-lg-3">Type</div>
+                        <div class="col-lg-3"><input type="text" name="type" ng-model="type" /></div>
+                    </div>
+                    <div class="">
+                        <div class="col-lg-3">Url</div>
+                        <div class="col-lg-3"><input type="text" name="chapterUrl" ng-model="chapterUrl" /></div>
+                    </div>
+                    <div><button ng-click="AddChapterFn(tital,type,chapterUrl,selectedProgramId)">submit</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
