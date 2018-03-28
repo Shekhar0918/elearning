@@ -207,7 +207,7 @@ return array(
             'adminLogout' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/admin/logout',
+                    'route' => '/adminLogout',
                     'defaults' => array(
                         'controller' => 'AdApplicationmin\Controller\Index',
                         'action' => 'adminLogout',
