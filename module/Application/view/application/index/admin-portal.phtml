@@ -25,12 +25,12 @@
                        <link href="<?php echo $this->basePath(); ?>/css/style.min.css" rel="stylesheet">
         <base href="<?php echo $this->basePath(); ?>/" />
     </head>
-    <body ng-controller="adminController"> 
+    <body ng-controller="mainController"> 
         <header id="header" class="media">
         <div class="row">
                     <div class="span9">
                         <!-- Logo + Slogan -->
-                        <div class="logo"><span > Welcome {{name}} </span> on E Learning Portal</div>
+                        <div class="logo"><span > Welcome {{first_name}} {{last_name}}</span> on E Learing Admin Portal</div>
                         <div class="clearfix"></div>
                         <div class="slogan">An Initiative  by IzenBridge </div>
                          <div id="time" class="pull-right" >
@@ -40,6 +40,12 @@
             </div>
                         <!-- end Logo + Slogan -->
                     </div>
+                    
+                    <!-- Social links -->
+                    <div class="span3 hidden-phone">
+                        <a href="<?php echo $this->basePath(); ?>/">Profile<span class="ico btn-group btn-navbar"><i class="icon-facebook"></i></span></a>
+                    <!-- Social links -->
+                </div>
           
 
             <div id="time" class="pull-right" >
@@ -47,11 +53,30 @@
                     <a href="logout" style="color:#666" type="button">Log out</a>
                 </div>
             </div>
+            <div id="time" class="pull-right" >
+                <div class="btn-group">
+                    <a href="register_program" type="button">Log out</a>
+                </div>
             </div>
+            <div class="nav-container">
+                    <nav class="navbar">
+                        <div class="navbar-inner container">
+                            <div class="collapse-nav">
+                                <span class="collapse-nav-title">NAVIGATION</span>
+                                <div class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
         </header>
         
         <div style="width:800px;" ng-view >
-            <?php echo $this->content; ?>           
+            <?php echo $this->content; ?>
+           
         </div>
 <footer id="footer">
             <div class="container">
@@ -78,11 +103,11 @@
     <script src="<?php echo $this->basePath(); ?>/js/angular/angular-1.2.26.min.js"></script>
     <script src="<?php echo $this->basePath(); ?>/js/angular/angular-route.js"></script>
     <script src="<?php echo $this->basePath(); ?>/js/angular/angular-animate.js"></script>
-    <script src="<?php echo $this->basePath(); ?>/js/application.js"></script>
     <script src="<?php echo $this->basePath(); ?>/js/bootstrap.js"></script>
     <script src="<?php echo $this->basePath(); ?>/js/bootstrap.min.js"></script>
-    <!--<script src="<?php // echo $this->basePath(); ?>/js/enscroll.min.js"></script>-->
-    <!--<script src="<?php // echo $this->basePath(); ?>/js/functions.js"></script>-->
+    <script src="<?php echo $this->basePath(); ?>/js/enscroll.min.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/functions.js"></script>
+    <script src="<?php echo $this->basePath(); ?>/js/adminApplication.js"></script>
     </body> 
 
 </html>

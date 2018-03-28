@@ -16,40 +16,44 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         $routeProvider
                 .when("/", {
                     templateUrl: "templates/home.html",
-                    controller: 'homeController'
+                    controller: 'mainController'
                 })
                 .when("/_=_", {
                     templateUrl: "templates/home.html",
-                    controller: 'homeController'
+                    controller: 'mainController'
                 })
                 .when("/enrolledProgram", {
                     templateUrl: "templates/enrolledProgram.html",
                     controller: 'enrolledProgramController'
                 })
-                .when('/getAdminUserInfo', {
-                    template: 'templates/adminPortal.html',
-                    controller: 'adminController'
-                })
+//                .when('/adminPortal', {
+//                    template: 'templates/adminPortal.html',
+//                    controller: 'adminController'
+//                })
+//                .when('/getAdminUserInfo', {
+//                    template: 'templates/adminPortal.html',
+//                    controller: 'adminController'
+//                })
 //            .when('/facebookSignup', {
 //                template: 'templates/home.html',
 //                controller: 'mainController'
 //            })
         $locationProvider.html5Mode(true);
     }]);
-eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-        alert("hiiiiiiiiiiii");
-        $http.get("getAdminUserInfo")
-                .success(function (response) {
-                    if (response.status === false && response.statusCode === "notAuthorised") {
-                        alert("notAuthorised");
-                        location.href = response.url;
-                    }
-                    alert(response.name);
-                    $scope.name = response.name;
-                    $scope.email = response.email;
-                    $scope.access_type = response.access_type;
-                });
-    }]);
+//eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
+//        alert("hiiiiiiiiiiii");
+//        $http.get("getAdminUserInfo")
+//                .success(function (response) {
+//                    if (response.status === false && response.statusCode === "notAuthorised") {
+//                        alert("notAuthorised");
+//                        location.href = response.url;
+//                    }
+//                    alert(response.name);
+//                    $scope.name = response.name;
+//                    $scope.email = response.email;
+//                    $scope.access_type = response.access_type;
+//                });
+//    }]);
 eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
         $http.get('getUserInfo')
                 .success(function (response) {

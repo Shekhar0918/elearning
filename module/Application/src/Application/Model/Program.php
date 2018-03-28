@@ -14,12 +14,12 @@ class Program {
     function __construct() {
         
     }
-    
-    public function setProgramID($programID){
+
+    public function setProgramID($programID) {
         $this->programID = $programID;
     }
-    
-    public function getProgramID(){
+
+    public function getProgramID() {
         return $this->programID;
     }
 
@@ -93,17 +93,78 @@ class Program {
         }
         return $programList;
     }
-    
-    public function registerProgram(Adapter $eLearningDB, $userID){
+
+    public function registerProgram(Adapter $eLearningDB, $userID) {
         $programID = $this->getProgramID();
         $query = "insert into enrolled_programs (user_id, program_id) values (:user_id, :program_id)";
         $result = $eLearningDB->query($query)->execute(array("user_id" => $userID, "program_id" => $programID));
         $count = $result->getAffectedRows();
-        if($count > 0){
+        if ($count > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    public function getAllPrograms(Adapter $eLearningDB) {
+        $query = "select * from programs";
+        $result = $eLearningDB->query($query)->execute();
+        $allProgramsData = array();
+        foreach ($result as $resultRow) {
+            array_push($allProgramsData, $resultRow);
+        }
+        return $allProgramsData;
+    }
+
+    public function createProgram(Adapter $eLearningDB, $program_data) {
+        $program_name = isset($program_data->program_name) ? $program_data->program_name : "";
+        $chapters = isset($program_data->category) ? $program_data->category : "";
+        $content = isset($program_data->chapters) ? $program_data->chapters : "";
+        $duration = isset($program_data->content) ? $program_data->content : "";
+        $category = isset($program_data->duration) ? $program_data->duration : "";
+        $cost = isset($program_data->cost) ? $program_data->cost : "";
+        $type = isset($program_data->type) ? $program_data->type : "";
+        $insert_query = "insert into programs (program_name,category,chapters,content,duration,cost,type) "
+                . "values (:program_name,:category,:chapters,:content,:duration,:cost,:type)";
+        $result = $eLearningDB->query($insert_query)->execute(array(
+            "program_name" => $program_name,
+            "category" => $category,
+            "chapters" => $chapters,
+            "content" => $content,
+            "duration" => $duration,
+            "cost" => $cost,
+            "type" => $type
+        ));
+    }
+
+    public function updateProgram(Adapter $eLearningDB, $program_data) {
+        $program_id = isset($program_data->program_id) ? $program_data->program_id : "";
+        $program_name = isset($program_data->program_name) ? $program_data->program_name : "";
+        $chapters = isset($program_data->category) ? $program_data->category : "";
+        $content = isset($program_data->chapters) ? $program_data->chapters : "";
+        $duration = isset($program_data->content) ? $program_data->content : "";
+        $category = isset($program_data->duration) ? $program_data->duration : "";
+        $cost = isset($program_data->cost) ? $program_data->cost : "";
+        $type = isset($program_data->type) ? $program_data->type : "";
+
+        $update_query = "update programs set program_name=:program_name,category=:category,chapters=:chapters,content=:content,duration=:duration,cost=:cost,"
+                . "type=:type where id=:program_id";
+        $result = $eLearningDB->query($update_query)->execute(array(
+            "program_id" => $program_id,
+            "program_name" => $program_name,
+            "category" => $category,
+            "chapters" => $chapters,
+            "content" => $content,
+            "duration" => $duration,
+            "cost" => $cost,
+            "type" => $type
+        ));
+    }
+    
+    public function deleteProgram(Adapter $eLearningDB){
+        $programID = $this->getProgramID();
+        $delete_query = "delete from programs where id=:program_id";
+        $eLearningDB->query($delete_query)->execute(array("program_id" => $programID));
     }
 
 }

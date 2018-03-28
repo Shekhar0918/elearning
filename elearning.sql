@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2018 at 03:29 AM
+-- Generation Time: Mar 26, 2018 at 11:48 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -179,7 +179,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `name`, `designation`, `organization`, `city`, `country`, `phone`, `business_email`, `access_type`, `password`, `login_source`, `created_at`, `updated_at`, `google_user_id`, `facebook_user_id`) VALUES
 (207, 'shekharshashi0989@gmail.com', 'Shashi', 'desgination 1', 'Organization 1', 'city 1', 'country 1', '8123456345', 'abc@gmail.com', 'student', NULL, 'facebook', '2018-03-12 04:35:49', '2018-03-12 04:36:53', '188', '79'),
 (208, 'shashi.shekhar0918@gmail.com', 'Shashi', 'Software engg', 'Company', 'Bangalre', 'India', '9739085285', 'shekhar.shashi61@gmail.com', 'student', NULL, 'google', '2018-03-17 12:25:56', '2018-03-17 12:26:44', '189', '80'),
-(209, 'admin@elearning.com', 'Admin', 'Administrator', 'iZenbridge', 'Bangalore', 'India', NULL, NULL, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', NULL, '2018-03-23 18:44:57', '2018-03-23 18:46:08', NULL, NULL);
+(209, 'admin@elearning.com', 'ELearning Admin', 'Administrator', 'iZenbridge', 'Bangalore', 'India', NULL, NULL, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', NULL, '2018-03-23 18:44:57', '2018-03-24 06:42:01', NULL, NULL);
 
 --
 -- Indexes for dumped tables
