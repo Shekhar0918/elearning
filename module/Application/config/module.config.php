@@ -209,7 +209,7 @@ return array(
                 'options' => array(
                     'route' => '/adminLogout',
                     'defaults' => array(
-                        'controller' => 'AdApplicationmin\Controller\Index',
+                        'controller' => 'Application\Controller\Index',
                         'action' => 'adminLogout',
                     ),
                 ),
