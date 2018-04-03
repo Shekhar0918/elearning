@@ -183,10 +183,20 @@ return array(
             'getProgramDetailsByProgramID' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/enrolledProgram/:program_id',
+                    'route' => '/getProgramDetail/:program_id',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action' => 'getProgramDetailsByProgramID',
+                    ),
+                ),
+            ),
+            'enrolledProgram' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/enrolledProgram/:program_id',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'enrolledProgram',
                     ),
                 ),
             ),

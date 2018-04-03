@@ -305,6 +305,15 @@ class IndexController extends AbstractActionController {
         $program_detail = $program->getProgramDetailsByProgramID($sm->get('dbAdapter'));
         die(json_encode($program_detail));
     }
+    
+    public function enrolledProgramAction(){
+        $userSession = new Container('eLearning');
+        if (!isset($userSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
 
     public function registerProgramAction() {
         $userSession = new Container('eLearning');
