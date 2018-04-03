@@ -189,5 +189,12 @@ class Program {
         $delete_query = "delete from programs where id=:program_id";
         $eLearningDB->query($delete_query)->execute(array("program_id" => $programID));
     }
+    
+    public function getProgramDetailsByProgramID(Adapter $eLearningDB){
+        $programID = $this->getProgramID();
+        $query = "select * from programs where id=:program_id";
+        $result = $eLearningDB->query($query)->execute(array("program_id" => $programID))->current();
+        return $result;
+    }
 
 }

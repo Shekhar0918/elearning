@@ -298,8 +298,12 @@ class IndexController extends AbstractActionController {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
         }
         $userID = $userSession->userID;
+        $programID = $this->params()->fromRoute('program_id');
         $sm = $this->getServiceLocator();
         $program = new Program();
+        $program->setProgramID($programID);
+        $program_detail = $program->getProgramDetailsByProgramID($sm->get('dbAdapter'));
+        die(json_encode($program_detail));
     }
 
     public function registerProgramAction() {
