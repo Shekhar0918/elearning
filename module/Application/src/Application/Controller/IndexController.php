@@ -303,7 +303,7 @@ class IndexController extends AbstractActionController {
         $program = new Program();
         $program->setProgramID($programID);
         $program_detail = $program->getProgramDetailsByProgramID($sm->get('dbAdapter'));
-        die(json_encode($program_detail));
+        die($program_detail);
     }
     
     public function enrolledProgramAction(){
