@@ -64,6 +64,7 @@
             <th>Content</th>
             <th>Duration</th>
             <th>Cost</th>
+            <th>Action</th>
         </tr>
     <!--<div ng-repeat="program in enrolled_program_list">-->
         <tr ng-repeat="program in enrolled_program_list">
@@ -72,6 +73,7 @@
             <td>{{program.content}}</td>
             <td>{{program.duration}}</td>
             <td>{{program.cost}}</td>
+            <td><button ng-click="viewProgramFn(program)">Open Program</button></td>
         </tr>            
     <!--</div>-->
     </table>

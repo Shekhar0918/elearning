@@ -26,6 +26,10 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                     templateUrl: "templates/enrolledProgram.html",
                     controller: 'enrolledProgramController'
                 })
+                .when("/enrolledProgram/:program_id", {
+                    templateUrl: "templates/showProgram.html",
+                    controller: 'enrolledProgramController'
+                })
 //                .when('/adminPortal', {
 //                    template: 'templates/adminPortal.html',
 //                    controller: 'adminController'
@@ -96,6 +100,10 @@ eLearningApp.controller('enrolledProgramController', ['$scope', '$location', '$h
                     }
                     $scope.enrolled_program_list = response;
                 });
+                $scope.viewProgramFn = function(program){
+                    var url="/enrolledProgram/"+program.id
+                    $location.path(url);
+                };
         $scope.newProgramfn = function () {
             $scope.showEnrollProgram = true;
         };

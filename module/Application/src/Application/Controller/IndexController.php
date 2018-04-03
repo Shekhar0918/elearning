@@ -279,8 +279,8 @@ class IndexController extends AbstractActionController {
         $enrolledProgramList = $program->getEnrolledProgramsByUserID($sm->get('dbAdapter'), $userID);
         die(json_encode($enrolledProgramList));
     }
-    
-    public function getProgramListAction(){
+
+    public function getProgramListAction() {
         $userSession = new Container('eLearning');
         if (!isset($userSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
@@ -291,8 +291,18 @@ class IndexController extends AbstractActionController {
         $programList = $program->getProgramList($sm->get('dbAdapter'));
         die(json_encode($programList));
     }
-    
-    public function registerProgramAction(){
+
+    public function getProgramDetailsByProgramIDAction() {
+        $userSession = new Container('eLearning');
+        if (!isset($userSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
+        }
+        $userID = $userSession->userID;
+        $sm = $this->getServiceLocator();
+        $program = new Program();
+    }
+
+    public function registerProgramAction() {
         $userSession = new Container('eLearning');
         if (!isset($userSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
@@ -304,15 +314,15 @@ class IndexController extends AbstractActionController {
         $program = new Program();
         $program_id = $program->setProgramID($program_data->id);
         $status = $program->registerProgram($sm->get('dbAdapter'), $userID);
-        if($status){
+        if ($status) {
             $response = array("status" => "sucsess", "message" => "Registered Successfully!");
-        }else{
+        } else {
             $response = array("status" => "sucsess", "message" => "Registration Failed!");
         }
         die(json_encode($response));
     }
-    
-    public function verifyAccountAction(){
+
+    public function verifyAccountAction() {
         $userSession = new Container('eLearning');
         if (!isset($userSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'login')));
@@ -326,17 +336,17 @@ class IndexController extends AbstractActionController {
         $user->verifyAccount($sm->get('dbAdapter'), $userID, $accountID, $app_url);
         die(json_encode(array("status" => "success")));
     }
-    
-    public function verifyUserEmailAction(){
+
+    public function verifyUserEmailAction() {
         $sm = $this->getServiceLocator();
         $email = $this->getRequest()->getQuery("email");
         $accountType = $this->getRequest()->getQuery("accountType");
         $verificatioCode = $this->getRequest()->getQuery("verificatioCode");
         $user = new User();
         $status = $user->verifyUserEmail($sm->get('dbAdapter'), $email, $accountType, $verificatioCode);
-        if($status){
+        if ($status) {
             die("Your Email Has Been Verified Successfully!");
-        }else{
+        } else {
             die("Your Email Has Not Been Verified Successfully!");
         }
     }
@@ -350,30 +360,30 @@ class IndexController extends AbstractActionController {
         $emailDetails = json_decode($emailDetails);
 //        $mailer = new MailerPhp();
 //        $sendMail = $mailer->sendMail($emailDetails);
-        
+
         $zendMailer = new MailerPHP();
         $sendMail = $zendMailer->sendMail($emailDetails);
     }
-    
-    public function adminAuthAction(){
+
+    public function adminAuthAction() {
         if ($this->getRequest()->isPost()) {
             $sm = $this->getServiceLocator();
             $userEmailID = $this->params()->fromPost('email');
-            $password = $this->params()->fromPost('password');             
+            $password = $this->params()->fromPost('password');
             $adminUser = new AdminUser();
             $login = $adminUser->login($sm->get('dbAdapter'), $userEmailID, $password);
-            if($login){
+            if ($login) {
                 $adminSession = new Container('eLearningAdmin');
                 $adminSession->emailID = $adminUser->getAdminEmailID();
                 $adminSession->userID = $adminUser->getAdminUserID();
                 return $this->redirect()->toRoute('adminPortal');
-            }else{
+            } else {
                 $this->flashMessenger()->addMessage(json_encode(array("status" => "invalid", "message" => 'Invalid Email or Password')));
                 return $this->redirect()->toRoute('adminPortalLogin');
             }
         }
     }
-    
+
     function adminPortalLoginAction() {
         $this->layout('layout/adminPortal-layout');
         $viewModel = new ViewModel();
@@ -381,14 +391,13 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
 
-    
-    public function adminLogoutAction(){
+    public function adminLogoutAction() {
         $adminSession = new Container('eLearningAdmin');
         $adminSession->getManager()->getStorage()->clear('eLearningAdmin');
         return $this->redirect()->toRoute('adminPortalLogin');
     }
 
-    public function adminPortalAction(){
+    public function adminPortalAction() {
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             return $this->redirect()->toRoute('eLearningAdmin');
@@ -397,8 +406,8 @@ class IndexController extends AbstractActionController {
         $viewModel->setTerminal(true);
         return $viewModel;
     }
-    
-    public function getAdminUserInfoAction(){
+
+    public function getAdminUserInfoAction() {
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
@@ -410,8 +419,8 @@ class IndexController extends AbstractActionController {
         $adminUserInfo = $adminUser->getAdminUserInfoByUserID($sm->get('dbAdapter'));
         die(json_encode($adminUserInfo));
     }
-    
-    public function getAllProgramsAction(){
+
+    public function getAllProgramsAction() {
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
@@ -421,8 +430,8 @@ class IndexController extends AbstractActionController {
         $allEnrolledPrograms = $program->getAllPrograms($sm->get('dbAdapter'));
         die(json_encode($allEnrolledPrograms));
     }
-    
-    public function createProgramAction(){
+
+    public function createProgramAction() {
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
@@ -434,8 +443,8 @@ class IndexController extends AbstractActionController {
         $program->createProgram($sm->get('dbAdapter'), $program_data);
         die(json_encode(array("status" => "success", "message" => "New Program has been created")));
     }
-    
-    public function updateProgramAction(){
+
+    public function updateProgramAction() {
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
@@ -446,8 +455,8 @@ class IndexController extends AbstractActionController {
         $program->updateProgram($sm->get('dbAdapter'), $program_data);
         die(json_encode(array("status" => "success")));
     }
-    
-    public function deleteProgramAction(){
+
+    public function deleteProgramAction() {
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
@@ -460,9 +469,9 @@ class IndexController extends AbstractActionController {
         $program->deleteProgram($sm->get('dbAdapter'));
         die(json_encode(array("status" => "success")));
     }
-    
-    public function addProgramChapterAction(){
-         $adminSession = new Container('eLearningAdmin');
+
+    public function addProgramChapterAction() {
+        $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
             die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
         }
@@ -472,4 +481,5 @@ class IndexController extends AbstractActionController {
         $program->addProgramChapter($sm->get('dbAdapter'), $program_data);
         die(json_encode(array("status" => "success")));
     }
+
 }
