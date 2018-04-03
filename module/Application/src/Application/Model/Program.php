@@ -194,7 +194,8 @@ class Program {
         $programID = $this->getProgramID();
         $query = "select * from programs where id=:program_id";
         $result = $eLearningDB->query($query)->execute(array("program_id" => $programID))->current();
-        return $result;
+        $chapters = $result["chapters"];
+        return $chapters;
     }
 
 }
