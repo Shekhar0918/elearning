@@ -28,7 +28,7 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                 })
                 .when("/enrolledProgram/:program_id", {
                     templateUrl: "templates/showProgram.html",
-                    controller: 'enrolledProgramController'
+                    controller: 'programDetailController'
                 })
 //                .when('/adminPortal', {
 //                    template: 'templates/adminPortal.html',
@@ -110,6 +110,26 @@ eLearningApp.controller('enrolledProgramController', ['$scope', '$location', '$h
         $scope.cancelEnrollProgram = function () {
             $scope.showEnrollProgram = false;
         };
+    }]);
+
+eLearningApp.controller('programDetailController', ['$scope', '$location', '$http', '$rootScope', '$route','$routeParams', function ($scope, $location, $http, $rootScope, $route,$routeParams) {
+        $scope.programId = $routeParams.program_id;
+        var url = "getProgramDetail/" + $scope.programId;
+        $http.get(url)
+            .success(function (response) {
+                if (response.status === false && response.statusCode === "notAuthorised") {
+                    location.href = response.url;
+                }
+                $scope.chapterList = response;
+                $('#videoContaner').html(response[0].chapterUrl)
+                $('#videoContaner').find("iframe").width(560);
+                $('#videoContaner').find("iframe").height(315)
+            });
+            $scope.playVideoFn = function(program){
+                $('#videoContaner').html(program.chapterUrl)
+                $('#videoContaner').find("iframe").width(560);
+                $('#videoContaner').find("iframe").height(315)
+            };
     }]);
 
 eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
