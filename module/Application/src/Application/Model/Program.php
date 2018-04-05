@@ -69,7 +69,7 @@ class Program {
                 "program_name" => $resultRow['program_name'],
                 "category" => $resultRow['category'],
                 "chapters" => $resultRow['chapters'],
-                "content" => $resultRow['content'],
+                "provider" => $resultRow['provider'],
                 "duration" => $resultRow['duration'],
                 "cost" => $resultRow['cost'],
             ));

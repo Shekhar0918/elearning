@@ -62,7 +62,7 @@
         <tr>
             <th>Program Name</th>
             <th>Category</th>
-            <th>Content</th>
+            <th>Provider</th>
             <th>Duration</th>
             <th>Cost</th>
             <th>Action</th>
@@ -71,7 +71,7 @@
         <tr ng-repeat="program in enrolled_program_list">
             <td>{{program.program_name}}</td>
             <td>{{program.category}}</td>
-            <td>{{program.content}}</td>
+            <td>{{program.provider}}</td>
             <td>{{program.duration}}</td>
             <td>{{program.cost}}</td>
             <td><button ng-click="viewProgramFn(program)">Open Program</button></td>

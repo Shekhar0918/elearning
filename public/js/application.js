@@ -44,20 +44,6 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
 //            })
         $locationProvider.html5Mode(true);
     }]);
-//eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-//        alert("hiiiiiiiiiiii");
-//        $http.get("getAdminUserInfo")
-//                .success(function (response) {
-//                    if (response.status === false && response.statusCode === "notAuthorised") {
-//                        alert("notAuthorised");
-//                        location.href = response.url;
-//                    }
-//                    alert(response.name);
-//                    $scope.name = response.name;
-//                    $scope.email = response.email;
-//                    $scope.access_type = response.access_type;
-//                });
-//    }]);
 eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
         $http.get('getUserInfo')
                 .success(function (response) {
