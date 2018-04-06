@@ -75,7 +75,14 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="x in allProgram track by $index">
-                            <td>{{$index + 1}}</td><td>{{x.program_name}}</td><td>{{x.cost}}</td><td>{{x.duration}}</td><td>{{x.provider}}</td><td><span ng-click='addChapterFn(x.id)'>Add Chapter</span><span ng-click='deleteProgramFn(x.id)'>Delete Program</span></td>
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.program_name}}</td>
+                            <td>{{x.cost}}</td><td>{{x.duration}}</td>
+                            <td>{{x.provider}}</td>
+                            <td>
+                                <span ng-click='addChapterFn(x.id)'>Add Chapter</span>
+                                <span ng-click='deleteProgramFn(x.id)'>Delete Program</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
