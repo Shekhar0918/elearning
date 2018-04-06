@@ -288,7 +288,7 @@ class IndexController extends AbstractActionController {
         $userID = $userSession->userID;
         $sm = $this->getServiceLocator();
         $program = new Program();
-        $programList = $program->getProgramList($sm->get('dbAdapter'));
+        $programList = $program->getProgramList($sm->get('dbAdapter'), $userID);
         die(json_encode($programList));
     }
 

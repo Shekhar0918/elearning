@@ -98,9 +98,9 @@
 <div ng-if="showEnrollProgram" class="previewEntityContainer">
         <div id="showEnrollProgram" class="previewEntity popup-cal">
             <span class="pop-up-header">Notes</span>
-            <a href="#" class="pop-up-right"  ng-click="cancelEnrollProgram();$event.preventDefault();"></a>
+            <a href="#" class="pop-up-right" id="cancelEnrollProgram"  ng-click="cancelEnrollProgram();$event.preventDefault();">close</a>
             <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;">
-                <listofprogram listofprogram="listOfProgramSetting" ></listofprogram>
+                <listofprogram listofprogram="listOfProgramSetting"  ></listofprogram>
                         </div>
         </div>
     </div>

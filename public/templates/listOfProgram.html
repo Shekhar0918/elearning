@@ -2,7 +2,11 @@
     <table>
         <thead><tr><th>Program Name</th><th>Duration</th><th>Cost</th><th>Action</th></tr></thead>
         <tbody>
-            <tr ng-repeat="program in program_list"><td>{{program.program_name}}</td><td>{{program.duration}}</td><td>{{program.cost}}</td><td><span ng-click="registerFn(program)">Register</span></td></tr>
+            <tr ng-repeat="program in program_list"><td>{{program.program_name}}</td><td>{{program.duration}}</td><td>{{program.cost}}</td>
+                <td><span ng-click="registerFn(program)" ng-if="program.is_registered === false">Register</span>
+                    <span style="color: lightgray" ng-if="program.is_registered === true">Registered</span>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

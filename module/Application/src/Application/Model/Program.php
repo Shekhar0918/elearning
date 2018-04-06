@@ -77,20 +77,31 @@ class Program {
         return $enrolledPrograms;
     }
 
-    public function getProgramList(Adapter $eLearningDB) {
+    public function getProgramList(Adapter $eLearningDB, $userID) {
+        $query1 = "select * from enrolled_programs where user_id = :user_id";
+        $result1 = $eLearningDB->query($query1)->execute(array("user_id" => $userID));
+        $registeredProgramIDList = array();
+        foreach($result1 as $result1Row){
+            array_push($registeredProgramIDList, $result1Row["program_id"]);
+        }
         $query = "select * from programs";
         $programList = array();
         $result = $eLearningDB->query($query)->execute();
         foreach ($result as $programRow) {
+            $isRegistered = false;
+            if(in_array($programRow["id"], $registeredProgramIDList) || $programRow["type"] == "free"){
+                $isRegistered = true;
+            }           
             array_push($programList, array(
                 "id" => $programRow["id"],
                 "program_name" => $programRow["program_name"],
                 "category" => $programRow["category"],
                 "content" => $programRow["content"],
                 "duration" => $programRow["duration"],
-                "cost" => $programRow["cost"]
+                "cost" => $programRow["cost"],
+                "is_registered" => $isRegistered
             ));
-        }
+        }        
         return $programList;
     }
 

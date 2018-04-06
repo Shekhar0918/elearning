@@ -4,7 +4,7 @@ eLearningApp.directive('listofprogram', function () {
 
     directive.restrict = 'E';
 
-    directive.templateUrl = "templates/listOfProgram.html";
+    directive.templateUrl = "templates/listOfProgram.html?random_number=" + Math.random();
 
     directive.scope = {
         listofprogram: "=listofprogram"
@@ -126,7 +126,7 @@ eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$htt
                     }
                     $scope.program_list = response;
                 });
-
+        
         $scope.registerFn = function (program) {
 //            console.log(program);
             $http.post('registerProgram', {program: program})
@@ -134,7 +134,9 @@ eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$htt
                         if (response.status === false && response.statusCode === "notAuthorised") {
                             location.href = response.url;
                         }
+                        alert("New program is registered")
                         $scope.response = response;
+                        $route.reload();
                     });
         };
 
