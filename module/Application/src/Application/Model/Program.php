@@ -84,7 +84,7 @@ class Program {
         foreach($result1 as $result1Row){
             array_push($registeredProgramIDList, $result1Row["program_id"]);
         }
-        $query = "select * from programs";
+        $query = "select * from programs where is_published = 1";
         $programList = array();
         $result = $eLearningDB->query($query)->execute();
         foreach ($result as $programRow) {
@@ -207,6 +207,20 @@ class Program {
         $result = $eLearningDB->query($query)->execute(array("program_id" => $programID))->current();
         $chapters = $result["chapters"];
         return $chapters;
+    }
+    
+    public static function updateProgramPublishStatus(Adapter $eLearningDB, $programID){
+        $query = "update programs set is_published = case when is_published = 1 then 0 else 1 end where id=:program_id";
+        $eLearningDB->query($query)->execute(array("program_id" => $programID));
+        $result = $eLearningDB->query("select * from programs where id = :program_id")->execute(array("program_id" => $programID))->current();
+        $is_published = $result["is_published"];
+        if($is_published == 1){
+            $message = "Program has been published.";
+        }else{
+            $message = "Program has been unpublished.";
+        }
+        $response = array("message" => $message);
+        return $response;
     }
 
 }

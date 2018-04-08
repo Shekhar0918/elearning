@@ -53,7 +53,7 @@
 </style>
 <div class="block-area" style="margin-left: 50px;position: relative;">
         <div class="row" id="contact">
-            <div class="block-title" style=" margin-bottom:5px;">Admin User Profile</div>
+            <!--<div class="block-title" style=" margin-bottom:5px;">Admin User Profile</div>-->
             <div class="tile p-15">               
                 <table>
                     <thead><tr><th>Admin User Profile<th><th><th></tr></thead>
@@ -71,7 +71,7 @@
             <div class="tile p-15">
                 <table>
                     <thead>
-                        <tr><th>S.No</th><th>Program Name</th><th>Cost</th><th>Duration</th><th>Provider</th><th>Action</th></tr>
+                        <tr><th>S.No</th><th>Program Name</th><th>Cost</th><th>Duration</th><th>Provider</th><th>Status</th><th>Action</th></tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="x in allProgram track by $index">
@@ -80,8 +80,16 @@
                             <td>{{x.cost}}</td><td>{{x.duration}}</td>
                             <td>{{x.provider}}</td>
                             <td>
+                                <span ng-if="x.is_published == '1'">Published</span>
+                                <span ng-if="x.is_published == '0'">Not Published</span>
+                            </td>
+                            <td>
                                 <span ng-click='addChapterFn(x.id)'>Add Chapter</span>
                                 <span ng-click='deleteProgramFn(x.id)'>Delete Program</span>
+                                <span ng-click='publishProgramFn(x.id)'>
+                                    <div ng-if="x.is_published == 0">Publish</div>
+                                    <div ng-if="x.is_published == 1">Unpublish</div>
+                                </span>
                             </td>
                         </tr>
                     </tbody>
@@ -92,8 +100,8 @@
 
 <div ng-if="addProgram" class="previewEntityContainer">
         <div id="showEnrollProgram" class="previewEntity popup-cal">
-            <span class="pop-up-header">Notes</span>
-            <a href="#" class="pop-up-right"  ng-click="canceladdProgram();$event.preventDefault();">Close</a>
+            <span class="pop-up-header">Add Program</span>
+            <a href="#" class="pop-up-right"  ng-click="cancelAddProgram();$event.preventDefault();">Close</a>
             <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;position: relative;">
                 <createprogram createprogram="createProgram" ></createprogarm>
                         </div>

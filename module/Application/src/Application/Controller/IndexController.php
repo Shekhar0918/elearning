@@ -494,5 +494,17 @@ class IndexController extends AbstractActionController {
         $program->addProgramChapter($sm->get('dbAdapter'), $program_data);
         die(json_encode(array("status" => "success")));
     }
+    
+    public function publishProgramAction(){
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program_data = json_decode($this->getRequest()->getContent());
+        $programID = $program_data->program_id;
+        $response = Program::updateProgramPublishStatus($sm->get('dbAdapter'), $programID);
+        die(json_encode(array("status" => true, "message" => $response["message"])));
+    }
 
 }

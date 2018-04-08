@@ -45,7 +45,7 @@ eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$ro
             $scope.addProgram=true;
             $scope.createProgram={};
         };
-        $scope.canceladdProgram = function (){
+        $scope.cancelAddProgram = function (){
             $scope.addProgram=false;
         };
         $http.get("getAllPrograms")
@@ -73,6 +73,7 @@ eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$ro
                     .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised")
                             $location.path(response.url);
+                        alert("Chapter Added Successfully");
                         $scope.addChapter=false;
                         $rootScope.notify('<div class="alert alert-success">Chaptor Added Successfully</div>');
                     });
@@ -82,8 +83,19 @@ eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$ro
                     .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised")
                             $location.path(response.url);
+                        alert("Program Deleted Successfully");
                         $route.reload();
                         $rootScope.notify('<div class="alert alert-success">Program Deleted Successfully</div>');
+                    });
+        };
+        $scope.publishProgramFn = function(id){
+            $http.post("publishProgram", {program_id : id})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
+                        alert(response.message)
+                        $route.reload();
+                        $rootScope.notify('<div class="alert alert-success">' + response.message + '</div>');
                     });
         };
     }]);
@@ -94,6 +106,7 @@ eLearningApp.createProgramController = ['$scope', '$element', '$location', '$htt
                     .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised")
                             $location.path(response.url);
+                        alert("Program Created Successfully");
                         $route.reload();
                         $rootScope.notify('<div class="alert alert-success">Program Created Successfully</div>');
                     });

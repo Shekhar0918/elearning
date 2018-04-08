@@ -304,6 +304,16 @@ return array(
                     ),
                 ),
             ),
+            'publishProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/publishProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'publishProgram',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
