@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2018 at 03:12 PM
+-- Generation Time: Apr 09, 2018 at 01:12 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -41,37 +41,11 @@ CREATE TABLE `enrolled_programs` (
 --
 
 INSERT INTO `enrolled_programs` (`id`, `user_id`, `program_id`, `created_at`, `updated_at`) VALUES
-(1, 197, '1', '2018-03-09 08:44:33', '2018-03-11 16:13:31'),
-(2, 197, '2', '2018-03-09 08:44:33', '2018-03-11 16:13:35'),
-(3, 197, '3', '2018-03-09 08:46:15', '2018-03-11 16:13:38'),
-(4, 197, '4', '2018-03-09 08:46:15', '2018-03-11 16:13:41'),
-(5, 197, '5', '2018-03-09 08:46:36', '2018-03-11 16:13:44'),
-(6, 197, '6', '2018-03-09 08:46:36', '2018-03-11 16:13:47'),
-(7, 174, '1', '2018-03-09 08:47:05', '2018-03-09 08:47:05'),
-(8, 174, '4', '2018-03-09 08:47:05', '2018-03-09 08:51:37'),
-(9, 174, '2', '2018-03-09 08:47:32', '2018-03-09 08:47:32'),
-(10, 174, '3', '2018-03-09 08:47:32', '2018-03-09 08:47:32'),
-(11, 174, '5', '2018-03-09 08:51:59', '2018-03-09 08:51:59'),
-(12, 174, '6', '2018-03-09 08:51:59', '2018-03-09 08:51:59'),
-(14, 207, '1', '2018-03-17 10:48:23', '2018-03-17 10:48:23'),
-(15, 207, '1', '2018-03-17 10:52:11', '2018-03-17 10:52:11'),
-(16, 207, '3', '2018-03-17 10:55:50', '2018-03-17 10:55:50'),
-(17, 207, '3', '2018-03-17 11:05:29', '2018-03-17 11:05:29'),
-(18, 208, '5', '2018-03-17 12:27:26', '2018-03-17 12:27:26'),
-(19, 208, '4', '2018-03-17 12:27:45', '2018-03-17 12:27:45'),
-(20, 207, '4', '2018-03-17 12:44:00', '2018-03-17 12:44:00'),
-(21, 207, '4', '2018-03-21 04:46:49', '2018-03-21 04:46:49'),
-(22, 207, '5', '2018-03-21 04:46:51', '2018-03-21 04:46:51'),
-(23, 207, '1', '2018-03-22 18:28:32', '2018-03-22 18:28:32'),
-(24, 207, '2', '2018-03-22 18:28:33', '2018-03-22 18:28:33'),
-(25, 207, '3', '2018-03-22 18:28:33', '2018-03-22 18:28:33'),
-(26, 207, '23', '2018-03-28 20:52:14', '2018-03-28 20:52:14'),
-(27, 207, '24', '2018-03-29 05:20:02', '2018-03-29 05:20:02'),
-(28, 207, '24', '2018-03-29 05:20:03', '2018-03-29 05:20:03'),
-(29, 207, '24', '2018-03-29 05:20:03', '2018-03-29 05:20:03'),
-(30, 207, '24', '2018-03-29 05:20:04', '2018-03-29 05:20:04'),
-(31, 207, '24', '2018-03-29 05:20:04', '2018-03-29 05:20:04'),
-(32, 207, '24', '2018-03-29 05:20:04', '2018-03-29 05:20:04');
+(1, 210, '3', '2018-04-06 17:02:40', '2018-04-06 17:02:40'),
+(2, 210, '4', '2018-04-06 17:02:48', '2018-04-06 17:02:48'),
+(3, 210, '5', '2018-04-06 17:02:52', '2018-04-06 17:02:52'),
+(4, 210, '6', '2018-04-06 17:03:09', '2018-04-06 17:03:09'),
+(5, 207, '3', '2018-04-08 19:27:27', '2018-04-08 19:27:27');
 
 -- --------------------------------------------------------
 
@@ -140,20 +114,22 @@ CREATE TABLE `programs` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` varchar(255) DEFAULT NULL,
-  `provider` text
+  `provider` text,
+  `is_published` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `programs`
 --
 
-INSERT INTO `programs` (`id`, `program_name`, `category`, `chapters`, `content`, `duration`, `cost`, `updated_at`, `created_at`, `type`, `provider`) VALUES
-(1, 'Certified Scrum Master', 'Classroom Programs', '[{\"title\":\"Certified Scrum Master\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"336\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/cTLU4BbYLUE\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"Safe Agilist\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"345\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/AxOKoG58gNE\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"Kanban System Training\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"336\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/GZH5qC2dYTg\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"}]', NULL, 60, 1000, '2018-04-05 17:43:48', '2018-03-09 08:33:54', 'free', 'iZen Bridge'),
-(2, 'Safe Agilist', 'Classroom Programs', '[{\"title\":\"PMP\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"345\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/CxzU5RgyejI\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"PMI ACP\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"336\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/eAfOE4coRh8\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"PMI PBA\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"341\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/4c4A6pjk3Hk\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"}]', NULL, 30, 1500, '2018-04-05 17:43:54', '2018-03-09 08:33:54', 'free', 'iZen Bridge'),
-(3, 'Kanban System Training', 'Classroom Programs', NULL, NULL, 45, 2000, '2018-04-04 06:50:23', '2018-03-09 08:35:55', NULL, NULL),
-(4, 'PMP', 'Online Programs', NULL, NULL, 7, 750, '2018-04-04 06:50:25', '2018-03-09 08:35:55', NULL, NULL),
-(5, 'PMI ACP', 'Online Programs', NULL, NULL, 10, 1200, '2018-04-04 06:50:29', '2018-03-09 08:37:30', NULL, NULL),
-(6, 'PMI PBA', 'Online Programs', NULL, NULL, 90, 6000, '2018-04-04 06:50:32', '2018-03-09 08:37:30', NULL, NULL);
+INSERT INTO `programs` (`id`, `program_name`, `category`, `chapters`, `content`, `duration`, `cost`, `updated_at`, `created_at`, `type`, `provider`, `is_published`) VALUES
+(1, 'Certified Scrum Master', 'Classroom Programs', '[{\"title\":\"Certified Scrum Master\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"336\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/cTLU4BbYLUE\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"Safe Agilist\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"345\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/AxOKoG58gNE\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"Kanban System Training\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"336\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/GZH5qC2dYTg\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"}]', NULL, 60, 1000, '2018-04-08 19:34:37', '2018-03-09 08:33:54', 'free', 'iZen Bridge', 1),
+(2, 'Safe Agilist', 'Classroom Programs', '[{\"title\":\"PMP\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"345\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/CxzU5RgyejI\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"PMI ACP\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"336\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/eAfOE4coRh8\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"},{\"title\":\"PMI PBA\",\"type\":\"video\",\"chapterUrl\":\"<iframe width=\\\"341\\\" height=\\\"200\\\" src=\\\"https:\\/\\/www.youtube.com\\/embed\\/4c4A6pjk3Hk\\\" frameborder=\\\"0\\\" allow=\\\"autoplay; encrypted-media\\\" allowfullscreen><\\/iframe>\"}]', NULL, 30, 1500, '2018-04-08 19:29:06', '2018-03-09 08:33:54', 'free', 'iZen Bridge', 1),
+(3, 'Kanban System Training', 'Classroom Programs', NULL, NULL, 45, 2000, '2018-04-08 19:38:07', '2018-03-09 08:35:55', NULL, NULL, 1),
+(4, 'PMP', 'Online Programs', NULL, NULL, 7, 750, '2018-04-04 06:50:25', '2018-03-09 08:35:55', NULL, NULL, 0),
+(5, 'PMI ACP', 'Online Programs', NULL, NULL, 10, 1200, '2018-04-04 06:50:29', '2018-03-09 08:37:30', NULL, NULL, 0),
+(6, 'PMI PBA', 'Online Programs', '[{\"title\":\"test chapter\",\"type\":\"pdf\",\"chapterUrl\":\"msfff\"},{\"title\":\"test 2\",\"type\":\"video\",\"chapterUrl\":\"adlkjsd\"}]', NULL, 90, 6000, '2018-04-08 19:38:27', '2018-03-09 08:37:30', NULL, NULL, 1),
+(8, 'Program 1', NULL, '[{\"title\":\"Chapter 1\",\"type\":\"PDF\",\"chapterUrl\":\"wLKFD\"}]', NULL, 13, 123, '2018-04-08 19:41:21', '2018-04-08 19:37:12', NULL, 'sdfasf', 1);
 
 -- --------------------------------------------------------
 
@@ -231,7 +207,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `enrolled_programs`
 --
 ALTER TABLE `enrolled_programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `facebook_users`
@@ -249,7 +225,7 @@ ALTER TABLE `google_users`
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
