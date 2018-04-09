@@ -71,7 +71,7 @@
             <div class="tile p-15">
                 <table>
                     <thead>
-                        <tr><th>S.No</th><th>Program Name</th><th>Cost</th><th>Duration</th><th>Provider</th><th>Status</th><th>Action</th></tr>
+                        <tr><th>S.No</th><th>Program Name</th><th>Cost</th><th>Duration</th><th>Provider</th><th>Status</th><th>Last Edited</th><th>Action</th></tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="x in allProgram track by $index">
@@ -83,6 +83,7 @@
                                 <span ng-if="x.is_published == '1'">Published</span>
                                 <span ng-if="x.is_published == '0'">Not Published</span>
                             </td>
+                            <td>{{x.last_updated_at}}</td>
                             <td>
                                 <span ng-click='addChapterFn(x.id)'>Add Chapter</span>
                                 <span ng-click='deleteProgramFn(x.id)'>Delete Program</span>

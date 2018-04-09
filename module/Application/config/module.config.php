@@ -224,6 +224,16 @@ return array(
                     ),
                 ),
             ),
+            'adminPortalLogin' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/login',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'adminPortalLogin',
+                    ),
+                ),
+            ),
             'adminLogout' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
