@@ -4,6 +4,8 @@ namespace Application\Model;
 
 use Zend\Db\Adapter\Adapter;
 
+
+
 class GoogleUser {
 
     private $name;
