@@ -224,7 +224,7 @@ return array(
                     ),
                 ),
             ),
-            'adminPortalLogin' => array(
+            'admin/login' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/admin/login',
