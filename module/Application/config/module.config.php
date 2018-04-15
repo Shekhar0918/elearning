@@ -480,7 +480,7 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            'layout/admin/login' => __DIR__ . '/../view/layout/admin-login.phtml',
+            'layout/admin/login' => __DIR__ . '/../view/layout/admin-login-layout.phtml',
             'layout/admin' => __DIR__ . '/../view/layout/admin-layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
