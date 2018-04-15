@@ -3,7 +3,6 @@
 namespace Application\Model;
 
 use Zend\Db\Adapter\Adapter;
-;
 
 use Application\Model\GoogleUser;
 use Application\Model\FacebookUser;

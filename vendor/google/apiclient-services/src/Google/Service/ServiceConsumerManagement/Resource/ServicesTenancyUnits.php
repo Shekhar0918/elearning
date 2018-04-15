@@ -64,7 +64,7 @@ class Google_Service_ServiceConsumerManagement_Resource_ServicesTenancyUnits ext
   }
   /**
    * Delete a tenancy unit.  Before the tenancy unit is deleted, there should be
-   * no tenant resource in it. Operation. (tenancyUnits.delete)
+   * no tenant resources in it. Operation. (tenancyUnits.delete)
    *
    * @param string $name Name of the tenancy unit to be deleted.
    * @param array $optParams Optional parameters.

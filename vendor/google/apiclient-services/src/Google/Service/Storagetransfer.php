@@ -47,7 +47,7 @@ class Google_Service_Storagetransfer extends Google_Service
   public function __construct(Google_Client $client)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://content-storagetransfer.googleapis.com/';
+    $this->rootUrl = 'https://storagetransfer.googleapis.com/';
     $this->servicePath = '';
     $this->version = 'v1';
     $this->serviceName = 'storagetransfer';
