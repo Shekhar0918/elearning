@@ -204,12 +204,13 @@ return array(
             
             
             
+            
             'adminAuth' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/adminAuth',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'adminAuth',
                     ),
                 ),
@@ -219,7 +220,7 @@ return array(
                 'options' => array(
                     'route' => '/adminPortalLogin',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'adminPortalLogin',
                     ),
                 ),
@@ -229,7 +230,7 @@ return array(
                 'options' => array(
                     'route' => '/admin/login',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'adminPortalLogin',
                     ),
                 ),
@@ -239,7 +240,7 @@ return array(
                 'options' => array(
                     'route' => '/adminLogout',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'adminLogout',
                     ),
                 ),
@@ -249,7 +250,7 @@ return array(
                 'options' => array(
                     'route' => '/adminPortal',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'adminPortal',
                     ),
                 ),
@@ -259,7 +260,7 @@ return array(
                 'options' => array(
                     'route' => '/getAdminUserInfo',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'getAdminUserInfo',
                     ),
                 ),
@@ -269,7 +270,7 @@ return array(
                 'options' => array(
                     'route' => '/getAllPrograms',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'getAllPrograms',
                     ),
                 ),
@@ -279,7 +280,7 @@ return array(
                 'options' => array(
                     'route' => '/createProgram',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'createProgram',
                     ),
                 ),
@@ -289,7 +290,7 @@ return array(
                 'options' => array(
                     'route' => '/updateProgram',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'updateProgram',
                     ),
                 ),
@@ -299,7 +300,7 @@ return array(
                 'options' => array(
                     'route' => '/deleteProgram',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'deleteProgram',
                     ),
                 ),
@@ -309,7 +310,7 @@ return array(
                 'options' => array(
                     'route' => '/addProgramChapter',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'addProgramChapter',
                     ),
                 ),
@@ -319,11 +320,131 @@ return array(
                 'options' => array(
                     'route' => '/publishProgram',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action' => 'publishProgram',
                     ),
                 ),
             ),
+//            'adminAuth' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/adminAuth',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'adminAuth',
+//                    ),
+//                ),
+//            ),
+//            'adminPortalLogin' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/adminPortalLogin',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'adminPortalLogin',
+//                    ),
+//                ),
+//            ),
+//            'admin/login' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/admin/login',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'adminPortalLogin',
+//                    ),
+//                ),
+//            ),
+//            'adminLogout' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/adminLogout',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'adminLogout',
+//                    ),
+//                ),
+//            ),
+//            'adminPortal' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/adminPortal',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'adminPortal',
+//                    ),
+//                ),
+//            ),
+//            'getAdminUserInfo' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/getAdminUserInfo',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'getAdminUserInfo',
+//                    ),
+//                ),
+//            ),
+//            'getAllPrograms' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/getAllPrograms',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'getAllPrograms',
+//                    ),
+//                ),
+//            ),
+//            'createProgram' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/createProgram',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'createProgram',
+//                    ),
+//                ),
+//            ),
+//            'updateProgram' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/updateProgram',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'updateProgram',
+//                    ),
+//                ),
+//            ),
+//            'deleteProgram' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/deleteProgram',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'deleteProgram',
+//                    ),
+//                ),
+//            ),
+//            'addProgramChapter' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/addProgramChapter',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'addProgramChapter',
+//                    ),
+//                ),
+//            ),
+//            'publishProgram' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route' => '/publishProgram',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action' => 'publishProgram',
+//                    ),
+//                ),
+//            ),
         ),
     ),
     'service_manager' => array(
@@ -347,7 +468,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Admin' => 'Application\Controller\AdminController'
         ),
     ),
     'view_manager' => array(
@@ -358,6 +480,8 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/admin/login' => __DIR__ . '/../view/layout/admin-login.phtml',
+            'layout/admin' => __DIR__ . '/../view/layout/admin-layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
