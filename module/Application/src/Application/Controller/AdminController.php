@@ -165,7 +165,17 @@ class AdminController extends AbstractActionController
         return $viewModel;
     }
     
-    public function addProgramAction(){
+    public function manageCoursesAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+    
+    public function addBasicInfoAction(){
         $this->layout('layout/admin');
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {

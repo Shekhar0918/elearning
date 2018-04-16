@@ -328,20 +328,30 @@ return array(
             'instructorDashboard' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/instructorDashboard',
+                    'route' => '/instructor/dashboard',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
                         'action' => 'instructorDashboard',
                     ),
                 ),
             ),
-            'addProgram' => array(
+            'manageCourses' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/addProgram',
+                    'route' => '/instructor/manageCourses',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
-                        'action' => 'addProgram',
+                        'action' => 'manageCourses',
+                    ),
+                ),
+            ),
+            'addBasicInfo' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/instructor/course/addBasicInfo',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'addBasicInfo',
                     ),
                 ),
             ),

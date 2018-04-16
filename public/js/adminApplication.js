@@ -18,13 +18,17 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                     templateUrl: 'templates/adminPortal.html',
                     controller: 'mainController'
                 })
-                .when('/instructorDashboard', {
+                .when('/instructor/dashboard', {
                     templateUrl: 'templates/instructorDashboard.html',
                     controller: 'adminController'
                 })
-                .when('/addProgram', {
-                    templateUrl: 'templates/addProgram.html',
-                    controller: 'adminController'
+                .when('/instructor/manageCourses', {
+                    templateUrl: 'templates/manageCourse.html',
+                    controller: 'manageCoursesController'
+                })
+                .when('instructor/course/addBasicInfo', {
+                    templateUrl: 'templates/addCourseBasicInfo.html',
+                    controller: 'manageCoursesController'
                 })
         $locationProvider.html5Mode(true);
     }]);
@@ -50,7 +54,8 @@ eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$ro
 //            $scope.createProgram={};
 //        };
         $scope.addProgramFn = function () {
-            var url = "/addProgram"
+//            alert("add program function")
+            var url = "/instructor/manageCourses"
             $location.path(url);
         };
         $scope.cancelAddProgram = function (){
@@ -105,6 +110,30 @@ eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$ro
                         $route.reload();
                         $rootScope.notify('<div class="alert alert-success">' + response.message + '</div>');
                     });
+        };
+    }]);
+
+eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
+        
+        $scope.addCourseBasicInfoFn = function () {
+//            alert("add program function")
+            var url = "/instructor/course/addBasicInfo"
+            $location.path(url);
+        }        
+        $scope.createPricingFn = function () {
+//            alert("add program function")
+            var url = "/instructor/course/createPricing"
+            $location.path(url);
+        };
+        $scope.manageChaptersFn = function () {
+//            alert("add program function")
+            var url = "/instructor/course/manageChapters"
+            $location.path(url);
+        };
+        $scope.manageInstructorsFn = function () {
+//            alert("add program function")
+            var url = "/instructor/course/manageInstructors"
+            $location.path(url);
         };
     }]);
 
