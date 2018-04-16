@@ -16,12 +16,16 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         $routeProvider
                 .when('/adminPortal', {
                     templateUrl: 'templates/adminPortal.html',
+                    controller: 'mainController'
+                })
+                .when('/instructorDashboard', {
+                    templateUrl: 'templates/instructorDashboard.html',
                     controller: 'adminController'
                 })
-//                .when('/getAdminUserInfo', {
-//                    templateUrl: 'templates/adminPortal.html',
-//                    controller: 'adminController'
-//                })
+                .when('/addProgram', {
+                    templateUrl: 'templates/addProgram.html',
+                    controller: 'adminController'
+                })
         $locationProvider.html5Mode(true);
     }]);
 
@@ -41,9 +45,13 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
 
 eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
         
-        $scope.addProgramFn = function (){
-            $scope.addProgram=true;
-            $scope.createProgram={};
+//        $scope.addProgramFn = function (){
+//            $scope.addProgram=true;
+//            $scope.createProgram={};
+//        };
+        $scope.addProgramFn = function () {
+            var url = "/addProgram"
+            $location.path(url);
         };
         $scope.cancelAddProgram = function (){
             $scope.addProgram=false;

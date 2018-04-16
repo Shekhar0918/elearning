@@ -1,74 +1,7 @@
-<style>
-.previewEntityContainer {
-
-        position: fixed; /* Stay in place */
-        z-index: 9999; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    .previewEntity {
-        background: rgba(249, 248, 247, 0.99) !important;
-        margin: 5% auto; /* 15% from the top and centered */
-        padding: 10px 0px 5px 0px;
-        border: 1px solid #888;
-        border-radius: 5px 5px 0px 0px;
-		color:#000;
-		
-       
-    }
-	.previewEntity1 {
-    background: rgba(249, 248, 247, 0.99) !important;
-    margin: 5% auto;
-    padding: 10px 0px 5px 0px;
-    border: 1px solid #888;
-    border-radius: 5px 5px 0px 0px;
-    width: 95%;
-}
-    .popup-cal {
-        width: 90%;
-    }
-    .popup-cal1 {
-        width: 40%;
-    }
-    .pop-up-header {
-
-        font-size: 14px;
-        font-weight: 600;
-        top: -10px;
-        position: relative;
-        padding: 5px 5px 5px 5px;
-        float: left;
-        width: 99.99%;
-        background-color:#052e70;
-        border-radius: 5px 5px 0px 0px;
-		z-index:999;
-		
-    }    
-</style>
+<div><button ng-click="addProgramFn()">ADD A COURSE</button></div>
 <div class="block-area" style="margin-left: 50px;position: relative;">
         <div class="row" id="contact">
-            <!--<div class="block-title" style=" margin-bottom:5px;">Admin User Profile</div>-->
-            <div class="tile p-15">               
-                <table>
-                    <thead><tr><th>Admin User Profile<th><th><th></tr></thead>
-                    <tr><td>Name : <td><td>{{name}}<td></tr>
-                    <tr><td>Email : <td><td>{{email}}<td></tr>
-                    <tr><td>Role : <td><td>{{access_type}}<td></tr>
-                </table>
-                <br><br>
-                 <!--<div><button ng-click="addProgramFn()">Add Program</button></div>-->
-            </div>
-        </div>
-</div>
-<!--<div class="block-area" style="margin-left: 50px;position: relative;">
-        <div class="row" id="contact">
-            <div class="block-title" style=" margin-bottom:5px;">Program List</div>
+            <div class="block-title" style=" margin-bottom:5px;">My Courses</div>
             <div class="tile p-15">
                 <table>
                     <thead>
@@ -131,4 +64,4 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>

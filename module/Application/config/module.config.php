@@ -325,6 +325,26 @@ return array(
                     ),
                 ),
             ),
+            'instructorDashboard' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/instructorDashboard',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'instructorDashboard',
+                    ),
+                ),
+            ),
+            'addProgram' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/addProgram',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'addProgram',
+                    ),
+                ),
+            ),
 //            'adminAuth' => array(
 //                'type' => 'Zend\Mvc\Router\Http\Literal',
 //                'options' => array(

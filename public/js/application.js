@@ -86,10 +86,10 @@ eLearningApp.controller('enrolledProgramController', ['$scope', '$location', '$h
                     }
                     $scope.enrolled_program_list = response;
                 });
-                $scope.viewProgramFn = function(program){
-                    var url="/enrolledProgram/"+program.id
-                    $location.path(url);
-                };
+        $scope.viewProgramFn = function (program) {
+            var url = "/enrolledProgram/" + program.id
+            $location.path(url);
+        };
         $scope.newProgramfn = function () {
             $scope.showEnrollProgram = true;
         };

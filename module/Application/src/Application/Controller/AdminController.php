@@ -58,7 +58,6 @@ class AdminController extends AbstractActionController
             return $this->redirect()->toRoute('eLearningAdmin');
         }
         $viewModel = new ViewModel();
-//        $viewModel->setTerminal(true);
         return $viewModel;
     }
 
@@ -154,6 +153,26 @@ class AdminController extends AbstractActionController
         $programID = $program_data->program_id;
         $response = Program::updateProgramPublishStatus($sm->get('dbAdapter'), $programID);
         die(json_encode(array("status" => true, "message" => $response["message"])));
+    }
+    
+    public function instructorDashboardAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+    
+    public function addProgramAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
     }
 
 
