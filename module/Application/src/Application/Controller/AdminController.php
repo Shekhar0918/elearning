@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Application\Model\AdminUser;
 use Application\Model\Program;
+use Application\Model\Course;
 
 class AdminController extends AbstractActionController
 {
@@ -183,6 +184,44 @@ class AdminController extends AbstractActionController
         }
         $viewModel = new ViewModel();
         return $viewModel;
+    }
+    
+    public function createNewCourseAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $course = new Course();
+        $response = $course->createNewCourse($sm->get('dbAdapter'));
+        die(json_encode($response));
+    }
+    
+    public function instructorManageCoursesAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+    
+    public function addCourseBasicInfoAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $courseBasicInfo = json_decode($this->getRequest()->getContent());
+        $course = new Course();
+        $course->setCourseName(isset($courseBasicInfo->course_name) ? $courseBasicInfo->course_name : "");
+        $course->setCourseDescription(isset($courseBasicInfo->course_description) ? $courseBasicInfo->course_description : "");
+        $course->setCourseOverview(isset($courseBasicInfo->course_overview) ? $courseBasicInfo->course_overview : "");
+        $course->addCourseBasicInfo($sm->get('dbAdapter'));
+        die(json_encode(array("status" => "success")));
     }
 
 

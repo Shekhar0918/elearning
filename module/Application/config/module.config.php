@@ -355,6 +355,36 @@ return array(
                     ),
                 ),
             ),
+            'createNewCourse' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/createNewCourse',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'createNewCourse',
+                    ),
+                ),
+            ),
+            'instructor/anageCourses/id' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/instructor/manageCourses/:course_id',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'instructorManageCourses',
+                    ),
+                ),
+            ),
+            'addCourseBasicInfo' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/addCourseBasicInfo',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'addCourseBasicInfo',
+                    ),
+                ),
+            ),
 //            'adminAuth' => array(
 //                'type' => 'Zend\Mvc\Router\Http\Literal',
 //                'options' => array(

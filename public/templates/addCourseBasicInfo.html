@@ -1,25 +1,42 @@
 
 <h2>MANAGE BASIC INFO</h2>
 <!--<div class="previewEntityContainer">
-        <div id="courseBasicInfo" class="previewEntity">
-            <span class="">Course Basic Info</span>
-            <a href="#" class="pop-up-right"  ng-click="cancelAddChapter();$event.preventDefault();">Close</a>
-            <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;position: relative;">
-                <div class="tile p-15" ng-controller="eLearningApp.createProgramController">
-                    <div class="">
-                        <div class="col-lg-3">Title</div>
-                        <div class="col-lg-3"><input type="text" name="tital" ng-model="tital" /></div>
-                    </div>
-                    <div class="">
-                        <div class="col-lg-3">Type</div>
-                        <div class="col-lg-3"><input type="text" name="type" ng-model="type" /></div>
-                    </div>
-                    <div class="">
-                        <div class="col-lg-3">Url</div>
-                        <div class="col-lg-3"><input type="text" name="chapterUrl" ng-model="chapterUrl" /></div>
-                    </div>
-                    <div><button ng-click="AddChapterFn(tital,type,chapterUrl,selectedProgramId)">submit</button></div>
+    <div id="courseBasicInfo" class="previewEntity">
+        <span class="">Course Basic Info</span>
+        <div class="row"  style="width: 90%;overflow: auto;margin-left: 5%;position: relative;">-->
+<!--            <div class="tile p-15" ng-controller="eLearningApp.manageCourseInfoController">
+                <div class="">
+                    <div class="col-lg-3">Title</div>
+                    <div class="col-lg-3"><input type="text" name="tital" ng-model="tital" /></div>
                 </div>
-            </div>
+                <div class="">
+                    <div class="col-lg-3">Type</div>
+                    <div class="col-lg-3"><input type="text" name="type" ng-model="type" /></div>
+                </div>
+                <div class="">
+                    <div class="col-lg-3">Url</div>
+                    <div class="col-lg-3"><input type="text" name="chapterUrl" ng-model="chapterUrl" /></div>
+                </div>
+                <div><button ng-click="addCourseBasicInfoFn(tital, type, chapterUrl, selectedProgramId)">submit</button></div>
+            </div>-->
+<!--        </div>
+    </div>
+</div>-->
+
+<!--<form role="form" id='signup'>-->
+    <!--<div class="tile p-15" ng-controller="eLearningApp.manageCourseInfoController">-->
+        <div class="">
+            <div class="col-lg-3">Course Name</div>
+            <div class="col-lg-3"><input type="text" name="course_name" id="course_name" ng-model="course_name" /></div>
         </div>
-    </div>-->
+        <div class="">
+            <div class="col-lg-3">Course Description</div>
+            <div class="col-lg-3"><textarea name="couse_description" id="course_description" ng-model="course_description" >Enter course description ...</textarea></div>
+        </div>
+        <div class="">
+            <div class="col-lg-3">Course Overview</div>
+            <div class="col-lg-3"><textarea name="course_overview" id="course_overview" ng-model="course_overview" >Enter course description...</textarea></div>
+        </div>
+        <div><button ng-click="addCourseBasicInfoFn(course_name, course_description, course_overview)">submit</button></div>
+    <!--</div>-->       
+<!--</form>-->
