@@ -345,13 +345,43 @@ return array(
                     ),
                 ),
             ),
+            'instructorManageCourses' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/instructor/manageCourses/:course_id',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'instructorManageCourses',
+                    ),
+                ),
+            ),
             'addBasicInfo' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/instructor/course/addBasicInfo',
+                    'route' => '/instructor/manageCourses/:course_id/addBasicInfo',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
                         'action' => 'addBasicInfo',
+                    ),
+                ),
+            ),
+            'instructorManageCoursePricing' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/instructor/manageCourses/:course_id/pricing',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'instructorManageCoursePricing',
+                    ),
+                ),
+            ),
+            'manageCourseInstructors' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/instructor/manageCourses/:course_id/instructors',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'manageCourseInstructors',
                     ),
                 ),
             ),
@@ -365,13 +395,13 @@ return array(
                     ),
                 ),
             ),
-            'instructor/manageCourses/id' => array(
-                'type' => 'segment',
+            'createNewCourse' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/instructor/manageCourses/:course_id',
+                    'route' => '/createNewCourse',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
-                        'action' => 'instructorManageCourses',
+                        'action' => 'createNewCourse',
                     ),
                 ),
             ),
@@ -392,6 +422,26 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
                         'action' => 'getCourseDetailsByID',
+                    ),
+                ),
+            ),            
+            'updateCoursePrice' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/updateCoursePrice',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'updateCoursePrice',
+                    ),
+                ),
+            ),        
+            'addCourseInstructor' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/addCourseInstructor',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'addCourseInstructor',
                     ),
                 ),
             )

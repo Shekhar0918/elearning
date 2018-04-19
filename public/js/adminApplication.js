@@ -24,15 +24,15 @@ eLearningApp.service('courseDetailsService', function () {
     var setCourseDetails = function (course) {
         courseDetails = course;
     };
-    var getCourseDetails = function getCourseDetails(){
+    var getCourseDetails = function getCourseDetails() {
         return courseDetails;
     };
     return {
         setCourseID: setCourseID,
         getCourseID: getCourseID,
-        setCourseDetails : setCourseDetails,
-        getCourseDetails : getCourseDetails
-        
+        setCourseDetails: setCourseDetails,
+        getCourseDetails: getCourseDetails
+
     };
 });
 eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -45,13 +45,21 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                     templateUrl: 'templates/instructorDashboard.html',
                     controller: 'instructorDashboardController'
                 })
-                .when('/instructor/manageCourses/:id', {
+                .when('/instructor/manageCourses/:course_id', {
                     templateUrl: 'templates/manageCourse.html',
                     controller: 'manageCoursesController'
                 })
-                .when('/instructor/course/addBasicInfo', {
+                .when('/instructor/manageCourses/:course_id/addBasicInfo', {
                     templateUrl: 'templates/addCourseBasicInfo.html',
                     controller: 'manageCourseInfoController'
+                })
+                .when('/instructor/manageCourses/:course_id/pricing', {
+                    templateUrl: 'templates/coursePricing.html',
+                    controller: 'manageCoursePriceController'
+                })
+                .when('/instructor/manageCourses/:course_id/instructors', {
+                    templateUrl: 'templates/courseInstructors.html',
+                    controller: 'manageCourseInstructorsController'
                 })
         $locationProvider.html5Mode(true);
     }]);
@@ -160,7 +168,7 @@ eLearningApp.controller('instructorDashboardController', ['$scope', '$location',
     }]);
 eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
         $scope.courseID = courseDetailsService.getCourseID();
-        $http.get("getCourseDetailsByID?courseID="+$scope.courseID)
+        $http.get("getCourseDetailsByID?courseID=" + $scope.courseID)
                 .success(function (response) {
                     if (response.status === false && response.statusCode === "notAuthorised") {
                         alert("notAuthorised");
@@ -170,12 +178,13 @@ eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$htt
                     courseDetailsService.setCourseDetails(response);
                 });
         $scope.addBasicInfoFn = function () {
-            var url = "/instructor/course/addBasicInfo"
+//            var url = "/instructor/course/addBasicInfo"
+            var url = "/instructor/manageCourses/" + $scope.courseID + "/addBasicInfo"
             $location.path(url);
         }
 
         $scope.createPricingFn = function () {
-            var url = "/instructor/course/createPricing"
+            var url = "/instructor/manageCourses/" + $scope.courseID + "/pricing"
             $location.path(url);
         };
         $scope.manageChaptersFn = function () {
@@ -183,14 +192,14 @@ eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$htt
             $location.path(url);
         };
         $scope.manageInstructorsFn = function () {
-            var url = "/instructor/course/manageInstructors"
+            var url = "/instructor/manageCourses/" + $scope.courseID + "/instructors"
             $location.path(url);
         };
     }]);
 eLearningApp.controller('manageCourseInfoController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
         $scope.courseID = courseDetailsService.getCourseID();
         $scope.courseDetails = courseDetailsService.getCourseDetails();
-        $http.get("getCourseDetailsByID?courseID="+$scope.courseID)
+        $http.get("getCourseDetailsByID?courseID=" + $scope.courseID)
                 .success(function (response) {
                     if (response.status === false && response.statusCode === "notAuthorised") {
                         alert("notAuthorised");
@@ -203,12 +212,12 @@ eLearningApp.controller('manageCourseInfoController', ['$scope', '$location', '$
 //            alert("add program function")
 //            var url = "/addCourseBasicInfo"
 //            $location.path(url);
-            $http.post("updateCourseBasicInfo", {course_id: $scope.courseID, course_name : courseDetails.name, course_description: courseDetails.course_description, course_overview: courseDetails.course_overview})
+            $http.post("updateCourseBasicInfo", {course_id: $scope.courseID, course_name: courseDetails.name, course_description: courseDetails.course_description, course_overview: courseDetails.course_overview})
                     .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised")
                             $location.path(response.url);
-                        
-                        var url = "/instructor/manageCourses/"+$scope.courseID;
+
+                        var url = "/instructor/manageCourses/" + $scope.courseID;
                         $location.path(url);
                         alert("Course Basic Information Is Updated Successfully");
 //                        $scope.addChapter = false;
@@ -231,15 +240,57 @@ eLearningApp.controller('manageCourseInfoController', ['$scope', '$location', '$
             $location.path(url);
         };
     }]);
+eLearningApp.controller('manageCoursePriceController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
+        $scope.courseID = courseDetailsService.getCourseID();
+        $http.get("getCourseDetailsByID?courseID=" + $scope.courseID)
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        alert("notAuthorised");
+                        location.href = response.url;
+                    }
+                    $scope.courseDetails = response;
+                    courseDetailsService.setCourseDetails(response);
+                });
+        $scope.coursePricingFn = function () {      
+            $http.post("updateCoursePrice", {courseID: $scope.courseID, price: $scope.courseDetails.price})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
 
-eLearningApp.controller('manageCoursePriceController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-        $scope.createPricingFn = function () {
-//            alert("add program function")
-            var url = "/instructor/course/createPricing"
-            $location.path(url);
+                        var url = "/instructor/manageCourses/" + $scope.courseID;
+                        $location.path(url);
+                        alert("Course Price has Been Updated Successfully");
+//                        $scope.addChapter = false;
+                        $rootScope.notify('<div class="alert alert-success">Course Price has Been Updated Successfully</div>');
+                    });
         };
     }]);
+eLearningApp.controller('manageCourseInstructorsController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
+        $scope.courseID = courseDetailsService.getCourseID();
+        $http.get("getCourseDetailsByID?courseID=" + $scope.courseID)
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        alert("notAuthorised");
+                        location.href = response.url;
+                    }
+                    $scope.courseDetails = response;
+                    courseDetailsService.setCourseDetails(response);
+                });
+        $scope.addCourseInstructorFn = function () {      
+            $http.post("addCourseInstructor", {courseID: $scope.courseID, instructorName: $scope.courseDetails.instructorName, instructorEmail: $scope.courseDetails.instructorEmail})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
 
+                        var url = "/instructor/manageCourses/" + $scope.courseID + "/instructors";
+                        $location.path(url);
+                        $route.reload();
+                        alert("Course Instructor has Been Added Successfully");console.log($scope.courseDetails)
+//                        $scope.addChapter = false;
+                        $rootScope.notify('<div class="alert alert-success">Course Instructor has Been Added Successfully</div>');
+                    });
+        };
+    }]);
 eLearningApp.createProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
         $scope.createProgramFn = function (data) {
             $http.post("createProgram", data)

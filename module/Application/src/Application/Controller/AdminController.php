@@ -239,6 +239,62 @@ class AdminController extends AbstractActionController
         $courseDetails = $course->getCouseDetailsByID($sm->get('dbAdapter'));
         die(json_encode($courseDetails));
     }
+    
+    public function instructorManageCoursePricingAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+    
+    public function updateCoursePriceAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $courseData = json_decode($this->getRequest()->getContent());
+        $courseID = $courseData->courseID;
+        $price = $courseData->price;
+        $course = new Course();
+        $course->setCourseID($courseID);
+        $course->setCoursePrice($price);
+        $course->updateCoursePrice($sm->get('dbAdapter'));
+        die(json_encode(array("status" => "success")));
+    }
+    
+    public function manageCourseInstructorsAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+    
+    public function addCourseInstructorAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $courseData = json_decode($this->getRequest()->getContent());
+        $courseID = $courseData->courseID;
+        $instructorName = $courseData->instructorName;
+        $instructorEmail = $courseData->instructorEmail;
+        $course = new Course();
+        $course->setCourseID($courseID);
+        $course->setInstructorName($instructorName);
+        $course->setInstructorEmail($instructorEmail);
+        $course->addCourseInstructor($sm->get('dbAdapter'));
+        die(json_encode(array("statuc" => "success")));
+    }
 
 
 }

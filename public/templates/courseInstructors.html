@@ -1,0 +1,31 @@
+<div class="block-area" style="margin-left: 50px;position: relative;">
+        <div class="row" id="contact">
+            <div class="block-title" style=" margin-bottom:5px;">Course Instructors</div>
+            <div class="tile p-15">
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Email</th><th>Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="courseDetails.instructors === null || courseDetails.instructors === '' || courseDetails.instructors === undefined"><td></td><td>No Instructor Added</td><td></td></tr>
+                    <tr ng-if="courseDetails.instructors != null && courseDetails.instructors !== '' && courseDetails.instructors !== undefined" ng-repeat="x in courseDetails.instructors track by $index">
+                            <!--<td>{{$index + 1}}</td>-->
+                            <td>{{x.instructor_name}}</td>
+                            <td>{{x.instructor_email}}</td>
+                            <td>{{x.instructor_created_at}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+<br><br>
+<div class="">
+    <div class="col-lg-3">Instructor Name</div>
+    <div class="col-lg-3"><input type="text" name="isntructor_name" id="price" ng-model="courseDetails.instructorName" /></div>
+</div><div class="">
+    <div class="col-lg-3">Instructor Email</div>
+    <div class="col-lg-3"><input type="email" name="isntructor_email" id="price" ng-model="courseDetails.instructorEmail" /></div>
+</div>
+<div><button ng-click="addCourseInstructorFn(courseDetails)">Submit</button></div>
