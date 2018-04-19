@@ -375,6 +375,16 @@ return array(
                     ),
                 ),
             ),
+            'instructorManageCourseChapters' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/instructor/manageCourses/:course_id/chapters',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'instructorManageCourseChapters',
+                    ),
+                ),
+            ),
             'manageCourseInstructors' => array(
                 'type' => 'segment',
                 'options' => array(
@@ -444,7 +454,17 @@ return array(
                         'action' => 'addCourseInstructor',
                     ),
                 ),
-            )
+            ),       
+            'createCourseChapter' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/createCourseChapter',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'createCourseChapter',
+                    ),
+                ),
+            ),
 //            'adminAuth' => array(
 //                'type' => 'Zend\Mvc\Router\Http\Literal',
 //                'options' => array(

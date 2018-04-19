@@ -1,0 +1,37 @@
+<div id="chapter_list">
+    <table>
+        <tr>
+            <th>Chapter Name</th>
+            <th>Type</th>
+            <th>Video URL</th>
+            <th>Action</th>
+        </tr>
+    <!--<div ng-repeat="program in enrolled_program_list">-->
+        <tr ng-if="courseDetails.chapters === null || courseDetails.chapters === '' ||courseDetails.chapters === undefined"><td></td><td>No Chapter Added</td><td></td></tr>
+        <tr ng-if="courseDetails.chapters !== null || courseDetails.chapters !== '' ||courseDetails.chapters !== undefined" ng-repeat="chapter in courseDetails.chapters">
+            <td>{{chapter.chapterName}}</td>
+            <td>{{chapter.type}}</td>
+            <td>{{chapter.chapterURL}}</td>
+            <td><button ng-click="deleteChapterFn(chapter)">Delete</button></td>
+        </tr>            
+    <!--</div>-->
+    </table>
+</div>
+<div class="tile p-15">
+    <div class="">
+        <div class="col-lg-3">Chapter Name</div>
+        <div class="col-lg-3"><input type="text" name="chapterName" ng-model="chapter.chapterName" /></div>
+    </div>
+    <div class="">
+        <div class="col-lg-3">Type</div>
+        <select name="chapterType" ng-model="chapter.chapterType" ng-options="type for type in types">
+<!--            <option value="videoURL" >Video</option>
+            <option value="pdf" ng-model="chapter.chapterType">PDF</option>            -->
+        </select>
+    </div>
+    <div class="">
+        <div class="col-lg-3">URL</div>
+        <div class="col-lg-3"><input type="text" name="chapterUrl" ng-model="chapter.chapterURL" /></div>
+    </div>
+    <div><button ng-click="createCourseChapterFn(createprogram)">submit</button></div>
+</div>

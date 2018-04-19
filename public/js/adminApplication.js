@@ -61,6 +61,10 @@ eLearningApp.config(['$routeProvider', '$locationProvider', function ($routeProv
                     templateUrl: 'templates/courseInstructors.html',
                     controller: 'manageCourseInstructorsController'
                 })
+                .when('/instructor/manageCourses/:course_id/chapters', {
+                    templateUrl: 'templates/courseChapters.html',
+                    controller: 'manageCourseChaptersController'
+                })
         $locationProvider.html5Mode(true);
     }]);
 
@@ -178,7 +182,6 @@ eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$htt
                     courseDetailsService.setCourseDetails(response);
                 });
         $scope.addBasicInfoFn = function () {
-//            var url = "/instructor/course/addBasicInfo"
             var url = "/instructor/manageCourses/" + $scope.courseID + "/addBasicInfo"
             $location.path(url);
         }
@@ -188,7 +191,7 @@ eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$htt
             $location.path(url);
         };
         $scope.manageChaptersFn = function () {
-            var url = "/instructor/course/manageChapters"
+            var url = "/instructor/manageCourses/" + $scope.courseID + "/chapters"
             $location.path(url);
         };
         $scope.manageInstructorsFn = function () {
@@ -288,6 +291,33 @@ eLearningApp.controller('manageCourseInstructorsController', ['$scope', '$locati
                         alert("Course Instructor has Been Added Successfully");console.log($scope.courseDetails)
 //                        $scope.addChapter = false;
                         $rootScope.notify('<div class="alert alert-success">Course Instructor has Been Added Successfully</div>');
+                    });
+        };
+    }]);
+eLearningApp.controller('manageCourseChaptersController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
+        $scope.courseID = courseDetailsService.getCourseID();
+        $http.get("getCourseDetailsByID?courseID=" + $scope.courseID)
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        alert("notAuthorised");
+                        location.href = response.url;
+                    }
+                    $scope.courseDetails = response;
+                    courseDetailsService.setCourseDetails(response);
+                });
+        $scope.types = ["Video", "PDF"];
+        $scope.createCourseChapterFn = function () {      
+            $http.post("createCourseChapter", {courseID: $scope.courseID, chapter: $scope.chapter})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
+
+                        var url = "/instructor/manageCourses/" + $scope.courseID + "/chapters";
+                        $location.path(url);
+                        $route.reload();
+                        alert("Chapter has Been Added Successfully");console.log($scope.courseDetails)
+//                        $scope.addChapter = false;
+                        $rootScope.notify('<div class="alert alert-success">Chapter has Been Added Successfully</div>');
                     });
         };
     }]);

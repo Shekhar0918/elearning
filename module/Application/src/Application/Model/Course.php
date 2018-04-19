@@ -14,6 +14,9 @@ class Course {
     private $coursePrice;
     private $instructorName;
     private $instructorEmail;
+    private $type;
+    private $chapterName;
+    private $chapterURL;
 
     function __construct() {
         
@@ -82,6 +85,30 @@ class Course {
     public function getInstructorEmail() {
         return $this->instructorEmail;
     }
+    
+    public function setType($type){
+        $this->type = $type;
+    }
+    
+    public function getType(){
+        return $this->type;
+    }
+    
+    public function setChapterName($chapterName){
+        $this->chapterName = $chapterName;
+    }
+    
+    public function getChapterName(){
+        return $this->chapterName;
+    }
+    
+    public function setChapterURL($chapterURL){
+        $this->chapterURL = $chapterURL;
+    }
+    
+    public function getChapterURL(){
+        return $this->chapterURL;
+    }
 
     public static function getCourseByID(Adapter $eLearningDB, $courseID) {
         $query = "select * from courses where id=:courseID";
@@ -118,6 +145,7 @@ class Course {
         $query = "select * from courses where id='$courseID'";
         $courseDetails = $eLearningDB->query($query)->execute(array("courseID" => $courseID))->current();
         $courseDetails["instructors"] = json_decode($courseDetails["instructors"]);
+        $courseDetails["chapters"] = json_decode($courseDetails["chapters"]);
         return $courseDetails;
     }
 
@@ -128,12 +156,12 @@ class Course {
         $eLearningDB->query($query)->execute(array("price" => $coursePrice, "courseID" => $courseID));
     }
 
-    public function addCourseInstructor(Adapter $eLearingDB) {
+    public function addCourseInstructor(Adapter $eLearningDB) {
         $courseID = $this->getCourseID();
         $instructorName = $this->getInstructorName();
         $instructorEmail = $this->getInstructorEmail();
         $selectQuery = "select * from courses where id = :courseID";
-        $selectResult = $eLearingDB->query($selectQuery)->execute(array("courseID" => $courseID))->current();
+        $selectResult = $eLearningDB->query($selectQuery)->execute(array("courseID" => $courseID))->current();
         $instructors = !empty($selectResult['instructors']) ? json_decode($selectResult['instructors']) : array();
         if (count($instructors) > 0) {
             $instructor_id = (int) $instructors[count($instructors) - 1]->id + 1;
@@ -150,7 +178,30 @@ class Course {
 //        var_dump(array("instructors" => json_encode($instructors), "courseID" => $courseID));
         
         $updateQuery = "update courses set instructors = :instructors where id = :courseID";
-        $eLearingDB->query($updateQuery)->execute(array("instructors" => json_encode($instructors), "courseID" => $courseID));
+        $eLearningDB->query($updateQuery)->execute(array("instructors" => json_encode($instructors), "courseID" => $courseID));
+    }
+    
+    public function createChapter(Adapter $eLearningDB){
+        $courseID = $this->courseID;
+        $chapterName = $this->getChapterName();
+        $chapterURL = $this->getChapterURL();
+        $type = $this->type;
+        $selectQuery = "select * from courses where id = :courseID";
+        $selectResult = $eLearningDB->query($selectQuery)->execute(array("courseID" => $courseID))->current();
+        $chapters = !empty($selectResult['chapters']) ? json_decode($selectResult['chapters']) : array();
+        if (count($chapters) > 0) {
+            $chapter_id = (int) $chapters[count($chapters) - 1]->id + 1;
+        } else {
+            $chapter_id = 1;
+        }
+        array_push($chapters, array(
+            "id" => $chapter_id,
+            "chapterName" => $chapterName,
+            "chapterURL" => $chapterURL,
+            "type" => $type
+        ));
+        $updateQuery = "update courses set chapters = :chapters where id = :courseID";
+        $eLearningDB->query($updateQuery)->execute(array("chapters" => json_encode($chapters), "courseID" => $courseID));
     }
 
 }

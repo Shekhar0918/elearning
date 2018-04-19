@@ -1,24 +1,24 @@
 <div class="block-area" style="margin-left: 50px;position: relative;">
-        <div class="row" id="contact">
-            <div class="block-title" style=" margin-bottom:5px;">Course Instructors</div>
-            <div class="tile p-15">
-                <table>
-                    <thead>
-                        <tr><th>Name</th><th>Email</th><th>Added</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-if="courseDetails.instructors === null || courseDetails.instructors === '' || courseDetails.instructors === undefined"><td></td><td>No Instructor Added</td><td></td></tr>
+    <div class="row" id="contact">
+        <div class="block-title" style=" margin-bottom:5px;">Course Instructors</div>
+        <div class="tile p-15">
+            <table>
+                <thead>
+                    <tr><th>Name</th><th>Email</th><th>Added</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="courseDetails.instructors === null || courseDetails.instructors === '' || courseDetails.instructors === undefined"><td></td><td>No Instructor Added</td><td></td></tr>
                     <tr ng-if="courseDetails.instructors != null && courseDetails.instructors !== '' && courseDetails.instructors !== undefined" ng-repeat="x in courseDetails.instructors track by $index">
-                            <!--<td>{{$index + 1}}</td>-->
-                            <td>{{x.instructor_name}}</td>
-                            <td>{{x.instructor_email}}</td>
-                            <td>{{x.instructor_created_at}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <!--<td>{{$index + 1}}</td>-->
+                        <td>{{x.instructor_name}}</td>
+                        <td>{{x.instructor_email}}</td>
+                        <td>{{x.instructor_created_at}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 </div>
 <br><br>
 <div class="">
