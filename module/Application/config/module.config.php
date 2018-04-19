@@ -365,7 +365,7 @@ return array(
                     ),
                 ),
             ),
-            'instructor/anageCourses/id' => array(
+            'instructor/manageCourses/id' => array(
                 'type' => 'segment',
                 'options' => array(
                     'route' => '/instructor/manageCourses/:course_id',
@@ -375,16 +375,26 @@ return array(
                     ),
                 ),
             ),
-            'addCourseBasicInfo' => array(
+            'updateCourseBasicInfo' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/addCourseBasicInfo',
+                    'route' => '/updateCourseBasicInfo',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
-                        'action' => 'addCourseBasicInfo',
+                        'action' => 'updateCourseBasicInfo',
                     ),
                 ),
-            ),
+            ),            
+            'getCourseDetailsByID' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getCourseDetailsByID',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'getCourseDetailsByID',
+                    ),
+                ),
+            )
 //            'adminAuth' => array(
 //                'type' => 'Zend\Mvc\Router\Http\Literal',
 //                'options' => array(

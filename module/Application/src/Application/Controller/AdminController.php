@@ -208,7 +208,7 @@ class AdminController extends AbstractActionController
         return $viewModel;
     }
     
-    public function addCourseBasicInfoAction(){
+    public function updateCourseBasicInfoAction(){
         $this->layout('layout/admin');
         $adminSession = new Container('eLearningAdmin');
         if (!isset($adminSession->userID)) {
@@ -217,11 +217,27 @@ class AdminController extends AbstractActionController
         $sm = $this->getServiceLocator();
         $courseBasicInfo = json_decode($this->getRequest()->getContent());
         $course = new Course();
+        $course->setCourseID(isset($courseBasicInfo->course_id) ? $courseBasicInfo->course_id : "");
         $course->setCourseName(isset($courseBasicInfo->course_name) ? $courseBasicInfo->course_name : "");
         $course->setCourseDescription(isset($courseBasicInfo->course_description) ? $courseBasicInfo->course_description : "");
         $course->setCourseOverview(isset($courseBasicInfo->course_overview) ? $courseBasicInfo->course_overview : "");
-        $course->addCourseBasicInfo($sm->get('dbAdapter'));
+        $course->updateCourseBasicInfo($sm->get('dbAdapter'));
         die(json_encode(array("status" => "success")));
+    }
+    
+    public function getCourseDetailsByIDAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $courseID = $this->params()->fromQuery("courseID");
+//        $courseDetails = Course::getCourseByID($sm->get('dbAdapter'), $courseID);
+        $course = new Course();
+        $course->setCourseID($courseID);
+        $courseDetails = $course->getCouseDetailsByID($sm->get('dbAdapter'));
+        die(json_encode($courseDetails));
     }
 
 

@@ -27,16 +27,16 @@
     <!--<div class="tile p-15" ng-controller="eLearningApp.manageCourseInfoController">-->
         <div class="">
             <div class="col-lg-3">Course Name</div>
-            <div class="col-lg-3"><input type="text" name="course_name" id="course_name" ng-model="course_name" /></div>
+            <div class="col-lg-3"><input type="text" name="course_name" id="course_name" ng-model="courseDetails.name" /></div>
         </div>
         <div class="">
             <div class="col-lg-3">Course Description</div>
-            <div class="col-lg-3"><textarea name="couse_description" id="course_description" ng-model="course_description" >Enter course description ...</textarea></div>
+            <div class="col-lg-3"><textarea name="couse_description" id="course_description" ng-model="courseDetails.course_description" >Enter course description ...</textarea></div>
         </div>
         <div class="">
             <div class="col-lg-3">Course Overview</div>
-            <div class="col-lg-3"><textarea name="course_overview" id="course_overview" ng-model="course_overview" >Enter course description...</textarea></div>
+            <div class="col-lg-3"><textarea name="course_overview" id="course_overview" ng-model="courseDetails.course_overview" >Enter course description...</textarea></div>
         </div>
-        <div><button ng-click="addCourseBasicInfoFn(course_name, course_description, course_overview)">submit</button></div>
+        <div><button ng-click="addCourseBasicInfoFn(courseDetails)">submit</button></div>
     <!--</div>-->       
 <!--</form>-->
