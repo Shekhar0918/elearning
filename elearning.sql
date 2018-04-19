@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2018 at 04:44 AM
+-- Generation Time: Apr 20, 2018 at 03:11 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -33,45 +33,12 @@ CREATE TABLE `courses` (
   `name` varchar(255) DEFAULT NULL,
   `course_description` text,
   `course_overview` text,
+  `chapters` text,
   `price` varchar(255) DEFAULT NULL,
   `instructors` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `courses`
---
-
-INSERT INTO `courses` (`id`, `name`, `course_description`, `course_overview`, `price`, `instructors`, `created_at`, `last_updated_at`) VALUES
-(4, 'Untitled Course 4', NULL, NULL, NULL, NULL, '2018-04-17 22:41:31', '2018-04-17 22:41:31'),
-(5, 'Untitled Course 5', NULL, NULL, NULL, NULL, '2018-04-17 22:42:14', '2018-04-17 22:42:14'),
-(6, 'Untitled Course 6', NULL, NULL, NULL, NULL, '2018-04-17 22:43:39', '2018-04-17 22:43:39'),
-(7, 'Untitled Course 7', NULL, NULL, NULL, NULL, '2018-04-17 22:43:50', '2018-04-17 22:43:50'),
-(8, 'Untitled Course 8', NULL, NULL, NULL, NULL, '2018-04-17 22:44:42', '2018-04-17 22:44:42'),
-(9, 'Untitled Course 9', NULL, NULL, NULL, NULL, '2018-04-17 22:45:55', '2018-04-17 22:45:55'),
-(10, 'Untitled Course 10', NULL, NULL, NULL, NULL, '2018-04-17 22:46:26', '2018-04-17 22:46:26'),
-(11, 'Untitled Course 11', NULL, NULL, NULL, NULL, '2018-04-17 22:47:31', '2018-04-17 22:47:31'),
-(12, 'Untitled Course 12', NULL, NULL, NULL, NULL, '2018-04-17 22:48:24', '2018-04-17 22:48:24'),
-(13, 'Untitled Course 13', NULL, NULL, NULL, NULL, '2018-04-17 22:49:17', '2018-04-17 22:49:17'),
-(14, 'Untitled Course 14', NULL, NULL, NULL, NULL, '2018-04-17 22:50:03', '2018-04-17 22:50:04'),
-(15, 'Untitled Course 15', NULL, NULL, NULL, NULL, '2018-04-17 22:50:46', '2018-04-17 22:50:46'),
-(16, 'Untitled Course 16', NULL, NULL, NULL, NULL, '2018-04-17 22:51:14', '2018-04-17 22:51:14'),
-(17, 'Untitled Course 17', NULL, NULL, NULL, NULL, '2018-04-17 22:51:30', '2018-04-17 22:51:30'),
-(18, 'Untitled Course 18', NULL, NULL, NULL, NULL, '2018-04-17 22:53:27', '2018-04-17 22:53:27'),
-(19, 'Untitled Course 19', NULL, NULL, NULL, NULL, '2018-04-17 22:53:37', '2018-04-17 22:53:37'),
-(20, 'Untitled Course 20', NULL, NULL, NULL, NULL, '2018-04-17 22:54:13', '2018-04-17 22:54:13'),
-(21, 'Untitled Course 21', NULL, NULL, NULL, NULL, '2018-04-17 22:54:55', '2018-04-17 22:54:55'),
-(22, 'Untitled Course 22', NULL, NULL, NULL, NULL, '2018-04-17 22:55:45', '2018-04-17 22:55:45'),
-(23, 'Untitled Course 23', NULL, NULL, NULL, NULL, '2018-04-17 22:56:05', '2018-04-17 22:56:05'),
-(24, 'Untitled Course 24', NULL, NULL, NULL, NULL, '2018-04-17 22:56:56', '2018-04-17 22:56:57'),
-(25, 'Untitled Course 25', NULL, NULL, NULL, NULL, '2018-04-17 22:57:19', '2018-04-17 22:57:19'),
-(26, 'Untitled Course 26', NULL, NULL, NULL, NULL, '2018-04-17 22:59:14', '2018-04-17 22:59:15'),
-(27, 'Untitled Course 27', NULL, NULL, NULL, NULL, '2018-04-17 23:02:19', '2018-04-17 23:02:19'),
-(28, 'Untitled Course 28', NULL, NULL, NULL, NULL, '2018-04-17 23:04:58', '2018-04-17 23:04:58'),
-(29, 'Untitled Course 29', NULL, NULL, NULL, NULL, '2018-04-17 23:07:04', '2018-04-17 23:07:04'),
-(30, 'Untitled Course 30', NULL, NULL, NULL, NULL, '2018-04-17 23:08:43', '2018-04-17 23:08:43'),
-(31, 'Untitled Course 31', NULL, NULL, NULL, NULL, '2018-04-17 23:10:35', '2018-04-17 23:10:35');
 
 -- --------------------------------------------------------
 
@@ -262,7 +229,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `enrolled_programs`
