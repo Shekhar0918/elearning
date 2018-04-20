@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2018 at 03:11 AM
+-- Generation Time: Apr 20, 2018 at 03:15 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -34,11 +34,22 @@ CREATE TABLE `courses` (
   `course_description` text,
   `course_overview` text,
   `chapters` text,
-  `price` varchar(255) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
   `instructors` text,
+  `provider` text,
+  `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`id`, `name`, `course_description`, `course_overview`, `chapters`, `price`, `duration`, `instructors`, `provider`, `is_published`, `created_at`, `last_updated_at`) VALUES
+(18, 'Course Name', 'dsfdsa', 'assaf', '[{\"id\":1,\"chapterName\":\"chapter 1\",\"chapterURL\":\"cascac\",\"type\":\"Video\"}]', 3000, 0, '[{\"id\":1,\"instructor_name\":\"dfsdf\",\"instructor_email\":\"sfaa@sadasd.com\",\"instructor_created_at\":\"20 Apr 2018\"}]', 'dsadsc', 0, '2018-04-20 08:42:26', '2018-04-20 09:41:24'),
+(19, 'My Course 111', 'dsaf', 'fasfsf', '[{\"id\":1,\"chapterName\":\"dasdd\",\"chapterURL\":\"sadas\",\"type\":\"Video\"}]', 3000, 50, '[{\"id\":1,\"instructor_name\":\"dsadcas\",\"instructor_email\":\"sad@sdads.com\",\"instructor_created_at\":\"20 Apr 2018\"}]', 'provider 1', 0, '2018-04-20 09:20:02', '2018-04-20 09:41:56');
 
 -- --------------------------------------------------------
 
@@ -229,7 +240,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `enrolled_programs`

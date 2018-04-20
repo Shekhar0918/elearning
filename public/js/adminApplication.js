@@ -222,6 +222,10 @@ eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$htt
         $scope.manageInstructorsFn = function () {
             var url = "/instructor/manageCourses/" + $scope.courseID + "/instructors"
             $location.path(url);
+        };               
+        $scope.backToInstructorDashboardFn = function(){
+            var url = "/instructor/dashboard";
+            $location.path(url);
         };
     }]);
 eLearningApp.controller('manageCourseInfoController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
@@ -266,6 +270,10 @@ eLearningApp.controller('manageCourseInfoController', ['$scope', '$location', '$
 //            alert("add program function")
             var url = "/instructor/course/manageInstructors"
             $location.path(url);
+        };        
+        $scope.backToManageCourseFn = function(){
+            var url = "/instructor/manageCourses/" + $scope.courseID;
+            $location.path(url);
         };
     }]);
 eLearningApp.controller('manageCoursePriceController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
@@ -291,6 +299,10 @@ eLearningApp.controller('manageCoursePriceController', ['$scope', '$location', '
 //                        $scope.addChapter = false;
                         $rootScope.notify('<div class="alert alert-success">Course Price has Been Updated Successfully</div>');
                     });
+        };              
+        $scope.backToManageCourseFn = function(){
+            var url = "/instructor/manageCourses/" + $scope.courseID;
+            $location.path(url);
         };
     }]);
 eLearningApp.controller('manageCourseInstructorsController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
@@ -317,6 +329,10 @@ eLearningApp.controller('manageCourseInstructorsController', ['$scope', '$locati
 //                        $scope.addChapter = false;
                         $rootScope.notify('<div class="alert alert-success">Course Instructor has Been Added Successfully</div>');
                     });
+        };              
+        $scope.backToManageCourseFn = function(){
+            var url = "/instructor/manageCourses/" + $scope.courseID;
+            $location.path(url);
         };
     }]);
 eLearningApp.controller('manageCourseChaptersController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
@@ -358,7 +374,11 @@ eLearningApp.controller('manageCourseChaptersController', ['$scope', '$location'
 //                        $scope.addChapter = false;
                         $rootScope.notify('<div class="alert alert-success">Chapter has Been Deleted Successfully</div>');
                     });
-        }
+        };              
+        $scope.backToManageCourseFn = function(){
+            var url = "/instructor/manageCourses/" + $scope.courseID;
+            $location.path(url);
+        };
     }]);
 eLearningApp.createProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
         $scope.createProgramFn = function (data) {
