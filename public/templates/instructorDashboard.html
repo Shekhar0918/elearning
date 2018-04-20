@@ -44,7 +44,7 @@
                         <tr ng-if="allCourse.length === 0"><td></td><td></td><td></td><td>No Program Added</td><td></td><td></td><td></td></tr>
                         <tr ng-if="allCourse.length > 0" ng-repeat="x in allCourse track by $index">
                             <td>{{$index + 1}}</td>
-                            <td>{{x.name}}</td>
+                            <td><a ng-click="manageCourseFn(x.id)" x.id>{{x.name}}</a></td>
                             <td>{{x.price}}</td><td>{{x.duration}}</td>
                             <td>{{x.provider}}</td>
                             <td>

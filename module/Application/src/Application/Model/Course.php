@@ -197,15 +197,7 @@ class Course {
         $courseOverview = $this->getCourseOverview();
         $provider = $this->getProvider();
         $duration = $this->getDuration();
-        echo $query = "update courses set name = :name, course_description = :course_description, course_overview = :course_overview, duration = :duration, provider = :provider where id=:courseID";
-        var_dump(array(
-            "courseID" => $courseID, 
-            "name" => $courseName, 
-            "course_description" => $courseDescription, 
-            "course_overview" => $courseOverview,
-            "duration" => $duration,
-            "provider" => $provider
-                ));
+        $query = "update courses set name = :name, course_description = :course_description, course_overview = :course_overview, duration = :duration, provider = :provider where id=:courseID";
         $eLearningDB->query($query)->execute(array(
             "courseID" => $courseID, 
             "name" => $courseName, 
