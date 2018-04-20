@@ -141,3 +141,26 @@ eLearningApp.listOfProgramController = ['$scope', '$element', '$location', '$htt
         };
 
     }];
+eLearningApp.listOfCourseController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
+        $http.get('getCourseList')
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        location.href = response.url;
+                    }
+                    $scope.program_list = response;
+                });
+        
+        $scope.registerFn = function (program) {
+//            console.log(program);
+            $http.post('registerProgram', {program: program})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised") {
+                            location.href = response.url;
+                        }
+                        alert("New program is registered")
+                        $scope.response = response;
+                        $route.reload();
+                    });
+        };
+
+    }];

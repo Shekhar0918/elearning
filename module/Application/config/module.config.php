@@ -275,6 +275,16 @@ return array(
                     ),
                 ),
             ),
+            'getAllCourses' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/getAllCourses',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'getAllCourses',
+                    ),
+                ),
+            ),
             'createProgram' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -405,13 +415,23 @@ return array(
                     ),
                 ),
             ),
-            'createNewCourse' => array(
+            'deleteCourse' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/createNewCourse',
+                    'route' => '/deleteCourse',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
-                        'action' => 'createNewCourse',
+                        'action' => 'deleteCourse',
+                    ),
+                ),
+            ),
+            'publishCourse' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/publishCourse',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'publishCourse',
                     ),
                 ),
             ),
@@ -462,6 +482,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Admin',
                         'action' => 'createCourseChapter',
+                    ),
+                ),
+            ),      
+            'deleteChapter' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/deleteChapter',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Admin',
+                        'action' => 'deleteChapter',
                     ),
                 ),
             ),

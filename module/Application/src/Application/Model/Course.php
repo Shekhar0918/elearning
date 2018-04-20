@@ -15,8 +15,11 @@ class Course {
     private $instructorName;
     private $instructorEmail;
     private $type;
+    private $chapterID;
     private $chapterName;
     private $chapterURL;
+    private $provider;
+    private $duration;
 
     function __construct() {
         
@@ -86,6 +89,30 @@ class Course {
         return $this->instructorEmail;
     }
     
+    public function setProvider($provider){
+        $this->provider = $provider;
+    }
+    
+    public function getProvider(){
+        return $this->provider;
+    }
+    
+    public function setDuration($duration){
+        $this->duration = $duration;
+    }
+    
+    public function getDuration(){
+        return $this->duration;
+    }
+    
+    public function setChapterID($chapterID){
+        $this->chapterID = $chapterID;
+    }
+    
+    public function getChapterID(){
+        return $this->chapterID;
+    }
+    
     public function setType($type){
         $this->type = $type;
     }
@@ -120,7 +147,19 @@ class Course {
         $courseDetails->instructors = $courseDetailsResult['instructors'];
         return $courseDetails;
     }
-
+    
+    public function getAllCourses(Adapter $eLearningDB){
+        $query = "select * from courses";
+        $result = $eLearningDB->query($query)->execute();
+        $allCoursesData = array();
+        foreach ($result as $resultRow) {
+            $resultRow["chapters"] = json_decode($resultRow["chapters"]);
+            $resultRow["instructors"] = json_decode($resultRow["instructors"]);
+            array_push($allCoursesData, $resultRow);
+        }
+        return $allCoursesData;
+    }
+    
     public function createNewCourse(Adapter $eLearningDB) {
         $query = "insert into courses (name) values(:name)";
         $eLearningDB->query($query)->execute(array("name" => "Untitled Course"));
@@ -130,14 +169,51 @@ class Course {
         $response = array("id" => $courseID, "name" => $courseName);
         return $response;
     }
-
+    
+    public function deleteCourse(Adapter $eLearningDB){
+        $courseID = $this->getCourseID();
+        $query = "delete from courses where id = :courseID";
+        $eLearningDB->query($query)->execute(array("courseID" => $courseID));
+    }
+    
+     public static function updateCoursePublishStatus(Adapter $eLearningDB, $courseID){
+        $query = "update courses set is_published = case when is_published = 1 then 0 else 1 end where id=:courseID";
+        $eLearningDB->query($query)->execute(array("courseID" => $courseID));
+        $result = $eLearningDB->query("select * from courses where id = :courseID")->execute(array("courseID" => $courseID))->current();
+        $is_published = $result["is_published"];
+        if($is_published == 1){
+            $message = "Course has been published.";
+        }else{
+            $message = "Course has been unpublished.";
+        }
+        $response = array("message" => $message);
+        return $response;
+    }
+    
     public function updateCourseBasicInfo(Adapter $eLearningDB) {
         $courseID = $this->getCourseID();
         $courseName = $this->getCourseName();
         $courseDescription = $this->getCourseDescription();
         $courseOverview = $this->getCourseOverview();
-        $query = "update courses set name = :name, course_description = :course_description, course_overview = :course_overview where id=:courseID";
-        $eLearningDB->query($query)->execute(array("courseID" => $courseID, "name" => $courseName, "course_description" => $courseDescription, "course_overview" => $courseOverview));
+        $provider = $this->getProvider();
+        $duration = $this->getDuration();
+        echo $query = "update courses set name = :name, course_description = :course_description, course_overview = :course_overview, duration = :duration, provider = :provider where id=:courseID";
+        var_dump(array(
+            "courseID" => $courseID, 
+            "name" => $courseName, 
+            "course_description" => $courseDescription, 
+            "course_overview" => $courseOverview,
+            "duration" => $duration,
+            "provider" => $provider
+                ));
+        $eLearningDB->query($query)->execute(array(
+            "courseID" => $courseID, 
+            "name" => $courseName, 
+            "course_description" => $courseDescription, 
+            "course_overview" => $courseOverview,
+            "duration" => $duration,
+            "provider" => $provider
+                ));
     }
 
     public function getCouseDetailsByID(Adapter $eLearningDB) {
@@ -202,6 +278,22 @@ class Course {
         ));
         $updateQuery = "update courses set chapters = :chapters where id = :courseID";
         $eLearningDB->query($updateQuery)->execute(array("chapters" => json_encode($chapters), "courseID" => $courseID));
+    }
+    
+    public function deleteChapter(Adapter $eLearningDB){
+        $courseID = $this->getCourseID();
+        $chapterID = $this->getChapterID();
+        $selectQuery = "select * from courses where id = :courseID";
+        $selectResult = $eLearningDB->query($selectQuery)->execute(array("courseID" => $courseID))->current();
+        $chapters = !empty($selectResult['chapters']) ? json_decode($selectResult['chapters']) : array();
+        $chapterList = array();
+        foreach($chapters as $chapter){
+            if($chapter->id != $chapterID){
+                array_push($chapterList, $chapter);
+            }
+        }
+        $updateQuery = "update courses set chapters = :chapters where id = :courseID";
+        $eLearningDB->query($updateQuery)->execute(array("courseID" => $courseID, "chapters" => json_encode($chapterList)));
     }
 
 }

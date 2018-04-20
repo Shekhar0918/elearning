@@ -87,6 +87,18 @@ class AdminController extends AbstractActionController
         $allEnrolledPrograms = $program->getAllPrograms($sm->get('dbAdapter'));
         die(json_encode($allEnrolledPrograms));
     }
+    
+    public function getAllCoursesAction() {
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program = new Course();
+        $allCourses = $program->getAllCourses($sm->get('dbAdapter'));
+        die(json_encode($allCourses));
+    }
 
     public function createProgramAction() {
         $this->layout('layout/admin');
@@ -198,6 +210,34 @@ class AdminController extends AbstractActionController
         die(json_encode($response));
     }
     
+    public function deleteCourseAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $program_data = json_decode($this->getRequest()->getContent());
+        $courseID = $program_data->courseID;
+        $course = new Course();
+        $course->setCourseID($courseID);
+        $response = $course->deleteCourse($sm->get('dbAdapter'));
+        die(json_encode(array("status" => "success")));
+    }
+    
+    public function publishCourseAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $courseData = json_decode($this->getRequest()->getContent());
+        $courseID = $courseData->courseID;
+        $response = Course::updateCoursePublishStatus($sm->get('dbAdapter'), $courseID);
+        die(json_encode(array("status" => true, "message" => $response["message"])));
+    }
+    
     public function instructorManageCoursesAction(){
         $this->layout('layout/admin');
         $adminSession = new Container('eLearningAdmin');
@@ -217,10 +257,12 @@ class AdminController extends AbstractActionController
         $sm = $this->getServiceLocator();
         $courseBasicInfo = json_decode($this->getRequest()->getContent());
         $course = new Course();
-        $course->setCourseID(isset($courseBasicInfo->course_id) ? $courseBasicInfo->course_id : "");
-        $course->setCourseName(isset($courseBasicInfo->course_name) ? $courseBasicInfo->course_name : "");
-        $course->setCourseDescription(isset($courseBasicInfo->course_description) ? $courseBasicInfo->course_description : "");
-        $course->setCourseOverview(isset($courseBasicInfo->course_overview) ? $courseBasicInfo->course_overview : "");
+        $course->setCourseID(isset($courseBasicInfo->courseID) ? $courseBasicInfo->courseID : "");
+        $course->setCourseName(isset($courseBasicInfo->courseName) ? $courseBasicInfo->courseName : "");
+        $course->setCourseDescription(isset($courseBasicInfo->courseDescription) ? $courseBasicInfo->courseDescription : "");
+        $course->setCourseOverview(isset($courseBasicInfo->courseOverview) ? $courseBasicInfo->courseOverview : "");
+        $course->setDuration(isset($courseBasicInfo->duration) ? $courseBasicInfo->duration : "Not Set");
+        $course->setProvider(isset($courseBasicInfo->provider) ? $courseBasicInfo->provider : "Not Set");
         $course->updateCourseBasicInfo($sm->get('dbAdapter'));
         die(json_encode(array("status" => "success")));
     }
@@ -326,6 +368,24 @@ class AdminController extends AbstractActionController
         $course->setChapterURL($chapterURL);
         $course->createChapter($sm->get('dbAdapter'));
         die(json_encode(array("status" => "succcess")));
+    }
+    
+    public function deleteChapterAction(){
+        $this->layout('layout/admin');
+        $adminSession = new Container('eLearningAdmin');
+        if (!isset($adminSession->userID)) {
+            die(json_encode(array('status' => false, 'statusCode' => 'notAuthorised', 'url' => 'adminPortalLogin')));
+        }
+        $sm = $this->getServiceLocator();
+        $courseData = json_decode($this->getRequest()->getContent());
+        $courseID = $courseData->courseID;
+        $chapter = $courseData->chapter;
+        $chapterID = $chapter->id;
+        $course = new Course();
+        $course->setCourseID($courseID);
+        $course->setChapterID($chapterID);
+        $course->deleteChapter($sm->get('dbAdapter'));
+        die(json_encode(array("status" => "success")));
     }
 
 

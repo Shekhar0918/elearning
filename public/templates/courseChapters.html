@@ -7,7 +7,7 @@
             <th>Action</th>
         </tr>
     <!--<div ng-repeat="program in enrolled_program_list">-->
-        <tr ng-if="courseDetails.chapters === null || courseDetails.chapters === '' ||courseDetails.chapters === undefined"><td></td><td>No Chapter Added</td><td></td></tr>
+        <tr ng-if="courseDetails.chapters === null || courseDetails.chapters === '' ||courseDetails.chapters === undefined || courseDetails.chapters.length === 0"><td></td><td>No Chapter Added</td><td></td></tr>
         <tr ng-if="courseDetails.chapters !== null || courseDetails.chapters !== '' ||courseDetails.chapters !== undefined" ng-repeat="chapter in courseDetails.chapters">
             <td>{{chapter.chapterName}}</td>
             <td>{{chapter.type}}</td>

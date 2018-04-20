@@ -1,5 +1,5 @@
 <div><button ng-click="addProgramFn()">ADD A COURSE</button></div>
-<div class="block-area" style="margin-left: 50px;position: relative;">
+<!--<div class="block-area" style="margin-left: 50px;position: relative;">
         <div class="row" id="contact">
             <div class="block-title" style=" margin-bottom:5px;">My Courses</div>
             <div class="tile p-15">
@@ -22,6 +22,40 @@
                                 <span ng-click='addChapterFn(x.id)'>Add Chapter</span>
                                 <span ng-click='deleteProgramFn(x.id)'>Delete Program</span>
                                 <span ng-click='publishProgramFn(x.id)'>
+                                    <div ng-if="x.is_published == 0">Publish</div>
+                                    <div ng-if="x.is_published == 1">Unpublish</div>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>-->
+<div class="block-area" style="margin-left: 50px;position: relative;">
+        <div class="row" id="contact">
+            <div class="block-title" style=" margin-bottom:5px;">My Courses</div>
+            <div class="tile p-15">
+                <table>
+                    <thead>
+                        <tr><th>S.No</th><th>Course Name</th><th>Price</th><th>Duration</th><th>Provider</th><th>Status</th><th>Last Edited</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="allCourse.length === 0"><td></td><td></td><td></td><td>No Program Added</td><td></td><td></td><td></td></tr>
+                        <tr ng-if="allCourse.length > 0" ng-repeat="x in allCourse track by $index">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.name}}</td>
+                            <td>{{x.price}}</td><td>{{x.duration}}</td>
+                            <td>{{x.provider}}</td>
+                            <td>
+                                <span ng-if="x.is_published == '1'">Published</span>
+                                <span ng-if="x.is_published == '0'">Not Published</span>
+                            </td>
+                            <td>{{x.last_updated_at}}</td>
+                            <td>
+                                <!--<span ng-click='addChapterFn(x.id)'>Add Chapter</span>-->
+                                <span ng-click='deleteCourseFn(x.id)'>Delete Course</span>
+                                <span ng-click='publishCourseFn(x.id)'>
                                     <div ng-if="x.is_published == 0">Publish</div>
                                     <div ng-if="x.is_published == 1">Unpublish</div>
                                 </span>

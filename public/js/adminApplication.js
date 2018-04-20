@@ -83,15 +83,6 @@ eLearningApp.controller('mainController', ['$scope', '$location', '$http', '$roo
     }]);
 
 eLearningApp.controller('adminController', ['$scope', '$location', '$http', '$rootScope', '$route', function ($scope, $location, $http, $rootScope, $route) {
-
-//        $scope.addProgramFn = function (){
-//            $scope.addProgram=true;
-//            $scope.createProgram={};
-//        };
-//        $scope.addProgramFn = function () {
-//            var url = "/instructor/manageCourses"
-//            $location.path(url);
-//        };
         $scope.cancelAddProgram = function () {
             $scope.addProgram = false;
         };
@@ -169,6 +160,35 @@ eLearningApp.controller('instructorDashboardController', ['$scope', '$location',
                     }
                     $scope.allProgram = response;
                 });
+        $http.get("getAllCourses")
+                .success(function (response) {
+                    if (response.status === false && response.statusCode === "notAuthorised") {
+                        alert("notAuthorised");
+                        location.href = response.url;
+                    }
+                    $scope.allCourse = response;
+                });
+        
+        $scope.deleteCourseFn = function (id) {
+            $http.post("deleteCourse", {courseID: id})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
+                        alert("Course Deleted Successfully");
+                        $route.reload();
+                        $rootScope.notify('<div class="alert alert-success">Course Deleted Successfully</div>');
+                    });
+        };        
+        $scope.publishCourseFn = function (id) {
+            $http.post("publishCourse", {courseID: id})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
+                        alert(response.message)
+                        $route.reload();
+                        $rootScope.notify('<div class="alert alert-success">' + response.message + '</div>');
+                    });
+        };
     }]);
 eLearningApp.controller('manageCoursesController', ['$scope', '$location', '$http', '$rootScope', '$route', 'courseDetailsService', function ($scope, $location, $http, $rootScope, $route, courseDetailsService) {
         $scope.courseID = courseDetailsService.getCourseID();
@@ -215,7 +235,7 @@ eLearningApp.controller('manageCourseInfoController', ['$scope', '$location', '$
 //            alert("add program function")
 //            var url = "/addCourseBasicInfo"
 //            $location.path(url);
-            $http.post("updateCourseBasicInfo", {course_id: $scope.courseID, course_name: courseDetails.name, course_description: courseDetails.course_description, course_overview: courseDetails.course_overview})
+            $http.post("updateCourseBasicInfo", {courseID: $scope.courseID, courseName: courseDetails.name, courseDescription: courseDetails.course_description, courseOverview: courseDetails.course_overview, duration: courseDetails.course_overview, provider: courseDetails.provider})
                     .success(function (response) {
                         if (response.status === false && response.statusCode === "notAuthorised")
                             $location.path(response.url);
@@ -315,11 +335,25 @@ eLearningApp.controller('manageCourseChaptersController', ['$scope', '$location'
                         var url = "/instructor/manageCourses/" + $scope.courseID + "/chapters";
                         $location.path(url);
                         $route.reload();
-                        alert("Chapter has Been Added Successfully");console.log($scope.courseDetails)
+                        alert("Chapter has Been Added Successfully");
 //                        $scope.addChapter = false;
                         $rootScope.notify('<div class="alert alert-success">Chapter has Been Added Successfully</div>');
                     });
         };
+        $scope.deleteChapterFn = function(chapter){
+            $http.post("deleteChapter", {courseID: $scope.courseID, chapter: chapter})
+                    .success(function (response) {
+                        if (response.status === false && response.statusCode === "notAuthorised")
+                            $location.path(response.url);
+
+                        var url = "/instructor/manageCourses/" + $scope.courseID + "/chapters";
+                        $location.path(url);
+                        $route.reload();
+                        alert("Chapter has Been Deleted Successfully");
+//                        $scope.addChapter = false;
+                        $rootScope.notify('<div class="alert alert-success">Chapter has Been Deleted Successfully</div>');
+                    });
+        }
     }]);
 eLearningApp.createProgramController = ['$scope', '$element', '$location', '$http', '$route', '$rootScope', function ($scope, $element, $location, $http, $route, $rootScope) {
         $scope.createProgramFn = function (data) {
